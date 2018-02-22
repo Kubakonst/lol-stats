@@ -1,16 +1,19 @@
-html{
-	font-size: 15px;
-	background-color: lightblue;
-	margin: 1em auto;
-	padding: 1em;
-	position: relative;
-	overflow: hidden;
-	text-align: center;
-}
 .allpage{
 	width: 70%;
 	margin: 2em auto;
+	font-size: 15px;
+    background-color: lightblue;
+    margin: 1em auto;
+    padding: 1em;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
 }
 figure img{
 	width: 7%;
+}
+ul{
+list-style-type: none;
+margin: 0;
+padding: 0;
 }
