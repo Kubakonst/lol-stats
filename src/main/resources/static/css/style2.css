@@ -13,10 +13,6 @@ ul{
     padding:0.2em;
     list-style-type: none;
 }
-ul :hover{
-    background-color: gold;
-    color: red;
-}
 nav{
     background-color: blue;
     color: white;
@@ -94,4 +90,7 @@ nav{
 }
 nav img{
     width: 100%;
+}
+.rightpanel img{
+    width: 30%;
 }
