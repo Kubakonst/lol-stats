@@ -78,10 +78,12 @@ nav{
     display: flex;
     flex-flow: column;
     flex-grow:1;
+    margin: 0.5em;
 }
 .main li{
     text-align: center;
     padding: 0,5em;
+    margin: 0.5em;
 }
 .games{
     display: block;
