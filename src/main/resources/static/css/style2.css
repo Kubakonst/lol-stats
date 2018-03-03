@@ -64,7 +64,6 @@ nav{
     padding: 0,5em;
 }
 .rightpanel ul{
-    display: flex;
     flex-flow: column;
     flex-grow:1;
 }
@@ -73,20 +72,16 @@ nav{
     text-align: center;
     width: 80%;
     height: 30em;
+    margin: 0;
 }
 .main ul{
-    display: flex;
     flex-flow: column;
     flex-grow:1;
-    margin: 0.5em;
 }
 .main li{
     text-align: center;
-    padding: 0,5em;
-    margin: 0.5em;
-}
-.games{
-    display: block;
+    padding: 0.5em;
+
 }
 nav img{
     width: 100%;
@@ -94,3 +89,7 @@ nav img{
 .rightpanel img{
     width: 30%;
 }
+.games img{
+    width: 5%;
+}
+
