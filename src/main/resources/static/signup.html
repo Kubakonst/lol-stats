@@ -14,11 +14,11 @@
               <div class="registration">
               <form>
        	<p id="email" class="data">Email address</p>
-              <input type="text" name="email">
+              <input id="emailInput" type="text" name="email">
        	<p id="password" class="data">Password</p>
-              <input type="password" name="psw">
+              <input id="passwordInput" type="password" name="psw">
        	<p id="rePassword" class="data">Repeat Password</p>
-              <input type="password" name="psw">
+              <input id="repasswordInput" type="password" name="psw">
               </form>
        	<figure id="facebook">
        		<img alt="facebook logo" src="Facebook.jpg"/>
@@ -33,8 +33,18 @@
                       </figcaption>
               </figure>
               <input type="submit" value="Submit">
-              <input type="reset" value="Reset">
+
+                  <button onClick="Reset()">Reset</button>
+
+                  <button onClick="onRegister()">Test</button>
+
               </div>
               </div>
        </body>
+
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/register.js"></script>
+    <script src="scripts/restCall.js"></script>
+    <script src="scripts/reset.js"></script>
+
 </html>
