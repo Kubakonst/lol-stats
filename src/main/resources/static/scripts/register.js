@@ -1,17 +1,16 @@
 console.log("Hello");
 
-
 function onRegister() {
 
     var emailElement=document.getElementById("emailInput");
-emailElement.value="rower";
-
     var passwordElement=document.getElementById("passwordInput");
-passwordElement.value="rower";
-
     var repasswordElement=document.getElementById("repasswordInput");
-repasswordElement.value="rower";
+    if (passwordElement.value == repasswordElement.value){
+        registrationRestCall(emailElement.value,passwordElement.value);
+        console.log("poszlo")
+        }
+else{
+    alert ("Put same passwords!");
+    console.log("jest alert")
+    }
 }
-
-
-
