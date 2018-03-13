@@ -7,10 +7,8 @@ function onRegister() {
     var repasswordElement=document.getElementById("repasswordInput");
     if (passwordElement.value == repasswordElement.value){
         registrationRestCall(emailElement.value,passwordElement.value);
-        console.log("poszlo")
         }
 else{
-    alert ("Put same passwords!");
-    console.log("jest alert")
+    document.getElementById("error").innerHTML = "Put same passwords";
     }
 }

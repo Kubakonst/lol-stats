@@ -16,8 +16,6 @@ public class RegistrationController {
 
     @PostMapping
     public void register(@RequestBody RegistrationRequest registrationReguest) {
-        System.out.println(registrationReguest.getEmail());
-        System.out.println(registrationReguest.getPassword());
         repository.save(registrationReguest);
     }
 }
