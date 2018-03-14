@@ -8,10 +8,10 @@ $.ajax({
     } ),
     dataType: 'json',
     success: function(data){
-    window.location.href = 'http://www.example.com';
     },
     error: function(){
         console.log("Device control failed");
+        window.location.href = 'registration-step-1-view.html';
     },
     processData: false,
     type: 'POST',
