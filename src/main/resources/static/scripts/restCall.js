@@ -9,8 +9,8 @@ $.ajax({
     dataType: 'json',
     success: function(data){
     },
-    error: function(){
-        console.log("Device control failed");
+    error: function(data){
+        console.log(data);
         window.location.href = 'registration-step-1-view.html';
     },
     processData: false,

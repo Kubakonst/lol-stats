@@ -3,10 +3,11 @@ package pl.noip.lolstats.lol.stats.dto;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import pl.noip.lolstats.lol.stats.model.Account;
 
-public interface Repository extends MongoRepository<RegistrationRequest, String> {
+public interface Repository extends MongoRepository<Account, String> {
 
-     RegistrationRequest findByEmail(String email);
+     Account findByEmail(String email);
 
 
 }
