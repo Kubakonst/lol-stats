@@ -1,6 +1,9 @@
 package pl.noip.lolstats.lol.stats.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.dto.RegistrationRequest;
 import pl.noip.lolstats.lol.stats.dto.Repository;
 import pl.noip.lolstats.lol.stats.model.Account;
@@ -20,6 +23,6 @@ public class RegistrationController {
     public void register(@RequestBody RegistrationRequest registrationReguest) {
         if (!repository.exists(registrationReguest.getEmail())) {
             repository.save(new Account(registrationReguest.getEmail(), Sha.hash(registrationReguest.getPassword())));
-        }
+            }
     }
 }

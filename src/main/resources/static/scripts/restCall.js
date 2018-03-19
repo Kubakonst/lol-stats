@@ -11,7 +11,7 @@ $.ajax({
     },
     error: function(data){
         console.log(data);
-        window.location.href = 'registration-step-1-view.html';
+//        window.location.href = 'registration-step-1-view.html';
     },
     processData: false,
     type: 'POST',
