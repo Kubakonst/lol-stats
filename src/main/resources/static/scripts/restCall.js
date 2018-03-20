@@ -15,6 +15,6 @@ $.ajax({
     },
     processData: false,
     type: 'POST',
-    url: '/register'
+    url: '/api/auth/register'
 });
 }
