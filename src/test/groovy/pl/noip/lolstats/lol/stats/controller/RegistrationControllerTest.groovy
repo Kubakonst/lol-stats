@@ -4,12 +4,14 @@ import io.restassured.http.ContentType
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import pl.noip.lolstats.lol.stats.dto.AccountRepository
 import spock.lang.Specification
 import static io.restassured.RestAssured.*
 import static org.hamcrest.Matchers.equalTo
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class RegistrationControllerTest extends Specification {
 
     @LocalServerPort
