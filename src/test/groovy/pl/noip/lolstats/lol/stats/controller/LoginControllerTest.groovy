@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import pl.noip.lolstats.lol.stats.dto.AccountRepository
 import pl.noip.lolstats.lol.stats.model.Account
+import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import spock.lang.Specification
 
 import static io.restassured.RestAssured.given
