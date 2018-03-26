@@ -37,3 +37,4 @@ public class JwtGeneratorImpl implements JwtGenerator {
         return builder.compact();
     }
 }
+
