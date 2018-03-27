@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import pl.noip.lolstats.lol.stats.dto.AccountRepository
 import pl.noip.lolstats.lol.stats.model.Account
+import pl.noip.lolstats.lol.stats.repository.AccountRepository
+import pl.noip.lolstats.lol.stats.utils.Sha
 import spock.lang.Specification
 
 import static io.restassured.RestAssured.given
@@ -30,7 +31,7 @@ class LoginControllerTest extends Specification {
         given:
         def mail = "example@mail.com"
         def password = "secret"
-        repository.save(new Account(mail, password))
+        repository.save(new Account(mail, Sha.hash(password)))
         given()
                 .port(webPort)
                 .when()
@@ -46,7 +47,6 @@ class LoginControllerTest extends Specification {
         given:
         def mail = "example@mail.com"
         def password = "secret"
-        repository.save(new Account(mail, password))
         given()
                 .port(webPort)
                 .when()
