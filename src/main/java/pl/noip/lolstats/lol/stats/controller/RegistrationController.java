@@ -25,7 +25,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> register(@RequestBody @Valid RegistrationRequest registrationReguest) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest registrationReguest) {
         if (!accountRepository.exists(registrationReguest.getEmail())) {
             accountRepository.save(new Account(registrationReguest.getEmail(), Sha.hash(registrationReguest.getPassword())));
             return new ResponseEntity<>(HttpStatus.CREATED);
