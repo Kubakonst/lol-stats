@@ -41,9 +41,8 @@ public class JwtGeneratorImpl implements JwtGenerator {
         //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder()
                 .setIssuedAt(now)
-                .signWith(signatureAlgorithm, signingKey)
-//                .setExpiration(new Date(now.getTime() + 60 * 60 * 1000));
-                .setExpiration(new Date(now.getTime()));
+                .signWith(signatureAlgorithm, signingKey)//
+                .setExpiration(new Date(now.getTime()+60*60*1000));
 
 
         return builder.compact();
