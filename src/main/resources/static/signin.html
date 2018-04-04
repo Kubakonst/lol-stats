@@ -30,9 +30,18 @@
                              Sign in with Twitter
                       </figcaption>
               </figure>
-              <input type="submit" value="Submit">
-              <input type="reset" value="Reset">
+                  <button onClick="onLogin()">Submit</button>
+                  <button onClick="Reset()">Reset</button>
               </div>
+                  <form class="wrongPasswords">
+                      <p id="error"></p>
+                  </form>
               </div>
        </body>
+
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/restCall.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/reset.js"></script>
+
 </html>
