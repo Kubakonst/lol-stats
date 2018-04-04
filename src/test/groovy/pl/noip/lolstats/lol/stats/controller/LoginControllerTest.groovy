@@ -22,6 +22,7 @@ class LoginControllerTest extends Specification {
     @Autowired
     private AccountRepository repository
     private static final String PATH = "/api/auth/login"
+    private static final String PATHH = "/api/auth/checkToken"
 
     def setup() {
         repository.deleteAll()
@@ -56,4 +57,5 @@ class LoginControllerTest extends Specification {
                 .then().statusCode(401)
                 .body("error", Matchers.equalTo("invalid email or password"))
     }
+
 }

@@ -3,22 +3,12 @@ package pl.noip.lolstats.lol.stats.jwt
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.SignatureException
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.embedded.LocalServerPort
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
 import pl.noip.lolstats.lol.stats.time.TimeService
 import spock.lang.Specification
 
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
 class JwtCheckerImplTest extends Specification {
 
-    @LocalServerPort
-    private int webPort
 
-    @Autowired
     JwtCheckerImpl jwtChecker
 
     JwtGeneratorImpl jwtGenerator

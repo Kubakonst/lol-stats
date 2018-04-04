@@ -5,14 +5,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.noip.lolstats.lol.stats.time.TimeService;
-import pl.noip.lolstats.lol.stats.utils.NoBearerException;
+import pl.noip.lolstats.lol.stats.utils.TokenSplit;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtCheckerImpl implements JwtChecker{
+public class JwtCheckerImpl implements JwtChecker {
 
     @Value("${jwt.secret}")
     private String secret;
@@ -22,25 +22,21 @@ public class JwtCheckerImpl implements JwtChecker{
     }
 
     private TimeService timeService;
+    private TokenSplit tokenSplit;
 
     public JwtCheckerImpl(TimeService timeService) {
         this.timeService = timeService;
     }
 
-    public void checkToken(String bearerToken) {
+    public void checkToken(String token) {
 
-        if (!bearerToken.startsWith("Bearer ")){
-            throw new NoBearerException();}
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        byte[] apiKeySecretBytes = secret.getBytes();
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        String token = bearerToken.split(" ")[1];
+        Jwts.parser()
+                .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
+                .setSigningKey(signingKey).parse(token);
 
-            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-            byte[] apiKeySecretBytes = secret.getBytes();
-            Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-
-            Jwts.parser()
-                    .setClock( () -> new Date(timeService.getMillisSinceEpoch()) )
-                    .setSigningKey(signingKey).parse(token);
-
-        }
+    }
 }
