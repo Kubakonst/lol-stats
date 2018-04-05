@@ -21,4 +21,4 @@ function onRegister() {
     else{
         document.getElementById("error").innerHTML = "Not the same passwords";
     }
-    }
+}

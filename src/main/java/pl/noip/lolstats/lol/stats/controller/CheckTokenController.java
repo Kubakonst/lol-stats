@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.jwt.JwtChecker;
-import pl.noip.lolstats.lol.stats.utils.TokenSplit;
+import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 
 @RestController
 @RequestMapping("/api/auth/checkToken")

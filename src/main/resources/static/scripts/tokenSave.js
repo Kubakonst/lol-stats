@@ -1,11 +1,11 @@
-function tokenSave(key, value) {
+function tokenSave(token) {
 
-window.localStorage.setItem(token, "bearer discdkasicads.fdasf.dasfas");
+window.localStorage.setItem("accessToken", token);
 
 }
 
-function tokenGet(key) {
+function tokenLoad() {
 
-window.localStorage.getItem(token);
+return window.localStorage.getItem("accessToken");
 
 }

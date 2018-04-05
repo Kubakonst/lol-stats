@@ -5,7 +5,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.noip.lolstats.lol.stats.time.TimeService;
-import pl.noip.lolstats.lol.stats.utils.TokenSplit;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;

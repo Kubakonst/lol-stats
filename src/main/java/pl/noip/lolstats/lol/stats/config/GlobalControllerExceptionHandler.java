@@ -9,8 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.ErrorResponse;
-import pl.noip.lolstats.lol.stats.utils.NoBearerException;
 
 @ControllerAdvice
 class GlobalControllerExceptionHandler {
@@ -32,17 +32,12 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(MalformedJwtException.class)
     public ResponseEntity<?> handleIMalformedJwtException(MalformedJwtException ex, WebRequest request) {
-        return new ResponseEntity<>(new ErrorResponse("invalid token"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse("invalid token"), HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(NoBearerException.class)
-    public ResponseEntity<?> handleNoBearerException(NoBearerException ex, WebRequest request) {
+    @ExceptionHandler(BearerNotPresentException.class)
+    public ResponseEntity<?> handleNoBearerException(BearerNotPresentException ex, WebRequest request) {
         return new ResponseEntity<>(new ErrorResponse("expected bearer authorization type"), HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
-        return new ResponseEntity<>(new ErrorResponse("Authorization header not present"), HttpStatus.BAD_REQUEST);
-
-    }
 }

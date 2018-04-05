@@ -33,7 +33,7 @@ class CheckTokenControllerTest extends Specification {
 
     def "Token has invelid format"() {
         given:
-        def bearerToken = "bearer eyJhbGciOiJIUzI1NiJ9eyJpYXQiOjEsImV4cCI6MzYwMX0Q5HBk79pi0YzazlbpBT0kUXw8vwXcs76FcAw52DKaFI"
+        def bearerToken = "bearer gg"
         given()
                 .port(webPort)
                 .when()
@@ -46,13 +46,15 @@ class CheckTokenControllerTest extends Specification {
 
     def "Authorization header is not present"() {
         given:
+        def bearerToken = " "
         given()
                 .port(webPort)
                 .when()
                 .contentType(ContentType.JSON)
+                .header(AUTHORIZATION, bearerToken)
                 .post(PATH)
-                .then().statusCode(400)
-                .body("error", Matchers.equalTo("Authorization header not present"))
+                .then().statusCode(401)
+                .body("error", Matchers.equalTo("expected bearer authorization type"))
     }
 
     def "Token has no bearer"() {
