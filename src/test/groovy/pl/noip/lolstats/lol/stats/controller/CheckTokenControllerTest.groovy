@@ -44,7 +44,7 @@ class CheckTokenControllerTest extends Specification {
                 .body("error", Matchers.equalTo("invalid token"))
     }
 
-    def "Authorization header is not present"() {
+    def "Authorization header is empty"() {
         given:
         def bearerToken = " "
         given()
@@ -52,6 +52,17 @@ class CheckTokenControllerTest extends Specification {
                 .when()
                 .contentType(ContentType.JSON)
                 .header(AUTHORIZATION, bearerToken)
+                .post(PATH)
+                .then().statusCode(401)
+                .body("error", Matchers.equalTo("expected bearer authorization type"))
+    }
+
+    def "Authorization header is not present"() {
+        given:
+        given()
+                .port(webPort)
+                .when()
+                .contentType(ContentType.JSON)
                 .post(PATH)
                 .then().statusCode(401)
                 .body("error", Matchers.equalTo("expected bearer authorization type"))

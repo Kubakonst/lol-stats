@@ -22,7 +22,7 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<?> handleThrowable(Throwable ex, WebRequest request) {
-        return new ResponseEntity<>(new ErrorResponse("Error occured, we are working on that"), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorResponse("Error occurred, we are working on that"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ExpiredJwtException.class)

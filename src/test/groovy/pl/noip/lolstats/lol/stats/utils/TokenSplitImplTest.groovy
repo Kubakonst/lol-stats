@@ -21,6 +21,7 @@ class TokenSplitImplTest extends Specification {
         "bearer "              || BearerNotPresentException
         "  "                   || BearerNotPresentException
         "gahkfhasu bearer"     || BearerNotPresentException
+
     }
 
 def "token is valid"() {

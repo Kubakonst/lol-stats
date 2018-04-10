@@ -21,7 +21,6 @@ public class JwtCheckerImpl implements JwtChecker {
     }
 
     private TimeService timeService;
-    private TokenSplit tokenSplit;
 
     public JwtCheckerImpl(TimeService timeService) {
         this.timeService = timeService;
