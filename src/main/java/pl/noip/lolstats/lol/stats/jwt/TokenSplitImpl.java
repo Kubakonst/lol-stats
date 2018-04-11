@@ -9,9 +9,7 @@ public class TokenSplitImpl implements TokenSplit {
     @Override
     public String splitToken(String bearerToken) {
 
-        if(bearerToken.isEmpty() && bearerToken == null){
-            throw new BearerNotPresentException();
-        }
+
 
         if (bearerToken.split(" ").length<2){
             throw new BearerNotPresentException();
