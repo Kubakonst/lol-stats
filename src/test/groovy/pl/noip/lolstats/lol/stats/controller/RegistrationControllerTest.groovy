@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.equalTo
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class RegistrationControllerTest extends Specification {
+class RegistrationControllerIT extends Specification {
 
     @LocalServerPort
     private int webPort

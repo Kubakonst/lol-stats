@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class CheckTokenControllerTest extends Specification {
+class CheckTokenControllerIT extends Specification {
     @LocalServerPort
     private int webPort
 
