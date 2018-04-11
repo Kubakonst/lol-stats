@@ -1,6 +1,6 @@
 console.log("Hello");
 
-function onRegister() {
+function onLogin() {
 
     var emailElement=document.getElementById("emailInput");
     var passwordElement=document.getElementById("passwordInput");
@@ -8,7 +8,7 @@ function onRegister() {
     if (passwordElement.value == repasswordElement.value){
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailElement.value)){
                 if (passwordElement.value.length>3){
-                        registrationRestCall(emailElement.value,passwordElement.value);
+                        loginLogCall(emailElement.value,passwordElement.value);
                         }
                     else{
                         document.getElementById("error").innerHTML = "Too short password";

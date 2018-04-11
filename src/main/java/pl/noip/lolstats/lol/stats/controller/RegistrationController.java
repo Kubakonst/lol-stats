@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.noip.lolstats.lol.stats.dto.AccountRepository;
+import pl.noip.lolstats.lol.stats.repository.AccountRepository;
 import pl.noip.lolstats.lol.stats.dto.ErrorResponse;
 import pl.noip.lolstats.lol.stats.dto.RegistrationRequest;
 import pl.noip.lolstats.lol.stats.model.Account;
@@ -25,7 +25,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> register(@RequestBody @Valid RegistrationRequest registrationReguest) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest registrationReguest) {
         if (!accountRepository.exists(registrationReguest.getEmail())) {
             accountRepository.save(new Account(registrationReguest.getEmail(), Sha.hash(registrationReguest.getPassword())));
             return new ResponseEntity<>(HttpStatus.CREATED);
