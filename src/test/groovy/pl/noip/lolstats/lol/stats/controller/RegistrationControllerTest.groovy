@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import spock.lang.Specification
-import static io.restassured.RestAssured.*
+
+import static io.restassured.RestAssured.given
 import static org.hamcrest.Matchers.equalTo
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -20,19 +21,20 @@ class RegistrationControllerTest extends Specification {
     @Autowired
     private AccountRepository repository
     private static final String PATH = "/api/auth/register"
+
     def setup() {
         repository.deleteAll()
     }
 
     def "Register account and return 201 status code"() {
         when:
-            given()
-            .port(webPort)
-                    .when()
-                    .contentType(ContentType.JSON)
-                    .body([email : "example@mail.com", password: "secret"])
-                    .post(PATH)
-            .then().statusCode(201)
+        given()
+                .port(webPort)
+                .when()
+                .contentType(ContentType.JSON)
+                .body([email: "example@mail.com", password: "secret"])
+                .post(PATH)
+                .then().statusCode(201)
         then:
         repository.count() == 1
         repository.findOne("example@mail.com")
@@ -44,7 +46,7 @@ class RegistrationControllerTest extends Specification {
                 .port(webPort)
                 .when()
                 .contentType(ContentType.JSON)
-                .body([email : "example", password: "secret"])
+                .body([email: "example", password: "secret"])
                 .post(PATH)
                 .then()
                 .statusCode(400)
@@ -57,7 +59,7 @@ class RegistrationControllerTest extends Specification {
                 .port(webPort)
                 .when()
                 .contentType(ContentType.JSON)
-                .body([email : "example@mail.com", password: "sec"])
+                .body([email: "example@mail.com", password: "sec"])
                 .post(PATH)
                 .then().statusCode(400)
                 .body("error", equalTo("too short password"))
@@ -69,7 +71,7 @@ class RegistrationControllerTest extends Specification {
                 .port(webPort)
                 .when()
                 .contentType(ContentType.JSON)
-                .body([email : "example@mail.com", password: "secret"])
+                .body([email: "example@mail.com", password: "secret"])
                 .post(PATH)
                 .then().statusCode(201)
 
@@ -77,7 +79,7 @@ class RegistrationControllerTest extends Specification {
                 .port(webPort)
                 .when()
                 .contentType(ContentType.JSON)
-                .body([email : "example@mail.com", password: "secret"])
+                .body([email: "example@mail.com", password: "secret"])
                 .post(PATH)
                 .then().statusCode(400)
                 .body("error", equalTo("email already exists"))

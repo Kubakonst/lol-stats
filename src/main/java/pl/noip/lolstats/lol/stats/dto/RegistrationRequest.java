@@ -5,11 +5,11 @@ import org.hibernate.validator.constraints.Length;
 
 public class RegistrationRequest {
 
-    @Email (message = "invalid email")
+    @Email(message = "invalid email")
 
     private String email;
 
-    @Length (min = 4, message = "too short password")
+    @Length(min = 4, message = "too short password")
     private String password;
 
     public String getEmail() {

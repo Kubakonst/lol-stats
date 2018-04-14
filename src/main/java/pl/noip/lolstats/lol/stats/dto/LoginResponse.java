@@ -5,12 +5,12 @@ public class LoginResponse {
     private String accessToken;
     private String bearer;
 
-    public LoginResponse (String accessToken, String bearer){
+    public LoginResponse(String accessToken, String bearer) {
         this.accessToken = accessToken;
         this.bearer = bearer;
     }
 
-    public LoginResponse(){
+    public LoginResponse() {
     }
 
     public String getAccessToken() {

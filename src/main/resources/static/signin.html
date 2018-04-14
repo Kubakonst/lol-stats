@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head> 
-       <meta charset="utf-8">
-       <title>Sign In</title>
-       <meta name="description" content="SignIn">
-       <link rel="stylesheet" href="css/style1.css">
-       </head>
-       <body>
-              <div class="allpage">
-       	<header id="sing">
-       		<h1>Sign In</h1>
-       	</header>
-              <div class="registration">
-              <form>
-       	<p id="email" class="data">Email address</p>
-              <input type="text" name="email">
-       	<p id="password" class="data">Password</p>
-              <input type="password" name="psw">
-              </form>
-       	<figure id="facebook">
-       		<img alt="facebook logo" src="Facebook.jpg"/>
-       		<figcaption>
+<head>
+    <meta charset="utf-8">
+    <title>Sign In</title>
+    <meta name="description" content="SignIn">
+    <link rel="stylesheet" href="css/style1.css">
+</head>
+<body>
+<div class="allpage">
+    <header id="sing">
+        <h1>Sign In</h1>
+    </header>
+    <div class="registration">
+        <form>
+            <p id="email" class="data">Email address</p>
+            <input type="text" name="email">
+            <p id="password" class="data">Password</p>
+            <input type="password" name="psw">
+        </form>
+        <figure id="facebook">
+            <img alt="facebook logo" src="Facebook.jpg"/>
+            <figcaption>
                 Sign in with Facebook
-                </figcaption>
+            </figcaption>
         </figure>
-              <figure id="twitter">
-                     <img alt="twitter logo" src="Twitter.jpg"/>
-                     <figcaption>
-                             Sign in with Twitter
-                      </figcaption>
-              </figure>
-                  <button onClick="onLogin()">Submit</button>
-                  <button onClick="Reset()">Reset</button>
-              </div>
-                  <form class="wrongPasswords">
-                      <p id="error"></p>
-                  </form>
-              </div>
-       </body>
+        <figure id="twitter">
+            <img alt="twitter logo" src="Twitter.jpg"/>
+            <figcaption>
+                Sign in with Twitter
+            </figcaption>
+        </figure>
+        <button onClick="onLogin()">Submit</button>
+        <button onClick="Reset()">Reset</button>
+    </div>
+    <form class="wrongPasswords">
+        <p id="error"></p>
+    </form>
+</div>
+</body>
 
-    <script src="scripts/jquery.js"></script>
-    <script src="scripts/restCall.js"></script>
-    <script src="scripts/login.js"></script>
-    <script src="scripts/reset.js"></script>
+<script src="scripts/jquery.js"></script>
+<script src="scripts/restCall.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/reset.js"></script>
 
 </html>
