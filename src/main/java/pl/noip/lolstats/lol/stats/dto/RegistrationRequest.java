@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 public class RegistrationRequest {
 
     @Email (message = "invalid email")
-
     private String email;
 
     @Length (min = 4, message = "too short password")

@@ -8,7 +8,10 @@ function onRegister() {
     if (passwordElement.value == repasswordElement.value){
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailElement.value)){
                 if (passwordElement.value.length>3){
-                        registrationRestCall(emailElement.value,passwordElement.value);
+                        registrationRestCall(emailElement.value,
+                                             passwordElement.value,
+                                             () => window.location.href = "/registration-step-1-view.html",
+                                             (e) => document.getElementById("error").innerHTML = e.error);
                         }
                     else{
                         document.getElementById("error").innerHTML = "Too short password";

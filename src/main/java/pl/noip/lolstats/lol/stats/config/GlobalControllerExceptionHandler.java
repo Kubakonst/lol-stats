@@ -22,6 +22,7 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<?> handleThrowable(Throwable ex, WebRequest request) {
+        ex.printStackTrace(); // todo change to log in future
         return new ResponseEntity<>(new ErrorResponse("Error occurred, we are working on that"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
