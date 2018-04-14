@@ -15,7 +15,7 @@ import static io.restassured.RestAssured.given
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class LoginControllerTest extends Specification {
+class LoginControllerIT extends Specification {
     @LocalServerPort
     private int webPort
 
