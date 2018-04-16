@@ -10,14 +10,14 @@ public class TokenSplitImpl implements TokenSplit {
     public String splitToken(String bearerToken) {
 
 
-
-        if (bearerToken.split(" ").length<2){
+        if (bearerToken.split(" ").length < 2) {
             throw new BearerNotPresentException();
         }
 
-        if (!bearerToken.toLowerCase().startsWith("bearer ")){
-            throw new BearerNotPresentException();}
+        if (!bearerToken.toLowerCase().startsWith("bearer ")) {
+            throw new BearerNotPresentException();
+        }
 
-       return bearerToken.split(" ")[1];
+        return bearerToken.split(" ")[1];
     }
 }

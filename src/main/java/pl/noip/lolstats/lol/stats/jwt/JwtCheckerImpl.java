@@ -15,15 +15,14 @@ public class JwtCheckerImpl implements JwtChecker {
 
     @Value("${jwt.secret}")
     private String secret;
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
     private TimeService timeService;
 
     public JwtCheckerImpl(TimeService timeService) {
         this.timeService = timeService;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     public void checkToken(String token) {

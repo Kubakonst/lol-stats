@@ -25,7 +25,7 @@ class JwtCheckerImplTest extends Specification {
 
     def "check valid token"() {
 
-        given:"jwt is generated as second 1 and checked at second 2"
+        given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
         def token = jwtGenerator.generate()
@@ -36,7 +36,7 @@ class JwtCheckerImplTest extends Specification {
 
     def "check expired token"() {
 
-        given:"jwt is generated as second 1 and checked one hour later"
+        given: "jwt is generated as second 1 and checked one hour later"
         timeService.millisSinceEpoch >>> [1000, 1000 * 60 * 60 + 2000]
         and: "new token"
         def token = jwtGenerator.generate()
@@ -47,7 +47,7 @@ class JwtCheckerImplTest extends Specification {
     }
 
 
-    def "check token with wrong format" () {
+    def "check token with wrong format"() {
 
         given: "jwt in incorrect format"
         def jwt = "eyJhbGciOiJIUzI1NiJ9eyJpYXQiOjEsImV4cCI6MzYwMX0.Q5HBk79pi0YzazlbpBT0kUXw8vwXcs76FcAw52DKaFI"
@@ -58,8 +58,8 @@ class JwtCheckerImplTest extends Specification {
     }
 
 
-    def "check token with incorrect signature" () {
-        given:"jwt is generated as second 1 and checked at second 2"
+    def "check token with incorrect signature"() {
+        given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
         def token = jwtGenerator.generate()

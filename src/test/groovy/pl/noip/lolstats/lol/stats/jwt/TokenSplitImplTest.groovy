@@ -1,7 +1,6 @@
-package pl.noip.lolstats.lol.stats.utils
+package pl.noip.lolstats.lol.stats.jwt
 
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException
-import pl.noip.lolstats.lol.stats.jwt.TokenSplitImpl
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -24,8 +23,8 @@ class TokenSplitImplTest extends Specification {
 
     }
 
-def "token is valid"() {
-    expect:
-    tokenSplit.splitToken("bearer token")=="token"
-}
+    def "token is valid"() {
+        expect:
+        tokenSplit.splitToken("bearer token") == "token"
+    }
 }
