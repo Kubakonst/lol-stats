@@ -4,18 +4,17 @@ package pl.noip.lolstats.lol.stats.model;
 import org.springframework.data.annotation.Id;
 
 public class Account {
-    public Account(String email, String passwordHash) {
-        this.email = email;
-        this.passwordHash = passwordHash;
-    }
-
-    public Account() {
-    }
-
     @Id
 
     private String email;
     private String passwordHash;
+
+    public Account(String email, String passwordHash) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+    }
+    public Account() {
+    }
 
     public String getEmail() {
         return email;

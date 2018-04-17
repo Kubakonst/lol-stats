@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import spock.lang.Specification
-import static io.restassured.RestAssured.*
+
+import static io.restassured.RestAssured.given
 import static org.hamcrest.Matchers.equalTo
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

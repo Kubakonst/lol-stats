@@ -36,7 +36,7 @@ public class LoginController {
             return new ResponseEntity<>(new ErrorResponse("invalid email or password"), HttpStatus.UNAUTHORIZED);
         }
         String passHash = Sha.hash(registrationRequest.getPassword());
-        if ( passHash.equals(account.getPasswordHash())){
+        if (passHash.equals(account.getPasswordHash())) {
             String token = jwtGenerator.generate();
             return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
         }

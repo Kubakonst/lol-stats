@@ -16,15 +16,14 @@ public class JwtGeneratorImpl implements JwtGenerator {
 
     @Value("${jwt.secret}")
     private String secret;
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
     private TimeService timeService;
 
     public JwtGeneratorImpl(TimeService timeService) {
         this.timeService = timeService;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     @Override
@@ -42,7 +41,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
         JwtBuilder builder = Jwts.builder()
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//
-                .setExpiration(new Date(now.getTime()+60*60*1000));
+                .setExpiration(new Date(now.getTime() + 60 * 60 * 1000));
 
 
         return builder.compact();
