@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.jwt.JwtChecker;
+import pl.noip.lolstats.lol.stats.jwt.JwtGetMail;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 
 @RestController
@@ -14,10 +15,12 @@ public class CheckTokenController {
 
     private JwtChecker jwtChecker;
     private TokenSplit tokenSplit;
+    private JwtGetMail jwtGetMail;
 
-    public CheckTokenController(JwtChecker jwtChecker, TokenSplit tokenSplit) {
+    public CheckTokenController(JwtChecker jwtChecker, TokenSplit tokenSplit, JwtGetMail jwtGetMail) {
         this.jwtChecker = jwtChecker;
         this.tokenSplit = tokenSplit;
+        this.jwtGetMail = jwtGetMail;
     }
 
     @PostMapping
@@ -30,6 +33,8 @@ public class CheckTokenController {
         String token = tokenSplit.splitToken(bearer);
 
         jwtChecker.checkToken(token);
+
+        jwtGetMail.getmail(token);
     }
 
 }
