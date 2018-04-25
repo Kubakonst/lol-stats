@@ -1,6 +1,6 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
-public interface JwtGetMail {
+public interface JwtParser {
 
     String getmail(String token);
 

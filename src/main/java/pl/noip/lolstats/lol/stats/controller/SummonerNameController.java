@@ -2,14 +2,12 @@ package pl.noip.lolstats.lol.stats.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.noip.lolstats.lol.stats.dto.LoginResponse;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.jwt.JwtGenerator;
-import pl.noip.lolstats.lol.stats.jwt.JwtGetMail;
+import pl.noip.lolstats.lol.stats.jwt.JwtParser;
+import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.model.Account;
 import pl.noip.lolstats.lol.stats.repository.AccountRepository;
 
@@ -23,25 +21,29 @@ public class SummonerNameController {
 
     private AccountRepository accountRepository;
 
-    private JwtGetMail jwtGetMail;
+    private JwtParser jwtParser;
 
-    public SummonerNameController(JwtGenerator jwtGenerator, AccountRepository accountRepository, JwtGetMail jwtGetMail) {
+    private TokenSplit tokenSplit;
+
+    public SummonerNameController(JwtGenerator jwtGenerator, AccountRepository accountRepository, JwtParser jwtParser, TokenSplit tokenSplit) {
         this.jwtGenerator = jwtGenerator;
         this.accountRepository = accountRepository;
-        this.jwtGetMail = jwtGetMail;
+        this.jwtParser = jwtParser;
+        this.tokenSplit = tokenSplit;
     }
 
     @PostMapping
-    public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest) {
+    public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest,
+                                  @RequestHeader( value = "Authorization") String bearer) {
 
-        accountRepository.save(new Account(summonerNameRequest.getSumName()));
+        String oldToken = tokenSplit.splitToken(bearer);
 
-        String token = jwtGenerator.generate(summonerNameRequest.getSumName());
+        accountRepository.save(new Account(jwtParser.getmail(oldToken),summonerNameRequest.getSumName()));
+
+        String token = jwtGenerator.generate(jwtParser.getmail(oldToken),summonerNameRequest.getSumName());
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
     }
-
-
 }
 
 
