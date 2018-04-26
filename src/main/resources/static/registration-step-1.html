@@ -6,14 +6,14 @@
     <meta name="description" content="Registration Step 1">
     <link rel="stylesheet" href="css/style1.css">
 </head>
-<body>
+<body onload="isMail()">
 <div class="allpage">
     <header>
         <h1>Registration Step 1</h1>
     </header>
     <form>
         <p>Summoner Name</p>
-        <input type="text" name="summonername">
+        <input id="summonerNameInput" type="text" name="summonername">
     </form>
     <p>Choose your region:</p>
     <ul>
@@ -23,6 +23,14 @@
         <li><a href="https://www.onet.pl/">RUS</a></li>
         <li><a href="https://www.onet.pl/">TUR</a></li>
     </ul>
+    <button onClick="onName()">Submit</button>
+    <button onClick="Reset()">Reset</button>
 </div>
 </body>
+
+<script src="scripts/tokenStore.js"></script>
+<script src="scripts/registrationStep1.js"></script>
+<script src="scripts/rest.js"></script>
+<script src="scripts/reset.js"></script>
+
 </html>

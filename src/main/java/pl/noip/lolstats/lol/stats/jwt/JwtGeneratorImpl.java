@@ -59,7 +59,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
 
         //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder()
-                .claim("Summoner Name", sumName)
+                .claim("SummonerName", sumName)
                 .claim("email",email)
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//

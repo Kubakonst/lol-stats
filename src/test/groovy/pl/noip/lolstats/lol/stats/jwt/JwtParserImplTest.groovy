@@ -16,9 +16,9 @@ class JwtParserImplTest extends Specification {
 
     def "MailGet"(){
         given: "time for not expired token"
-        timeService.millisSinceEpoch >> 1000 * 1524664497
+        timeService.millisSinceEpoch >> 1000 * 1524746838
                 expect:
-                jwtParser.getmail("eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJpYXQiOjE1MjQ2NjA4OTcsImV4cCI6MTUyNDY2NDQ5N30.1yjYT7K-7r8eN8-p9PwSjbs8Tn_nP_rpIuhAHJ2QBlM") == "example@mail.com"
+                jwtParser.getmail("eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJpYXQiOjE1MjQ3NDMyMzgsImV4cCI6MTUyNDc0NjgzOH0.NCnjXfyiYztn5Jba8pm4bBl5SLMS3xP6PbxaapX4fbk") == "example@mail.com"
 
         }
 }

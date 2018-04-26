@@ -20,7 +20,6 @@ class SummonerNameControllerTest extends Specification {
 
     @Autowired
     private AccountRepository repository
-//    private JwtParserImpl jwtParser
 
     private static final String PATH = "/api/summoner/name"
     private static final String AUTHORIZATION = "Authorization"
@@ -32,7 +31,7 @@ class SummonerNameControllerTest extends Specification {
 
     def "Login with correct credentials"() {
         given:
-        def bearerToken = "bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJpYXQiOjE1MjQ2NjA4OTcsImV4cCI6MTUyNDY2NDQ5N30.1yjYT7K-7r8eN8-p9PwSjbs8Tn_nP_rpIuhAHJ2QBlM"
+        def bearerToken = "bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJpYXQiOjE1MjQ3NDMyMzgsImV4cCI6MTUyNDc0NjgzOH0.NCnjXfyiYztn5Jba8pm4bBl5SLMS3xP6PbxaapX4fbk"
         def mail = "dashjukda@dha.pl"
         def sumName = "ExampleName"
         repository.save(new Account(mail, sumName))

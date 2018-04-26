@@ -27,6 +27,18 @@ function loginRestCall(email, password, successCallback, errorCallback){
         )
 }
 
+function nameRestCall(sumName, successCallback, errorCallback){
+    var url = baseUrl + "/api/summoner/name"
+    var body = {sumName: sumName}
+
+    post(
+        url,
+        body,
+        successCallback,
+        errorCallback
+        )
+}
+
 function post(url, body, successCallback, errorCallback, expectedStatus=200){
     fetch(url,{
         method: "POST",
