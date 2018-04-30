@@ -15,7 +15,9 @@ public class Account {
         this.passwordHash = passwordHash;
     }
 
-    public Account(String sumName) {
+    public Account(String email, String passwordHash, String sumName) {
+        this.email = email;
+        this.passwordHash = passwordHash;
         this.sumName = sumName;
     }
 

@@ -1,6 +1,5 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +31,7 @@ public class JwtCheckerImpl implements JwtChecker {
         byte[] apiKeySecretBytes = secret.getBytes();
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        Jwt jwt = Jwts.parser()
+        Jwts.parser()
                 .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
                 .setSigningKey(signingKey).parse(token);
 

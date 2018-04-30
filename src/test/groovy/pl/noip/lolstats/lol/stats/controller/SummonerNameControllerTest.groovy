@@ -29,7 +29,7 @@ class SummonerNameControllerTest extends Specification {
 
     }
 
-    def "Login with correct credentials"() {
+    def "Create token with correct data"() {
         given:
         def bearerToken = "bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJpYXQiOjE1MjQ3NDMyMzgsImV4cCI6MTUyNDc0NjgzOH0.NCnjXfyiYztn5Jba8pm4bBl5SLMS3xP6PbxaapX4fbk"
         def mail = "dashjukda@dha.pl"

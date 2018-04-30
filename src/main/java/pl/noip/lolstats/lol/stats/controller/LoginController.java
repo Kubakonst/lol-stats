@@ -28,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<?> Login(@RequestBody RegistrationRequest registrationRequest) {
+    public ResponseEntity<?> login(@RequestBody RegistrationRequest registrationRequest) {
 
         Account account = accountRepository.findOne(registrationRequest.getEmail());
 

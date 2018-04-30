@@ -1,5 +1,3 @@
-console.log("Reset here");
-
 function Reset() {
 
 var emailElement=document.getElementById("emailInput");

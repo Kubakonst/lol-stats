@@ -47,6 +47,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
         return builder.compact();
     }
 
+    @Override
     public String generate(String email, String sumName) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 

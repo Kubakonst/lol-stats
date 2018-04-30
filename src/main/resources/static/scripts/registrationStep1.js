@@ -1,7 +1,7 @@
 function onName(){
     var nameElement = document.getElementById("summonerNameInput");
 
-    if (passwordElement.value.length>3){
+    if (nameElement.value.length>0){
                             nameRestCall(nameElement.value,
                                          () => window.location.href = "/main-page.html",
                                          (e) => document.getElementById("error").innerHTML = e.error);
@@ -11,26 +11,28 @@ function onName(){
 function isMail(){
 
     var token = tokenLoad();
-    var codPpayload = token.split('.')[1];
-    var decStrPayload = atob(codPpayload);
-    var payload = JSON.parse(decStrPayload);
+    var encodedPayload = token.split('.')[1];
+    var decodedPayload = atob(encodedPayload);
+    var payload = JSON.parse(decodedPayload);
 
-    if (payload.mail = "undefined") || (payload.exp < Date.now()/1000)
+    if ((payload.email == "undefined") || (payload.exp < Date.now()/1000))
     {
         window.location.href = "/signin.html"
     }
+
 }
 
 
 function isName(){
 
     var token = tokenLoad();
-    var codPpayload = token.split('.')[1];
-    var decStrPayload = atob(codPpayload);
-    var payload = JSON.parse(decStrPayload);
+    var encodedPayload = token.split('.')[1];
+    var decodedPayload = atob(encodedPayload);
+    var payload = JSON.parse(decodedPayload);
 
-    if(payload.SummonerName = "undefined") || (payload.exp < Date.now()/1000){
-
+    if((payload.SummonerName == "undefined") || (payload.exp < Date.now()/1000))
+    {
     window.location.href = "/registration-step-1.html"
     }
+
 }

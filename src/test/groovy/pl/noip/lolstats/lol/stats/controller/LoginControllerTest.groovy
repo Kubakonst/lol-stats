@@ -27,34 +27,35 @@ class LoginControllerIT extends Specification {
         repository.deleteAll()
     }
 
-    def "Login with correct credentials"() {
-        given:
-        def mail = "example@mail.com"
-        def password = "secret"
-        repository.save(new Account(mail, Sha.hash(password)))
-        given()
-                .port(webPort)
-                .when()
-                .contentType(ContentType.JSON)
-                .body([email: mail, password: password])
-                .post(PATH)
-                .then().statusCode(200)
-                .body("accessToken", Matchers.containsString("."))
-                .body("bearer", Matchers.containsString("bearer "))
-    }
 
-    def "Login with incorrect credentials"() {
-        given:
-        def mail = "example@mail.com"
-        def password = "secret"
-        given()
-                .port(webPort)
-                .when()
-                .contentType(ContentType.JSON)
-                .body([email: mail, password: password])
-                .post(PATH)
-                .then().statusCode(401)
-                .body("error", Matchers.equalTo("invalid email or password"))
-    }
+        def "Login with correct credentials"() {
+            given:
+            def mail = "example@mail.com"
+            def password = "secret"
+            repository.save(new Account(mail, Sha.hash(password)))
+            given()
+                    .port(webPort)
+                    .when()
+                    .contentType(ContentType.JSON)
+                    .body([email: mail, password: password])
+                    .post(PATH)
+                    .then().statusCode(200)
+                    .body("accessToken", Matchers.containsString("."))
+                    .body("bearer", Matchers.containsString("bearer "))
+        }
 
-}
+        def "Login with incorrect credentials"() {
+            given:
+            def mail = "example@mail.com"
+            def password = "secret"
+            given()
+                    .port(webPort)
+                    .when()
+                    .contentType(ContentType.JSON)
+                    .body([email: mail, password: password])
+                    .post(PATH)
+                    .then().statusCode(401)
+                    .body("error", Matchers.equalTo("invalid email or password"))
+        }
+
+    }
