@@ -31,9 +31,9 @@ public class JwtParserImpl implements JwtParser {
     @Override
     public String getMail(String token) {
 
-            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-            byte[] apiKeySecretBytes = secret.getBytes();
-            Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        byte[] apiKeySecretBytes = secret.getBytes();
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         Jws<Claims> jwsClaims = Jwts.parser()
                 .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
@@ -44,6 +44,6 @@ public class JwtParserImpl implements JwtParser {
         String mail = claims.get("email").toString();
 
         return mail;
-        }
+    }
 
 }

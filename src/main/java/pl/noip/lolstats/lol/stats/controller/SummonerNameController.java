@@ -34,13 +34,13 @@ public class SummonerNameController {
 
     @PostMapping
     public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest,
-                                  @RequestHeader( value = "Authorization") String bearer) {
+                                  @RequestHeader(value = "Authorization") String bearer) {
 
         String oldToken = tokenSplit.splitToken(bearer);
 
-        accountRepository.save(new Account (jwtParser.getMail(oldToken), null, summonerNameRequest.getSumName()));
+        accountRepository.save(new Account(jwtParser.getMail(oldToken), null, summonerNameRequest.getSumName()));
 
-        String token = jwtGenerator.generate(jwtParser.getMail(oldToken),summonerNameRequest.getSumName());
+        String token = jwtGenerator.generate(jwtParser.getMail(oldToken), summonerNameRequest.getSumName());
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
     }

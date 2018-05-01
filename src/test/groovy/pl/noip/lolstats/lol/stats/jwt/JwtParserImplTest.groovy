@@ -7,18 +7,23 @@ class JwtParserImplTest extends Specification {
 
     JwtParserImpl jwtParser
 
+    JwtGeneratorImpl jwtGenerator
+
     TimeService timeService = Mock()
 
     def setup(){
         jwtParser = new JwtParserImpl(timeService)
         jwtParser.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
+        jwtGenerator = new JwtGeneratorImpl(timeService)
+        jwtGenerator.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
     }
 
     def "MailGet"(){
-        given: "time for not expired token"
-        timeService.millisSinceEpoch >> 1000 * 1524746838
+        given: "jwt is generated as second 1 and checked at second 2"
+        timeService.millisSinceEpoch >>> [1000, 2000]
+        def mail = "example@mail.com"
                 expect:
-                jwtParser.getMail("eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJpYXQiOjE1MjQ3NDMyMzgsImV4cCI6MTUyNDc0NjgzOH0.NCnjXfyiYztn5Jba8pm4bBl5SLMS3xP6PbxaapX4fbk") == "example@mail.com"
+                jwtParser.getMail(jwtGenerator.generate(mail)) == "example@mail.com"
 
         }
 }

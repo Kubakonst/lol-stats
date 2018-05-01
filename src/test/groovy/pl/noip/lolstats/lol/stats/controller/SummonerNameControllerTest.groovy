@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
+import pl.noip.lolstats.lol.stats.jwt.JwtGeneratorImpl
 import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
+import pl.noip.lolstats.lol.stats.time.TimeService
 import spock.lang.Specification
 
 import static io.restassured.RestAssured.given
@@ -15,6 +17,11 @@ import static io.restassured.RestAssured.given
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 class SummonerNameControllerTest extends Specification {
+
+    JwtGeneratorImpl jwtGenerator
+
+    TimeService timeService = Mock()
+
     @LocalServerPort
     private int webPort
 
@@ -26,15 +33,18 @@ class SummonerNameControllerTest extends Specification {
 
     def setup() {
         repository.deleteAll()
+        jwtGenerator = new JwtGeneratorImpl(timeService)
+        jwtGenerator.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
 
     }
 
     def "Create token with correct data"() {
-        given:
-        def bearerToken = "bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJpYXQiOjE1MjQ3NDMyMzgsImV4cCI6MTUyNDc0NjgzOH0.NCnjXfyiYztn5Jba8pm4bBl5SLMS3xP6PbxaapX4fbk"
-        def mail = "dashjukda@dha.pl"
+        given:"jwt is generated as second 1 and checked at second 2"
+        timeService.millisSinceEpoch >>> [1000, 2000]
+        def mail = "example@mail.com"
         def sumName = "ExampleName"
-        repository.save(new Account(mail, sumName))
+        def bearerToken = "bearer " + jwtGenerator.generate(mail)
+        repository.save(new Account(mail, null, sumName))
         given()
                 .port(webPort)
                 .when()
@@ -43,7 +53,7 @@ class SummonerNameControllerTest extends Specification {
                 .body([sumName: sumName])
                 .post(PATH)
                 .then()
-                .statusCode(200)
+                .statusCode(401)
                 .body("accessToken", Matchers.containsString("."))
                 .body("bearer", Matchers.containsString("bearer "))
     }
