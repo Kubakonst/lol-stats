@@ -30,10 +30,12 @@ function loginRestCall(email, password, successCallback, errorCallback){
 function nameRestCall(sumName, successCallback, errorCallback){
     var url = baseUrl + "/api/summoner/name"
     var body = {sumName: sumName}
+    var header = {bearer: tokenLoad()}
 
     post(
         url,
         body,
+        header,
         successCallback,
         errorCallback
         )

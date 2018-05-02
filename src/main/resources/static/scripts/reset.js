@@ -8,4 +8,7 @@ var passwordElement=document.getElementById("passwordInput");
 
 var repasswordElement=document.getElementById("repasswordInput");
     repasswordElement.value = null;
+
+var sumNameElement = document.getElementById("summonerNameInput");
+    sumNameElement.value = null;
 }
