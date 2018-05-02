@@ -38,7 +38,9 @@ public class SummonerNameController {
 
         String oldToken = tokenSplit.splitToken(bearer);
 
-        accountRepository.save(new Account(jwtParser.getMail(oldToken), null, summonerNameRequest.getSumName()));
+        Account account = accountRepository.findOne(jwtParser.getMail(oldToken));
+
+        account.setSumName(summonerNameRequest.getSumName());
 
         String token = jwtGenerator.generate(jwtParser.getMail(oldToken), summonerNameRequest.getSumName());
 

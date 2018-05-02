@@ -20,15 +20,14 @@ function isMail(){
     var decodedPayload = atob(encodedPayload);
     var payload = JSON.parse(decodedPayload);
 
-    if ((payload.email == "undefined") || (payload.exp < Date.now()/1000))
+    if (payload.email == undefined)
     {
         window.location.href = "/signin.html"
     }
 }
 }
 
-
-function isName(){
+function checkToken(){
 
     var token = tokenLoad();
 
@@ -40,9 +39,15 @@ function isName(){
     var decodedPayload = atob(encodedPayload);
     var payload = JSON.parse(decodedPayload);
 
-    if((payload.name == "undefined") || (payload.exp < Date.now()/1000))
+    if(payload.name == undefined)
     {
     window.location.href = "/registration-step-1.html"
     }
+
+    if(payload.exp < Date.now()/1000)
+    {
+    window.location.href = "/signin.html"
+    }
+
     }
 }

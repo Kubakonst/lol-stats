@@ -1,5 +1,3 @@
-console.log("Hello");
-
 function onLogin() {
 
     var emailElement = document.getElementById("emailInput");
@@ -11,9 +9,7 @@ function onLogin() {
                 (json) => {
                     tokenSave(json.bearer)
                     window.location.href = "/main-page.html"
-                    console.log(json.bearer)
                 },
-
                 (e) => document.getElementById("error").innerHTML = e.error);
         } else {
             document.getElementById("error").innerHTML = "Too short password";

@@ -7,7 +7,6 @@ import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import pl.noip.lolstats.lol.stats.jwt.JwtGeneratorImpl
-import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import pl.noip.lolstats.lol.stats.time.TimeService
 import spock.lang.Specification
@@ -16,7 +15,7 @@ import static io.restassured.RestAssured.given
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class SummonerNameControllerTest extends Specification {
+class SummonerNameControllerIT extends Specification {
 
     JwtGeneratorImpl jwtGenerator
 
@@ -44,7 +43,6 @@ class SummonerNameControllerTest extends Specification {
         def mail = "example@mail.com"
         def sumName = "ExampleName"
         def bearerToken = "bearer " + jwtGenerator.generate(mail)
-        repository.save(new Account(mail, null, sumName))
         given()
                 .port(webPort)
                 .when()
