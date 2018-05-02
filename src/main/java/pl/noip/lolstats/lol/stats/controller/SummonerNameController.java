@@ -38,11 +38,13 @@ public class SummonerNameController {
 
         String oldToken = tokenSplit.splitToken(bearer);
 
-        Account account = accountRepository.findOne(jwtParser.getMail(oldToken));
+        String mail = jwtParser.getMail(oldToken);
+
+        Account account = accountRepository.findOne(mail);
 
         account.setSumName(summonerNameRequest.getSumName());
 
-        String token = jwtGenerator.generate(jwtParser.getMail(oldToken), summonerNameRequest.getSumName());
+        String token = jwtGenerator.generate((mail), summonerNameRequest.getSumName());
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
     }

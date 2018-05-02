@@ -7,6 +7,8 @@ import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import pl.noip.lolstats.lol.stats.jwt.JwtGeneratorImpl
+import pl.noip.lolstats.lol.stats.jwt.JwtParserImpl
+import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import pl.noip.lolstats.lol.stats.time.TimeService
 import spock.lang.Specification
@@ -18,6 +20,8 @@ import static io.restassured.RestAssured.given
 class SummonerNameControllerIT extends Specification {
 
     JwtGeneratorImpl jwtGenerator
+
+    JwtParserImpl jwtParser
 
     TimeService timeService = Mock()
 
@@ -34,16 +38,18 @@ class SummonerNameControllerIT extends Specification {
         repository.deleteAll()
         jwtGenerator = new JwtGeneratorImpl(timeService)
         jwtGenerator.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
-
+        jwtParser = new JwtParserImpl(timeService)
+        jwtParser.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
     }
 
     def "Create token with correct data"() {
         given:"jwt is generated as second 1 and checked at second 2"
-        timeService.millisSinceEpoch >>> [1000, 2000]
+        timeService.millisSinceEpoch >>> System.currentTimeMillis()
         def mail = "example@mail.com"
         def sumName = "ExampleName"
         def bearerToken = "bearer " + jwtGenerator.generate(mail)
-        given()
+        repository.save(new Account(mail,"dsdas", sumName))
+        def token = given()
                 .port(webPort)
                 .when()
                 .contentType(ContentType.JSON)
@@ -51,9 +57,13 @@ class SummonerNameControllerIT extends Specification {
                 .body([sumName: sumName])
                 .post(PATH)
                 .then()
-                .statusCode(401)
+                .statusCode(200)
                 .body("accessToken", Matchers.containsString("."))
-                .body("bearer", Matchers.containsString("bearer "))
+                .body("bearer", Matchers.containsString("bearer ")).extract().body().<String>path("accessToken")
+
+        expect:
+        jwtParser.getMail(token) == mail
+        jwtParser.getName(token) == sumName
     }
 
 }
