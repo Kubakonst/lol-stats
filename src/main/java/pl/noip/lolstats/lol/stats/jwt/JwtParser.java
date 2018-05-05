@@ -1,8 +1,12 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
+import io.jsonwebtoken.Claims;
+
 public interface JwtParser {
 
-    String getMail(String token);
+    Claims getData(String token);
 
-    String getName(String token);
+    String getMail(Claims getData);
+
+    String getName(Claims getData);
 }
