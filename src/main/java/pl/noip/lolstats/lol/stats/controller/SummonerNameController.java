@@ -1,6 +1,5 @@
 package pl.noip.lolstats.lol.stats.controller;
 
-import io.jsonwebtoken.Claims;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +43,7 @@ public class SummonerNameController {
 
         String oldToken = tokenSplit.splitToken(bearer);
 
-        Claims data = jwtParser.getData(oldToken);
-
-        String mail = jwtParser.getMail(data);
+        String mail = jwtParser.getMail(oldToken);
 
         Account account = accountRepository.findOne(mail);
 

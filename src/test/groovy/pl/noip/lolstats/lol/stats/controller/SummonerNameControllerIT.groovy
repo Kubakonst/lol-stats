@@ -1,6 +1,5 @@
 package pl.noip.lolstats.lol.stats.controller
 
-import io.jsonwebtoken.Claims
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers
 import org.springframework.beans.factory.annotation.Autowired
@@ -63,9 +62,8 @@ class SummonerNameControllerIT extends Specification {
                 .body("bearer", Matchers.containsString("bearer ")).extract().body().<String>path("accessToken")
 
         expect:
-        Claims data = jwtParser.getData(token)
-        jwtParser.getMail(data) == mail
-        jwtParser.getName(data) == sumName
+        jwtParser.getMail(token) == mail
+        jwtParser.getName(token) == sumName
     }
 
 }

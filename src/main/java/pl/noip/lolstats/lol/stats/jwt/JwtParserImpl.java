@@ -28,8 +28,7 @@ public class JwtParserImpl implements JwtParser {
         this.secret = secret;
     }
 
-
-    public Claims getData(String token) {
+    private String getData(String token, String claimName) {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         byte[] apiKeySecretBytes = secret.getBytes();
@@ -39,22 +38,19 @@ public class JwtParserImpl implements JwtParser {
                 .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
                 .setSigningKey(signingKey).parseClaimsJws(token);
 
-        return jwsClaims.getBody();
+        return jwsClaims.getBody().get(claimName).toString();
 
     }
 
-    @Override
-    public String getName(Claims getData) {
+    public String getName(String token) {
 
-        return getData.get("name").toString();
+        return getData(token, "name");
 
     }
 
-    @Override
-    public String getMail(Claims getData) {
+    public String getMail(String token) {
 
-        return getData.get("email").toString();
-
+        return getData(token, "email");
     }
 
 }
