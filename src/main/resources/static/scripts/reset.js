@@ -1,5 +1,3 @@
-console.log("Reset here");
-
 function Reset() {
 
 var emailElement=document.getElementById("emailInput");
@@ -10,4 +8,7 @@ var passwordElement=document.getElementById("passwordInput");
 
 var repasswordElement=document.getElementById("repasswordInput");
     repasswordElement.value = null;
+
+var sumNameElement = document.getElementById("summonerNameInput");
+    sumNameElement.value = null;
 }

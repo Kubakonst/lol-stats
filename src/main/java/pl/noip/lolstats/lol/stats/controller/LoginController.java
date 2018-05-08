@@ -28,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<?> Login(@RequestBody RegistrationRequest registrationRequest) {
+    public ResponseEntity<?> login(@RequestBody RegistrationRequest registrationRequest) {
 
         Account account = accountRepository.findOne(registrationRequest.getEmail());
 
@@ -37,7 +37,7 @@ public class LoginController {
         }
         String passHash = Sha.hash(registrationRequest.getPassword());
         if (passHash.equals(account.getPasswordHash())) {
-            String token = jwtGenerator.generate();
+            String token = jwtGenerator.generate(registrationRequest.getEmail());
             return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ErrorResponse("invalid email or password"), HttpStatus.UNAUTHORIZED);

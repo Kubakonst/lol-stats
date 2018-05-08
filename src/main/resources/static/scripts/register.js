@@ -1,5 +1,3 @@
-console.log("Hello");
-
 function onRegister() {
 
     var emailElement=document.getElementById("emailInput");

@@ -16,6 +16,7 @@ import static io.restassured.RestAssured.given
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 class LoginControllerIT extends Specification {
+
     @LocalServerPort
     private int webPort
 
@@ -26,6 +27,7 @@ class LoginControllerIT extends Specification {
     def setup() {
         repository.deleteAll()
     }
+
 
     def "Login with correct credentials"() {
         given:

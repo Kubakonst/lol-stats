@@ -1,5 +1,5 @@
 var baseUrl = "http://localhost:8333"
-jsonHeader = new Headers({
+var jsonHeader = new Headers({
     'Content-Type': 'application/json'
   })
 
@@ -10,6 +10,7 @@ function registrationRestCall(email, password, successCallback, errorCallback){
     post(
         url,
         body,
+        jsonHeader,
         successCallback,
         errorCallback,
         201
@@ -22,15 +23,33 @@ function loginRestCall(email, password, successCallback, errorCallback){
     post(
         url,
         body,
+        jsonHeader,
         successCallback,
         errorCallback
         )
 }
 
-function post(url, body, successCallback, errorCallback, expectedStatus=200){
+function nameRestCall(sumName, successCallback, errorCallback){
+    var url = baseUrl + "/api/summoner/name"
+    var body = {sumName: sumName}
+    var header = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': tokenLoad()
+    })
+
+    post(
+        url,
+        body,
+        header,
+        successCallback,
+        errorCallback
+        )
+}
+
+function post(url, body, headers, successCallback, errorCallback, expectedStatus=200){
     fetch(url,{
         method: "POST",
-        headers: jsonHeader,
+        headers: headers,
         body: JSON.stringify(body)
     })
     .then( res => {

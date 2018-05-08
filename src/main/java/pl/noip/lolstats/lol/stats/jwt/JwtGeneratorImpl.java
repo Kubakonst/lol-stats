@@ -27,22 +27,27 @@ public class JwtGeneratorImpl implements JwtGenerator {
     }
 
     @Override
-    public String generate() {
+    public String generate(String email) {
+
+        return generate(email, null);
+    }
+
+    @Override
+    public String generate(String email, String sumName) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = timeService.getMillisSinceEpoch();
         Date now = new Date(nowMillis);
 
-        //We will sign our JWT with our ApiKey secret
         byte[] apiKeySecretBytes = secret.getBytes();
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder()
+                .claim("name", sumName)
+                .claim("email",email)
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//
                 .setExpiration(new Date(now.getTime() + 60 * 60 * 1000));
-
 
         return builder.compact();
     }

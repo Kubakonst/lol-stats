@@ -8,12 +8,28 @@ public class Account {
 
     private String email;
     private String passwordHash;
+    private String sumName;
 
     public Account(String email, String passwordHash) {
         this.email = email;
         this.passwordHash = passwordHash;
     }
+
+    public Account(String email, String passwordHash, String sumName) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.sumName = sumName;
+    }
+
     public Account() {
+    }
+
+    public String getSumName() {
+        return sumName;
+    }
+
+    public void setSumName(String sumName) {
+        this.sumName = sumName;
     }
 
     public String getEmail() {
@@ -31,4 +47,7 @@ public class Account {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
+
 }
+

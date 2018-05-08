@@ -1,5 +1,3 @@
-console.log("Hello");
-
 function onLogin() {
 
     var emailElement = document.getElementById("emailInput");

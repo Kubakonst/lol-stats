@@ -28,7 +28,8 @@ class JwtCheckerImplTest extends Specification {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
-        def token = jwtGenerator.generate()
+        def mail = "example@mail.com"
+        def token = jwtGenerator.generate(mail)
         when: "token is checked"
         jwtChecker.checkToken(token)
         then: "nothing happens, which means that token is valid"
@@ -39,7 +40,8 @@ class JwtCheckerImplTest extends Specification {
         given: "jwt is generated as second 1 and checked one hour later"
         timeService.millisSinceEpoch >>> [1000, 1000 * 60 * 60 + 2000]
         and: "new token"
-        def token = jwtGenerator.generate()
+        def mail = "example@mail.com"
+        def token = jwtGenerator.generate(mail)
         when: "token is checked"
         jwtChecker.checkToken(token)
         then: "token is expired"
@@ -62,7 +64,8 @@ class JwtCheckerImplTest extends Specification {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
-        def token = jwtGenerator.generate()
+        def mail = "example@mail.com"
+        def token = jwtGenerator.generate(mail)
         and: "incorrect secret is used for jwtCehcker"
         jwtChecker.secret = "rubbish"
         when: "token is checked"

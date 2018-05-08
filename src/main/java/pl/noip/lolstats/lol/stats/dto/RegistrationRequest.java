@@ -11,6 +11,7 @@ public class RegistrationRequest {
     @Length(min = 4, message = "too short password")
     private String password;
 
+
     public String getEmail() {
         return email;
     }
@@ -26,4 +27,5 @@ public class RegistrationRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

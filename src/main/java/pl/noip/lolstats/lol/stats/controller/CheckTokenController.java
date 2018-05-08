@@ -15,9 +15,11 @@ public class CheckTokenController {
     private JwtChecker jwtChecker;
     private TokenSplit tokenSplit;
 
+
     public CheckTokenController(JwtChecker jwtChecker, TokenSplit tokenSplit) {
         this.jwtChecker = jwtChecker;
         this.tokenSplit = tokenSplit;
+
     }
 
     @PostMapping
@@ -30,6 +32,8 @@ public class CheckTokenController {
         String token = tokenSplit.splitToken(bearer);
 
         jwtChecker.checkToken(token);
+
+
     }
 
 }
