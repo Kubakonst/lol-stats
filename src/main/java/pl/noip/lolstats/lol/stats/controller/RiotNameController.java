@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import javax.lang.model.element.Name;
 
-@Controller
 public class RiotNameController {
 
     RestTemplate restTemplate;
