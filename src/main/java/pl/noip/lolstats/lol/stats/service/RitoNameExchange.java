@@ -13,12 +13,12 @@ public class RitoNameExchange {
     private SummonerNameRequest summonerNameRequest;
 
     private RestTemplate restTemplate = new RestTemplate();
-    private final String url = "https://eun1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerNameRequest.getSumName() + "?api_key=" + key;
-    private HttpEntity<SummonerNameRequest> request = new HttpEntity<>(new SummonerNameRequest(sumName));
-    private ResponseEntity<SummonerNameRequest> response = restTemplate
-            .exchange(url, HttpMethod.POST, request, SummonerNameRequest.class);
+//    private final String url = "https://eun1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerNameRequest.getSumName() + "?api_key=" + key;
+//    private HttpEntity<SummonerNameRequest> request = new HttpEntity<>(new SummonerNameRequest(sumName));
+//    private ResponseEntity<SummonerNameRequest> response = restTemplate
+//            .exchange(url, HttpMethod.POST, request, SummonerNameRequest.class);
 
-    assertThat(response.getStatusCode(), is(HttpStatus.OK));
+//    assertThat(response.getStatusCode(), is(HttpStatus.OK));
 
 //    private SummonerNameRequest sumNameRequest = response.getBody();
 //

@@ -18,8 +18,8 @@ public class RiotNameController {
 
         String url = "someurl";
 
-        String result = restTemplate.exchange(url.toString(), String.class);
-                       model.addAttribute("result", result);
+//        String result = restTemplate.exchange(url.toString(), String.class);
+//                       model.addAttribute("result", result);
 
         return "result";
 
