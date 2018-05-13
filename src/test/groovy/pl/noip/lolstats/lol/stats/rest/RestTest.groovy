@@ -24,6 +24,7 @@ class RestTest extends Specification {
         then:
         response.statusCode.value() == 200
         response.body.number == 123456
+        println(response)
     }
 
 }
