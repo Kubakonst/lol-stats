@@ -5,20 +5,22 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 public class RiotRestClient {
 
     @Value("${variable.secret-var}")
     private String key;
-    public void setKey(String key) {
-        this.key = key;
-    }
+
+    @Value("${regions}")
+    private String propertiesRegions;
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -26,20 +28,37 @@ public class RiotRestClient {
 
     private HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
+    public String[] splitedRegions;
+
+    @PostConstruct
+    private void splitRegions() {
+
+        splitedRegions = propertiesRegions.split(";");
+
+    }
+
     public List<String> CheckUserNameInRiotDataBase(String name) {
 
-        String url = "https://eun1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name + "?api_key=" + key;
+        int[] myArray = { 1, 3, 5, 7, 11 };
+
+        for (int arrayElem : myArray) {
+            System.out.print(arrayElem + " ");
+        }
 
         List<String> regions = new ArrayList<>();
 
-        ResponseEntity response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, SummonerNameRequest.class);
+        for (String reg : splitedRegions) {
 
-        if (response.getStatusCode().value() == 200) {
+            System.out.println(reg + " ");
 
-            regions.add("eun1");
+            String url = "https://" + reg + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name + "?api_key=" + key;
 
+            ResponseEntity response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, SummonerNameRequest.class);
+
+            if (response.getStatusCode().value() == 200) {
+                regions.add(reg);
+            }
         }
-
         return regions;
     }
 }

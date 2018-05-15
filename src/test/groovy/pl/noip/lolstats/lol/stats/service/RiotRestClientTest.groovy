@@ -1,17 +1,17 @@
 package pl.noip.lolstats.lol.stats.service
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 
 @SpringBootTest
+@ActiveProfiles("test")
 class RiotRestClientTest extends Specification {
 
-    RiotRestClient riotRestClient = new RiotRestClient();
-
-    def setup(){
-        riotRestClient.setKey("ENC(VMAckVUvHhbiEpU1pG4JuFyc3WWR5CJ8FkRTmpcZoow=)")
-    }
+    @Autowired
+    RiotRestClient riotRestClient
 
     def "CheckUserNameInRiotDataBase"() {
         given:
