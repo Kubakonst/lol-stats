@@ -29,11 +29,11 @@ public class JwtGeneratorImpl implements JwtGenerator {
     @Override
     public String generate(String email) {
 
-        return generate(email, null);
+        return generate(email, null, null);
     }
 
     @Override
-    public String generate(String email, String sumName) {
+    public String generate(String email, String sumName, String region) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = timeService.getMillisSinceEpoch();
@@ -45,6 +45,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
         JwtBuilder builder = Jwts.builder()
                 .claim("name", sumName)
                 .claim("email",email)
+                .claim("region", region)
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//
                 .setExpiration(new Date(now.getTime() + 60 * 60 * 1000));

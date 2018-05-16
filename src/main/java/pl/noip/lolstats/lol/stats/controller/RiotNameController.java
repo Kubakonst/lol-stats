@@ -1,28 +1,33 @@
 package pl.noip.lolstats.lol.stats.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
-import javax.lang.model.element.Name;
+import org.springframework.web.bind.annotation.RestController;
+import pl.noip.lolstats.lol.stats.dto.RiotNameResponse;
+import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
+import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/summoner/riotName")
 public class RiotNameController {
 
-    RestTemplate restTemplate;
+    private RiotRestClient riotRestClient;
 
-    @RequestMapping(value = "/checkName", method = RequestMethod.POST)
-    public String checkName(@ModelAttribute("SpiderWeb") Name name,
-                            Model model){
+            public RiotNameController(RiotRestClient riotRestClient){
+                this.riotRestClient = riotRestClient;
+            }
 
-        String url = "someurl";
+    @PostMapping
+    public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest){
 
-//        String result = restTemplate.exchange(url.toString(), String.class);
-//                       model.addAttribute("result", result);
+                List userRegions = riotRestClient.CheckUserNameInRiotDataBase(summonerNameRequest.getSumName());
 
-        return "result";
-
+        return new ResponseEntity<>(new RiotNameResponse(userRegions), HttpStatus.OK);
     }
 
 }

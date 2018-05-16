@@ -42,7 +42,7 @@ public class RiotRestClient {
 
     private HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-    public String[] splitedRegions;
+    private String[] splitedRegions;
 
     @PostConstruct
     private void splitRegions() {
@@ -51,14 +51,7 @@ public class RiotRestClient {
 
     }
 
-
     public List<String> CheckUserNameInRiotDataBase(String name) {
-
-        int[] myArray = {1, 3, 5, 7, 11};
-
-        for (int arrayElem : myArray) {
-            System.out.print(arrayElem + " ");
-        }
 
         List<String> regions = new ArrayList<>();
 
