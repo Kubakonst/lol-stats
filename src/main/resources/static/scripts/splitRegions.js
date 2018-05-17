@@ -4,32 +4,37 @@ var sumNameElement = document.getElementById("summonerNameInput");
 
     if (sumNameElement.value.length > 0){
                             riotNameRestCall(sumNameElement.value,
-                                            regionSave(json.region),
+                            (json) => {
+                                            regionSave(json.region)
+                                            makeList()},
                                          (e) => document.getElementById("error").innerHTML = e.error);
-                            }
 }
 
-function makeUl(){
+function makeList(){
 
 var regions = regionLoad();
 
-    for(var i = 0; i < regions[i].length; i++)
-    {
-       var btn = document.createElement("BUTTON");
-             var reg = document.createTextNode(regions[i]);
-             btn.appendChild(t);
-       			document.body.appendChild(btn);
-       			btn.onclick = sendReg;
-    }
+    var listContainer = document.createElement("ul");
 
+        document.getElementById('regions').appendChild(listContainer);
+        var listElement = document.createElement("li");
+        listContainer.appendChild(listElement);
+        var numberOfListItems = regions.length;
+        for (var i = 0; i < numberOfListItems; ++i) {
+            var listItem = document.createElement("BUTTON");
+            listItem.innerHTML = regions[i];
+            listElement.appendChild(listItem);
+//            listItem.onclick = sendReg();
+        }
+;
 }
-
-function sendReg(){
-
-var sumNameElement = document.getElementById("summonerNameInput");
-
-       nameRestCall(sumNameElement.value,
-                            reg,
-                            () => window.location.href = "/registration-step-1.html",
-                            (e) => document.getElementById("error").innerHTML = e.error);
 }
+//function sendReg(){
+//
+//var sumNameElement = document.getElementById("summonerNameInput");
+//
+//       nameRestCall(sumNameElement.value,
+//                            listItem,
+//                            () => window.location.href = "/main-page.html",
+//                            (e) => document.getElementById("error").innerHTML = e.error);
+//}

@@ -17,12 +17,15 @@
         <input id="summonerNameInput" type="text" name="summonername">
     </form>
     <p>Choose your region:</p>
-    <button onClick="makeUL()">Search</button>
+    <div id="regions" class="regions"></div>
+    <button onClick="onRegions()">Search</button>
     <button onClick="onName()">SubmitName</button>
     <button onClick="Reset()">Reset</button>
 </div>
 </body>
 
+<script src="scripts/regionStore.js"></script>
+<script src="scripts/splitRegions.js"></script>
 <script src="scripts/checkToken.js"></script>
 <script src="scripts/tokenStore.js"></script>
 <script src="scripts/registrationStep1.js"></script>
