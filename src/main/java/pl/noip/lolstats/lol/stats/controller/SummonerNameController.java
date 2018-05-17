@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.LoginResponse;
-import pl.noip.lolstats.lol.stats.dto.RiotNameRequest;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.jwt.JwtGenerator;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
@@ -16,7 +15,7 @@ import pl.noip.lolstats.lol.stats.repository.AccountRepository;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/summoner/Name")
+@RequestMapping("/api/summoner/name")
 public class SummonerNameController {
 
     private JwtGenerator jwtGenerator;
@@ -35,7 +34,7 @@ public class SummonerNameController {
     }
 
     @PostMapping
-    public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest, RiotNameRequest riotNameRequest,
+    public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest,
                                   @RequestHeader(value = "Authorization") String bearer) {
 
         if (bearer == null) {
@@ -50,7 +49,7 @@ public class SummonerNameController {
 
         account.setSumName(summonerNameRequest.getSumName());
 
-        String token = jwtGenerator.generate((mail), summonerNameRequest.getSumName(), riotNameRequest.getRegion());
+        String token = jwtGenerator.generate(mail, summonerNameRequest.getSumName(), summonerNameRequest.getRegion());
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
     }

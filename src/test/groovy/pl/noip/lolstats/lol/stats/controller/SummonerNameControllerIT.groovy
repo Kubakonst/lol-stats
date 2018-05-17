@@ -47,6 +47,7 @@ class SummonerNameControllerIT extends Specification {
         timeService.millisSinceEpoch >>> System.currentTimeMillis()
         def mail = "example@mail.com"
         def sumName = "ExampleName"
+        def region = "eun1"
         def bearerToken = "bearer " + jwtGenerator.generate(mail)
         repository.save(new Account(mail,"dsdas", sumName))
         def token = given()
@@ -54,7 +55,7 @@ class SummonerNameControllerIT extends Specification {
                 .when()
                 .contentType(ContentType.JSON)
                 .header(AUTHORIZATION, bearerToken)
-                .body([sumName: sumName])
+                .body([sumName: sumName, region: region])
                 .post(PATH)
                 .then()
                 .statusCode(200)
@@ -64,6 +65,7 @@ class SummonerNameControllerIT extends Specification {
         expect:
         jwtParser.getMail(token) == mail
         jwtParser.getName(token) == sumName
+        jwtParser.getRegion(token) == region
     }
 
 }

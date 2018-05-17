@@ -1,15 +1,12 @@
 package pl.noip.lolstats.lol.stats.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.NoHandlerFoundException;
-import pl.noip.lolstats.lol.stats.dto.ErrorResponse;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 
 import javax.annotation.PostConstruct;
@@ -19,16 +16,16 @@ import java.util.List;
 @Component
 public class RiotRestClient {
 
-    @ControllerAdvice
-    public class ExceptionHandlerController {
-
-        @ExceptionHandler(NoHandlerFoundException.class)
-        @ResponseStatus(value = HttpStatus.NOT_FOUND)
-        @ResponseBody
-        public ErrorResponse requestHandlingNoHandlerFound() {
-            return new ErrorResponse("custom_404");
-        }
-    }
+//    @ControllerAdvice
+//    public class ExceptionHandlerController {
+//
+//        @ExceptionHandler(NoHandlerFoundException.class)
+//        @ResponseStatus(value = HttpStatus.NOT_FOUND)
+//        @ResponseBody
+//        public ErrorResponse requestHandlingNoHandlerFound() {
+//            return new ErrorResponse("custom_404");
+//        }
+//    }
 
     @Value("${variable.secret-var}")
     private String key;

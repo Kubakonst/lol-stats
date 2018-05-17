@@ -53,4 +53,8 @@ public class JwtParserImpl implements JwtParser {
         return getData(token, "email");
     }
 
+    public String getRegion(String token) {
+
+        return getData(token, "region");
+    }
 }

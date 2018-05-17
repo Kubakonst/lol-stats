@@ -7,11 +7,19 @@ public class SummonerNameRequest {
     @NotBlank(message = "put some Summoner Name")
     private String sumName;
 
+    private String region;
+
     public String getSumName() {
         return sumName;
     }
 
     public void setSumName(String sumName) {
         this.sumName = sumName;
+    }
+
+    public String getRegion() {return region;}
+
+    public void setRegion(String region){
+        this.region = region;
     }
 }

@@ -1,9 +1,9 @@
-function sendReg(){
-
+function sendReg(region){
+console.log(region);
  var sumNameElement = document.getElementById("summonerNameInput");
- var regionElement = document.getElementById('regions');
+// var regionElement = document.getElementById('regions');
 
-                            nameRestCall(sumNameElement.value, regionElement.value,
+                            nameRestCall(sumNameElement.value, region,
 
                             (json) => {
                                                 tokenSave(json.bearer)
