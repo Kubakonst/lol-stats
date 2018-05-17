@@ -15,7 +15,7 @@ class RitoNameExchangeTest extends Specification {
     def "RestTemplate test"() {
 
         given:
-        def url = "https://eun1.api.riotgames.com/lol/summoner/v3/summoners/by-name/Piekaa?api_key=RGAPI-5b47439c-031b-4730-897a-3762072e2748"
+        def url = "https://eun1.api.riotgames.com/lol/summoner/v3/summoners/by-name/Piekaa?"
         def restTemplate = new RestTemplate()
         and:
         def httpHeaders = new HttpHeaders()

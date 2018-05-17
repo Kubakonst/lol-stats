@@ -5,7 +5,7 @@ var sumNameElement = document.getElementById("summonerNameInput");
     if (sumNameElement.value.length > 0){
                             riotNameRestCall(sumNameElement.value,
                             (json) => {
-                                            regionSave(json.region)
+                                            regionSave(json.regions)
                                             makeList()},
                                          (e) => document.getElementById("error").innerHTML = e.error);
 }
@@ -24,17 +24,8 @@ var regions = regionLoad();
             var listItem = document.createElement("BUTTON");
             listItem.innerHTML = regions[i];
             listElement.appendChild(listItem);
-//            listItem.onclick = sendReg();
+
         }
-;
+//listItem.onclick = sendReg();
 }
 }
-//function sendReg(){
-//
-//var sumNameElement = document.getElementById("summonerNameInput");
-//
-//       nameRestCall(sumNameElement.value,
-//                            listItem,
-//                            () => window.location.href = "/main-page.html",
-//                            (e) => document.getElementById("error").innerHTML = e.error);
-//}

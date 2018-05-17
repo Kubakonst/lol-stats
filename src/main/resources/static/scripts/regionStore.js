@@ -1,5 +1,5 @@
-function regionSave(region) {
-    window.localStorage.setItem("region", region);
+function regionSave(regions) {
+    window.localStorage.setItem("region", regions);
 }
 
 function regionLoad() {

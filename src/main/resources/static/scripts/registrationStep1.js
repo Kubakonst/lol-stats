@@ -1,13 +1,13 @@
-function onName(){
+function sendReg(){
 
-    var sumNameElement = document.getElementById("summonerNameInput");
+ var sumNameElement = document.getElementById("summonerNameInput");
+ var regionElement = document.getElementById('regions');
 
-    if (sumNameElement.value.length > 0){
-                            nameRestCall(sumNameElement.value,
+                            nameRestCall(sumNameElement.value, regionElement.value,
+
                             (json) => {
                                                 tokenSave(json.bearer)
                                                 window.location.href = "/main-page.html"
                                                 },
                                          (e) => document.getElementById("error").innerHTML = e.error);
-                            }
 }
