@@ -44,7 +44,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
 
         JwtBuilder builder = Jwts.builder()
                 .claim("name", sumName)
-                .claim("email",email)
+                .claim("email", email)
                 .claim("region", region)
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//

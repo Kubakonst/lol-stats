@@ -11,7 +11,7 @@ class JwtParserImplTest extends Specification {
 
     TimeService timeService = Mock()
 
-    def setup(){
+    def setup() {
         jwtParser = new JwtParserImpl(timeService)
         jwtParser.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
         jwtGenerator = new JwtGeneratorImpl(timeService)
@@ -34,12 +34,12 @@ class JwtParserImplTest extends Specification {
 
     }
 
-    def "Genereta correct token with user name"(){
+    def "Genereta correct token with user name"() {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         def mail = "example@mail.com"
-                expect:
-                jwtParser.getMail(jwtGenerator.generate(mail)) == "example@mail.com"
+        expect:
+        jwtParser.getMail(jwtGenerator.generate(mail)) == "example@mail.com"
 
-        }
+    }
 }

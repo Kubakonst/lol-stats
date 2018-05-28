@@ -6,7 +6,7 @@ public class SummonerNameRequest {
 
     @NotBlank(message = "put some Summoner Name")
     private String sumName;
-
+    @NotBlank(message = "choose any region")
     private String region;
 
     public String getSumName() {
@@ -17,9 +17,11 @@ public class SummonerNameRequest {
         this.sumName = sumName;
     }
 
-    public String getRegion() {return region;}
+    public String getRegion() {
+        return region;
+    }
 
-    public void setRegion(String region){
+    public void setRegion(String region) {
         this.region = region;
     }
 }

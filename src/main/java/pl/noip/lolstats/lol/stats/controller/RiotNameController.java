@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.dto.RiotNameResponse;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
-
 import java.util.List;
 
 @RestController
@@ -18,14 +17,14 @@ public class RiotNameController {
 
     private RiotRestClient riotRestClient;
 
-            public RiotNameController(RiotRestClient riotRestClient){
-                this.riotRestClient = riotRestClient;
-            }
+    public RiotNameController(RiotRestClient riotRestClient) {
+        this.riotRestClient = riotRestClient;
+    }
 
     @PostMapping
-    public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest){
+    public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest) {
 
-                List userRegions = riotRestClient.CheckUserNameInRiotDataBase(summonerNameRequest.getSumName());
+        List<String> userRegions = riotRestClient.findSummonersRegions(summonerNameRequest.getSumName());
 
         return new ResponseEntity<>(new RiotNameResponse(userRegions), HttpStatus.OK);
     }
