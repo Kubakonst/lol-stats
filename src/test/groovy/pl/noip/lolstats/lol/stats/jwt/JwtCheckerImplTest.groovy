@@ -3,6 +3,7 @@ package pl.noip.lolstats.lol.stats.jwt
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.SignatureException
+import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.time.TimeService
 import spock.lang.Specification
 
@@ -29,7 +30,7 @@ class JwtCheckerImplTest extends Specification {
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
         def mail = "example@mail.com"
-        def token = jwtGenerator.generate(mail)
+        def token = jwtGenerator.generate(new Account(mail, null, null, null))
         when: "token is checked"
         jwtChecker.checkToken(token)
         then: "nothing happens, which means that token is valid"
@@ -41,7 +42,7 @@ class JwtCheckerImplTest extends Specification {
         timeService.millisSinceEpoch >>> [1000, 1000 * 60 * 60 + 2000]
         and: "new token"
         def mail = "example@mail.com"
-        def token = jwtGenerator.generate(mail)
+        def token = jwtGenerator.generate(new Account(mail, null, null, null))
         when: "token is checked"
         jwtChecker.checkToken(token)
         then: "token is expired"
@@ -65,7 +66,7 @@ class JwtCheckerImplTest extends Specification {
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
         def mail = "example@mail.com"
-        def token = jwtGenerator.generate(mail)
+        def token = jwtGenerator.generate(new Account(mail, null, null, null))
         and: "incorrect secret is used for jwtCehcker"
         jwtChecker.secret = "rubbish"
         when: "token is checked"

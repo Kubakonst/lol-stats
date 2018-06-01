@@ -49,7 +49,9 @@ public class SummonerNameController {
 
         account.setSumName(summonerNameRequest.getSumName());
 
-        String token = jwtGenerator.generate((mail), summonerNameRequest.getSumName());
+        account.setRegion(summonerNameRequest.getRegion());
+
+        String token = jwtGenerator.generate(account);
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
     }

@@ -29,9 +29,9 @@ function loginRestCall(email, password, successCallback, errorCallback){
         )
 }
 
-function nameRestCall(sumName, successCallback, errorCallback){
+function nameRestCall(sumName, region, successCallback, errorCallback){
     var url = baseUrl + "/api/summoner/name"
-    var body = {sumName: sumName}
+    var body = {sumName: sumName, region: region}
     var header = new Headers({
     'Content-Type': 'application/json',
     'Authorization': tokenLoad()
@@ -41,6 +41,19 @@ function nameRestCall(sumName, successCallback, errorCallback){
         url,
         body,
         header,
+        successCallback,
+        errorCallback
+        )
+}
+
+function riotNameRestCall(sumName, successCallback, errorCallback){
+    var url = baseUrl + "/api/summoner/riotName"
+    var body = {sumName: sumName}
+
+    post(
+        url,
+        body,
+        jsonHeader,
         successCallback,
         errorCallback
         )

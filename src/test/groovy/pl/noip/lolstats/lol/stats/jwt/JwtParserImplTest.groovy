@@ -1,5 +1,8 @@
 package pl.noip.lolstats.lol.stats.jwt
 
+import org.springframework.beans.factory.annotation.Autowired
+import pl.noip.lolstats.lol.stats.model.Account
+import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import pl.noip.lolstats.lol.stats.time.TimeService
 import spock.lang.Specification
 
@@ -11,11 +14,16 @@ class JwtParserImplTest extends Specification {
 
     TimeService timeService = Mock()
 
-    def setup(){
+    @Autowired
+    private AccountRepository repository
+
+    def setup() {
         jwtParser = new JwtParserImpl(timeService)
         jwtParser.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
         jwtGenerator = new JwtGeneratorImpl(timeService)
         jwtGenerator.setSecret("dh1asg2fhksdf4jkla9edhgfk8jadsh7flas3dsdf4gbhjkfews5rrtweherhedrtf6gwetygedrgwergsed2rgwergwrfgwefwe")
+
+
     }
 
     def "Get user mail from token"() {
@@ -34,12 +42,16 @@ class JwtParserImplTest extends Specification {
 
     }
 
-    def "Genereta correct token with user name"(){
+    def "Genereta correct token with user name"() {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         def mail = "example@mail.com"
-                expect:
-                jwtParser.getMail(jwtGenerator.generate(mail)) == "example@mail.com"
+        def password = "secret"
+        def sumName = "ExampleName"
+        def region = "euw1"
 
-        }
+        expect:
+        jwtParser.getMail(jwtGenerator.generate(new Account(mail, password, sumName, region))) == "example@mail.com"
+
+    }
 }

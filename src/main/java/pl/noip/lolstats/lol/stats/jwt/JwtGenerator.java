@@ -1,7 +1,8 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
-public interface JwtGenerator {
-    String generate(String email);
+import pl.noip.lolstats.lol.stats.model.Account;
 
-    String generate(String email, String sumName);
+public interface JwtGenerator {
+
+    String generate(Account account);
 }

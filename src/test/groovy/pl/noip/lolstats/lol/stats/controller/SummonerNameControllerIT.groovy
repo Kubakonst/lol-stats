@@ -43,27 +43,29 @@ class SummonerNameControllerIT extends Specification {
     }
 
     def "Create token with correct data"() {
-        given:"jwt is generated as second 1 and checked at second 2"
+        given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> System.currentTimeMillis()
         def mail = "example@mail.com"
         def sumName = "ExampleName"
-        def bearerToken = "bearer " + jwtGenerator.generate(mail)
-        repository.save(new Account(mail,"dsdas", sumName))
+        def region = "eun1"
+        repository.save(new Account(mail, "dsdas", sumName, region))
+        def bearerToken = "bearer " + jwtGenerator.generate(new Account(mail, "dsdas", sumName, region))
         def token = given()
                 .port(webPort)
                 .when()
                 .contentType(ContentType.JSON)
                 .header(AUTHORIZATION, bearerToken)
-                .body([sumName: sumName])
+                .body([sumName: sumName, region: region])
                 .post(PATH)
                 .then()
                 .statusCode(200)
                 .body("accessToken", Matchers.containsString("."))
-                .body("bearer", Matchers.containsString("bearer ")).extract().body().<String>path("accessToken")
+                .body("bearer", Matchers.containsString("bearer ")).extract().body().<String> path("accessToken")
 
         expect:
         jwtParser.getMail(token) == mail
         jwtParser.getName(token) == sumName
+        jwtParser.getRegion(token) == region
     }
 
 }
