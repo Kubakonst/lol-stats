@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.noip.lolstats.lol.stats.model.Account;
 import pl.noip.lolstats.lol.stats.time.TimeService;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -27,13 +28,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
     }
 
     @Override
-    public String generate(String email) {
-
-        return generate(email, null, null);
-    }
-
-    @Override
-    public String generate(String email, String sumName, String region) {
+    public String generate(Account account) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = timeService.getMillisSinceEpoch();
@@ -43,9 +38,9 @@ public class JwtGeneratorImpl implements JwtGenerator {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         JwtBuilder builder = Jwts.builder()
-                .claim("name", sumName)
-                .claim("email", email)
-                .claim("region", region)
+                .claim("name", account.getSumName())
+                .claim("email", account.getEmail())
+                .claim("region", account.getRegion())
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//
                 .setExpiration(new Date(now.getTime() + 60 * 60 * 1000));

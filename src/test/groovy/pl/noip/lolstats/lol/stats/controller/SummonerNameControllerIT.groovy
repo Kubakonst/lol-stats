@@ -48,8 +48,8 @@ class SummonerNameControllerIT extends Specification {
         def mail = "example@mail.com"
         def sumName = "ExampleName"
         def region = "eun1"
-        def bearerToken = "bearer " + jwtGenerator.generate(mail)
         repository.save(new Account(mail, "dsdas", sumName, region))
+        def bearerToken = "bearer " + jwtGenerator.generate(new Account(mail, "dsdas", sumName, region))
         def token = given()
                 .port(webPort)
                 .when()
