@@ -1,5 +1,10 @@
 package pl.noip.lolstats.lol.stats.dto;
 
+
+import lombok.Getter;
+
+
+@Getter
 public class ErrorResponse {
     private String error;
 
@@ -10,7 +15,5 @@ public class ErrorResponse {
     public ErrorResponse() {
     }
 
-    public String getError() {
-        return error;
-    }
+
 }

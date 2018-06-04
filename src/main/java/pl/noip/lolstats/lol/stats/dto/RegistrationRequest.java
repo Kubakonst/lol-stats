@@ -1,8 +1,14 @@
 package pl.noip.lolstats.lol.stats.dto;
 
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+
+@Getter
+@Setter
 public class RegistrationRequest {
 
     @Email(message = "invalid email")
@@ -10,22 +16,5 @@ public class RegistrationRequest {
 
     @Length(min = 4, message = "too short password")
     private String password;
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 }

@@ -1,5 +1,12 @@
 package pl.noip.lolstats.lol.stats.dto;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 public class LoginResponse {
 
     private String accessToken;
@@ -13,19 +20,5 @@ public class LoginResponse {
     public LoginResponse() {
     }
 
-    public String getAccessToken() {
-        return accessToken;
-    }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getBearer() {
-        return bearer;
-    }
-
-    public void setBearer(String bearer) {
-        this.bearer = bearer;
-    }
 }

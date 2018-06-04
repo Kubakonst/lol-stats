@@ -1,5 +1,9 @@
 package pl.noip.lolstats.lol.stats.dto;
 
+
+import lombok.Getter;
+
+@Getter
 public class RegistrationResponse {
 
     private String status;
@@ -11,7 +15,5 @@ public class RegistrationResponse {
     public RegistrationResponse() {
     }
 
-    public String getStatus() {
-        return status;
-    }
+
 }
