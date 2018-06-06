@@ -1,21 +1,17 @@
 package pl.noip.lolstats.lol.stats.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class RiotNameResponse {
 
     private List<String> regions;
-
-    public RiotNameResponse(List<String> regions) {
-        this.regions = regions;
-    }
-
-    public RiotNameResponse() {
-    }
-
 
 }
