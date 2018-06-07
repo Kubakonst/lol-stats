@@ -1,16 +1,19 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.noip.lolstats.lol.stats.time.TimeService;
-
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Date;
 
+
 @Component
+@Log
 public class JwtCheckerImpl implements JwtChecker {
 
     @Value("${jwt.secret}")
@@ -34,7 +37,6 @@ public class JwtCheckerImpl implements JwtChecker {
         Jwts.parser()
                 .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
                 .setSigningKey(signingKey).parse(token);
-
-
+        log.info("token checked");
     }
 }
