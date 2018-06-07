@@ -1,27 +1,22 @@
 package pl.noip.lolstats.lol.stats.model;
 
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
-@Setter
+@Builder
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@RequiredArgsConstructor
+
 public class Account {
+
     @Id
-
-
-
-    @NonNull
     private String email;
-    @NonNull
     private String passwordHash;
+    @Setter
     private String sumName;
+    @Setter
     private String region;
 
-
-
 }
-

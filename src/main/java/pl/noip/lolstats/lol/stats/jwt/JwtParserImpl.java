@@ -46,20 +46,24 @@ public class JwtParserImpl implements JwtParser {
 
     public String getName(String token) {
 
+
+        String infoN = getData(token, "name");
         log.info("there is a user name in token");
-        return getData(token, "name");
+        return infoN;
 
     }
 
     public String getMail(String token) {
 
+        String infoM = getData(token, "email");
         log.info("there is a user email in token");
-        return getData(token, "email");
+        return infoM;
     }
 
     public String getRegion(String token) {
 
+        String ingoR = getData(token, "region");
         log.info("there is a user region in token");
-        return getData(token, "region");
+        return ingoR;
     }
 }

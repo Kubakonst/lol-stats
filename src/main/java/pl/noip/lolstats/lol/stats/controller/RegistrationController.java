@@ -1,5 +1,6 @@
 package pl.noip.lolstats.lol.stats.controller;
 
+import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth/register")
+@Log
 public class RegistrationController {
 
     private AccountRepository accountRepository;
@@ -28,7 +30,12 @@ public class RegistrationController {
     @PostMapping
     public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest registrationReguest) {
         if (!accountRepository.exists(registrationReguest.getEmail())) {
-            accountRepository.save(new Account(registrationReguest.getEmail(), Sha.hash(registrationReguest.getPassword())));
+            accountRepository.save(Account.builder()
+                    .email(registrationReguest.getEmail())
+                    .passwordHash(Sha.hash(registrationReguest.getPassword()))
+                    .build()
+            );
+            log.info("user created in database");
             return new ResponseEntity<>(new RegistrationResponse("ok"), HttpStatus.CREATED);
         }
         return new ResponseEntity<>(new ErrorResponse("email already exists"), HttpStatus.BAD_REQUEST);
