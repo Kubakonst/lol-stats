@@ -1,9 +1,11 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 
 @Component
+@Log
 public class TokenSplitImpl implements TokenSplit {
 
     @Override
@@ -18,6 +20,7 @@ public class TokenSplitImpl implements TokenSplit {
             throw new BearerNotPresentException();
         }
 
+        log.info("token splited from bearer");
         return bearerToken.split(" ")[1];
     }
 }

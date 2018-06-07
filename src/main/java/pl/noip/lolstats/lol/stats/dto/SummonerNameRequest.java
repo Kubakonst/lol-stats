@@ -1,7 +1,13 @@
 package pl.noip.lolstats.lol.stats.dto;
 
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
+
+@Getter
+@Setter
 public class SummonerNameRequest {
 
     @NotBlank(message = "put some Summoner Name")
@@ -9,19 +15,5 @@ public class SummonerNameRequest {
     @NotBlank(message = "choose any region")
     private String region;
 
-    public String getSumName() {
-        return sumName;
-    }
 
-    public void setSumName(String sumName) {
-        this.sumName = sumName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
 }

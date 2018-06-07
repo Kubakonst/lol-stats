@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.noip.lolstats.lol.stats.time.TimeService;
@@ -14,6 +15,7 @@ import java.util.Date;
 
 
 @Component
+@Log
 public class JwtParserImpl implements JwtParser {
 
     @Value("${jwt.secret}")
@@ -44,17 +46,20 @@ public class JwtParserImpl implements JwtParser {
 
     public String getName(String token) {
 
+        log.info("there is a user name in token");
         return getData(token, "name");
 
     }
 
     public String getMail(String token) {
 
+        log.info("there is a user email in token");
         return getData(token, "email");
     }
 
     public String getRegion(String token) {
 
+        log.info("there is a user region in token");
         return getData(token, "region");
     }
 }
