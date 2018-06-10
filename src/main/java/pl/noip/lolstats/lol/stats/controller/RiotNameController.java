@@ -28,7 +28,7 @@ public class RiotNameController {
     public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest) {
 
         List<String> userRegions = riotRestClient.findSummonersRegions(summonerNameRequest.getSumName());
-        log.info("there are some regions for that summoner name ");
+        log.info("there are " + userRegions.size() + " regions for that summoner name");
         return new ResponseEntity<>(new RiotNameResponse(userRegions), HttpStatus.OK);
     }
 

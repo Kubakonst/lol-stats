@@ -1,6 +1,6 @@
 package pl.noip.lolstats.lol.stats.service;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Slf4j
+@Log
 public class RiotRestClient {
     @Value("${riot.api.key}")
     private String key;
@@ -51,7 +51,7 @@ public class RiotRestClient {
                 log.info(reg);
             } catch (HttpClientErrorException ex) {
                 if (ex.getRawStatusCode() != 404) {
-                    log.error("page not found");
+                    log.info("page not found");
                     throw ex;
                 }
             }

@@ -3,6 +3,7 @@ package pl.noip.lolstats.lol.stats.service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
+import spock.lang.Ignore
 import spock.lang.Specification
 
 @SpringBootTest
@@ -12,7 +13,7 @@ class RiotRestClientTest extends Specification {
     @Autowired
     RiotRestClient riotRestClient
 
-//    @Ignore
+    @Ignore
     def "CheckUserNameInRiotDataBase"() {
         given:
         def name = "Piekaa"

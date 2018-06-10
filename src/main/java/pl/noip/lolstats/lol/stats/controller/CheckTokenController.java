@@ -1,6 +1,6 @@
 package pl.noip.lolstats.lol.stats.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 
 @RestController
 @RequestMapping("/api/auth/checkToken")
-@Slf4j
+@Log
 public class CheckTokenController {
 
     private JwtChecker jwtChecker;
@@ -28,7 +28,7 @@ public class CheckTokenController {
     public void checkToken(@RequestHeader(required = false, value = "Authorization") String bearer) {
 
         if (bearer == null) {
-            log.error("there is no bearer");
+            log.info("there is no bearer");
             throw new BearerNotPresentException();
         }
 
