@@ -4,6 +4,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.noip.lolstats.lol.stats.model.Account;
@@ -14,7 +15,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-@Log
+@Slf4j
 public class JwtGeneratorImpl implements JwtGenerator {
 
     @Value("${jwt.secret}")

@@ -1,6 +1,7 @@
 package pl.noip.lolstats.lol.stats.controller;
 
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth/register")
-@Log
+@Slf4j
 public class RegistrationController {
 
     private AccountRepository accountRepository;

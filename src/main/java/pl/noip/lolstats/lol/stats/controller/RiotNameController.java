@@ -1,6 +1,7 @@
 package pl.noip.lolstats.lol.stats.controller;
 
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/summoner/riotName")
-@Log
+@Slf4j
 public class RiotNameController {
 
     private RiotRestClient riotRestClient;
