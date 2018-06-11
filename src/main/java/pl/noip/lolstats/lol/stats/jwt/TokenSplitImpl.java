@@ -1,6 +1,5 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
