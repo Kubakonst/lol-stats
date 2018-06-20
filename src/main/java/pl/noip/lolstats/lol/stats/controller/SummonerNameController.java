@@ -1,5 +1,6 @@
 package pl.noip.lolstats.lol.stats.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/summoner/name")
+@Slf4j
 public class SummonerNameController {
 
     private JwtGenerator jwtGenerator;
@@ -48,9 +50,9 @@ public class SummonerNameController {
         Account account = accountRepository.findOne(mail);
 
         account.setSumName(summonerNameRequest.getSumName());
-
+        log.info("user summoner name added to database");
         account.setRegion(summonerNameRequest.getRegion());
-
+        log.info("user region added to database");
         String token = jwtGenerator.generate(account);
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);

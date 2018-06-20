@@ -33,7 +33,11 @@ class LoginControllerIT extends Specification {
         given:
         def mail = "example@mail.com"
         def password = "secret"
-        repository.save(new Account(mail, Sha.hash(password)))
+        repository.save(Account.builder()
+                .email(mail)
+                .passwordHash(Sha.hash(password))
+                .build())
+
         given()
                 .port(webPort)
                 .when()

@@ -5,6 +5,7 @@ import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.SignatureException
 import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.time.TimeService
+import pl.noip.lolstats.lol.stats.utils.Sha
 import spock.lang.Specification
 
 class JwtCheckerImplTest extends Specification {
@@ -15,6 +16,13 @@ class JwtCheckerImplTest extends Specification {
     JwtGeneratorImpl jwtGenerator
 
     TimeService timeService = Mock()
+
+    def account = Account.builder()
+            .email("example@mail.com")
+            .passwordHash(Sha.hash("examplePassword"))
+            .sumName("exampleName")
+            .region("exampleRegion")
+            .build()
 
     def setup() {
         def secret = "aaa"
@@ -29,8 +37,7 @@ class JwtCheckerImplTest extends Specification {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
-        def mail = "example@mail.com"
-        def token = jwtGenerator.generate(new Account(mail, null, null, null))
+        def token = jwtGenerator.generate(account)
         when: "token is checked"
         jwtChecker.checkToken(token)
         then: "nothing happens, which means that token is valid"
@@ -41,8 +48,7 @@ class JwtCheckerImplTest extends Specification {
         given: "jwt is generated as second 1 and checked one hour later"
         timeService.millisSinceEpoch >>> [1000, 1000 * 60 * 60 + 2000]
         and: "new token"
-        def mail = "example@mail.com"
-        def token = jwtGenerator.generate(new Account(mail, null, null, null))
+        def token = jwtGenerator.generate(account)
         when: "token is checked"
         jwtChecker.checkToken(token)
         then: "token is expired"
@@ -65,8 +71,7 @@ class JwtCheckerImplTest extends Specification {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
         and: "new token"
-        def mail = "example@mail.com"
-        def token = jwtGenerator.generate(new Account(mail, null, null, null))
+        def token = jwtGenerator.generate(account)
         and: "incorrect secret is used for jwtCehcker"
         jwtChecker.secret = "rubbish"
         when: "token is checked"

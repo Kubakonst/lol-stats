@@ -1,5 +1,6 @@
 package pl.noip.lolstats.lol.stats.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import pl.noip.lolstats.lol.stats.utils.Sha;
 
 @RestController
 @RequestMapping("/api/auth/login")
+@Slf4j
 public class LoginController {
 
     private JwtGenerator jwtGenerator;
@@ -37,6 +39,7 @@ public class LoginController {
         }
         String passHash = Sha.hash(registrationRequest.getPassword());
         if (passHash.equals(account.getPasswordHash())) {
+            log.info("correct password");
             String token = jwtGenerator.generate(account);
             return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
         }
