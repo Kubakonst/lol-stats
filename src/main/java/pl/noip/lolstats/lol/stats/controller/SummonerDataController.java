@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.LoginResponse;
+import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.jwt.JwtGenerator;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
@@ -35,7 +36,7 @@ public class SummonerDataController {
     }
 
     @PostMapping
-    public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest,
+    public ResponseEntity<?> name(@RequestBody @Valid SummonerDataResponse summonerDataResponse,
                                   @RequestHeader(value = "Authorization") String bearer) {
 
         if (bearer == null) {
@@ -48,6 +49,10 @@ public class SummonerDataController {
 
         Account account = accountRepository.findOne(mail);
 
+        account.setId(summonerDataResponse.getId());
+        log.info("user summoner id added to database");
+        account.setAccountId(summonerDataResponse.getAccountId());
+        log.info("user account id added to database");
         String token = jwtGenerator.generate(account);
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);

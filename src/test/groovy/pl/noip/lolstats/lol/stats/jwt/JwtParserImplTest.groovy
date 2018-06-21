@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import pl.noip.lolstats.lol.stats.time.TimeService
+import pl.noip.lolstats.lol.stats.utils.Sha
 import spock.lang.Specification
 
 class JwtParserImplTest extends Specification {
@@ -13,6 +14,15 @@ class JwtParserImplTest extends Specification {
     JwtGeneratorImpl jwtGenerator
 
     TimeService timeService = Mock()
+
+    def account = Account.builder()
+            .email("example@mail.com")
+            .passwordHash(Sha.hash("examplePassword"))
+            .sumName("exampleName")
+            .region("exampleRegion")
+            .id("1354653")
+            .accountId("123151")
+            .build()
 
     @Autowired
     private AccountRepository repository
@@ -45,13 +55,8 @@ class JwtParserImplTest extends Specification {
     def "Genereta correct token with user name"() {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> [1000, 2000]
-        def mail = "example@mail.com"
-        def password = "secret"
-        def sumName = "ExampleName"
-        def region = "euw1"
-
         expect:
-        jwtParser.getMail(jwtGenerator.generate(new Account(mail, password, sumName, region))) == "example@mail.com"
+        jwtParser.getMail(jwtGenerator.generate(account)) == "example@mail.com"
 
     }
 }

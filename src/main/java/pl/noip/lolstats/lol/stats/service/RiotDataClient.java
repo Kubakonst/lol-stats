@@ -25,7 +25,7 @@ public class RiotDataClient {
 
                 ResponseEntity<SummonerDataResponse> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, SummonerDataResponse.class);
                 SummonerDataResponse summonerDataResponse = response.getBody();
-                log.info(summonerDataResponse.toString());
+                log.info("summoner basic data get downloaded");
                 return summonerDataResponse;
     }
 }

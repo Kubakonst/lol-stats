@@ -18,5 +18,8 @@ public class Account {
     private String sumName;
     @Setter
     private String region;
-
+    @Setter
+    private String accountId;
+    @Setter
+    private String id;
 }

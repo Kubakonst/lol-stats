@@ -11,6 +11,7 @@ import pl.noip.lolstats.lol.stats.jwt.JwtParserImpl
 import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import pl.noip.lolstats.lol.stats.time.TimeService
+import pl.noip.lolstats.lol.stats.utils.Sha
 import spock.lang.Specification
 
 import static io.restassured.RestAssured.given
@@ -24,6 +25,15 @@ class SummonerNameControllerIT extends Specification {
     JwtParserImpl jwtParser
 
     TimeService timeService = Mock()
+
+    def account = Account.builder()
+            .email("example@mail.com")
+            .passwordHash(Sha.hash("examplePassword"))
+            .sumName("exampleName")
+            .region("exampleRegion")
+            .id("1354653")
+            .accountId("123151")
+            .build()
 
     @LocalServerPort
     private int webPort
@@ -46,10 +56,10 @@ class SummonerNameControllerIT extends Specification {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> System.currentTimeMillis()
         def mail = "example@mail.com"
-        def sumName = "ExampleName"
-        def region = "eun1"
-        repository.save(new Account(mail, "dsdas", sumName, region))
-        def bearerToken = "bearer " + jwtGenerator.generate(new Account(mail, "dsdas", sumName, region))
+        def sumName = "exampleName"
+        def region = "exampleRegion"
+        repository.save(account)
+        def bearerToken = "bearer " + jwtGenerator.generate(account)
         def token = given()
                 .port(webPort)
                 .when()
