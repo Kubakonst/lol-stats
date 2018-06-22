@@ -59,14 +59,18 @@ function riotNameRestCall(sumName, successCallback, errorCallback){
         )
 }
 
-function riotDataRestCall(sumName, region, successCallback, errorCallback){
+function riotDataRestCall(successCallback, errorCallback){
     var url = baseUrl + "/api/summoner/riotData"
-    var body = {sumName: sumName, region: region}
+    var body =" "
+    var header = new Headers({
+        'Content-Type': 'application/json',
+        "Authorization": tokenLoad()
+        })
 
     post(
         url,
         body,
-        jsonHeader,
+        header,
         successCallback,
         errorCallback
         )

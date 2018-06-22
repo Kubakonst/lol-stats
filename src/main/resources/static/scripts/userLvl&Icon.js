@@ -1,30 +1,26 @@
-function onRegions(){
+function onData(){
 
     {
-                            riotNameRestCall(sumNameElement.value,
+                            riotDataRestCall(
                             (json) => {
-                                             makeList(json.regions)},
+                                             setLevel(json.summonerLevel)
+                                             setIcon(json.profileIconId)},
                                          (e) => document.getElementById("error").innerHTML = e.error);
 }
 
-function makeList(regions){
+function setLevel(summonerLevel){
 
-var regions;
+var summonerLevel;
+var sumLevel = document.getElementById("summonerLevel");
+sumLevel.innerText = summonerLevel;
+console.log(sumLevel);
+}
 
-    var listContainer = document.createElement("ul");
+function setIcon(profileIconId){
 
-        document.getElementById('regions').appendChild(listContainer);
-        var listElement = document.createElement("li");
-        listContainer.appendChild(listElement);
-        var numberOfListItems = regions.length;
-        for (var i = 0; i < numberOfListItems; ++i) {
-            var listItem = document.createElement("BUTTON");
-            listItem.innerHTML = regions[i];
-            console.log(listItem.innerHTML);
-            listElement.appendChild(listItem);
-listItem.onclick = () => { sendReg(listItem.innerHTML) }
-
-        }
-//listItem.onclick = sendReg(regions[i]);
+var profileIconId;
+var profIconId = document.getElementById("profileIconId");
+profIconId.innerText = profileIconId;
+console.log(profIconId);
 }
 }

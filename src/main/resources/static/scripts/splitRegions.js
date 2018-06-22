@@ -1,6 +1,8 @@
 function onRegions(){
 
 var sumNameElement = document.getElementById("summonerNameInput");
+var name = document.getElementById("summonerName");
+name.innerHTML = sumNameElement.value;
 
     if (sumNameElement.value.length > 0){
                             riotNameRestCall(sumNameElement.value,
@@ -13,6 +15,7 @@ function makeList(regions){
 
 var regions;
 
+
     var listContainer = document.createElement("ul");
 
         document.getElementById('regions').appendChild(listContainer);
@@ -24,9 +27,11 @@ var regions;
             listItem.innerHTML = regions[i];
             console.log(listItem.innerHTML);
             listElement.appendChild(listItem);
-listItem.onclick = () => { sendReg(listItem.innerHTML) }
+listItem.onclick = () => { sendReg(listItem.innerHTML)}
+var region = listItem.innerHTML;
 
         }
 //listItem.onclick = sendReg(regions[i]);
 }
+
 }

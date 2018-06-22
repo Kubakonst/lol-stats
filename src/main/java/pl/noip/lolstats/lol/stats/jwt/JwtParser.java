@@ -5,4 +5,6 @@ public interface JwtParser {
     String getMail(String token);
 
     String getName(String token);
+
+    String getRegion(String token);
 }
