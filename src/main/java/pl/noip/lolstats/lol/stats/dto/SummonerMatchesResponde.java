@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 public class SummonerMatchesResponde {
 
-    private List<String> matches;
+    private List<SingleMatchClass> matches;
 }

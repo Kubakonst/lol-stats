@@ -76,6 +76,23 @@ function riotDataRestCall(successCallback, errorCallback){
         )
 }
 
+function riotMatchesRestCall(successCallback, errorCallback){
+    var url = baseUrl + "/api/summoner/matches"
+    var body =" "
+    var header = new Headers({
+        'Content-Type': 'application/json',
+        "Authorization": tokenLoad()
+        })
+
+    post(
+        url,
+        body,
+        header,
+        successCallback,
+        errorCallback
+        )
+}
+
 function post(url, body, headers, successCallback, errorCallback, expectedStatus=200){
     fetch(url,{
         method: "POST",

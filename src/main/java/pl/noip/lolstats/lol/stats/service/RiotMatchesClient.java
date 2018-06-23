@@ -22,8 +22,8 @@ public class RiotMatchesClient {
 
     public SummonerMatchesResponde getMatchesData(String region, String id) {
 
-        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?api_key=" + key;
-
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=3&api_key=" + key;
+        log.info(url);
         ResponseEntity<SummonerMatchesResponde> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, SummonerMatchesResponde.class);
         SummonerMatchesResponde summonerMatchesResponde = response.getBody();
         log.info("summoner matches get downloaded");
