@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SingleMatchClass {
+public class Match {
     private String lane;
     private String gameId;
     private String champion;

@@ -18,14 +18,7 @@ console.log(matches);
         console.log(numberOfListItems);
         for (var i = 0; i < numberOfListItems; ++i) {
             console.log(matches[i]);
-            var length= 0;
-            for(var key in matches[i]) {
-                if(matches[i].hasOwnProperty(key)){
-                    length++;
-                    console.log(matches[i].hasOwnProperty(key));
-                }
-            }
-            console.log(length);
+
             var chamItem =document.createElement("p");
             chamItem.innerText = matches[i].champion;
             console.log(chamItem.innerHTML);

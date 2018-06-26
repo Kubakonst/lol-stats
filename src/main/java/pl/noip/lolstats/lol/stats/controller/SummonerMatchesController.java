@@ -1,12 +1,15 @@
 package pl.noip.lolstats.lol.stats.controller;
+
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.SummonerMatchesResponde;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
-import pl.noip.lolstats.lol.stats.service.RiotDataClient;
-import pl.noip.lolstats.lol.stats.service.RiotMatchesClient;
+import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 @RestController
 @RequestMapping("/api/summoner/matches")
@@ -17,15 +20,12 @@ public class SummonerMatchesController {
 
     private TokenSplit tokenSplit;
 
-    private RiotDataClient riotDataClient;
+    private RiotRestClient riotRestClient;
 
-    private RiotMatchesClient riotMatchesClient;
-
-    public SummonerMatchesController(RiotDataClient riotDataClient, JwtParser jwtParser, TokenSplit tokenSplit, RiotMatchesClient riotMatchesClient) {
-        this.riotDataClient = riotDataClient;
+    public SummonerMatchesController(RiotRestClient riotRestClient, JwtParser jwtParser, TokenSplit tokenSplit) {
+        this.riotRestClient = riotRestClient;
         this.jwtParser = jwtParser;
         this.tokenSplit = tokenSplit;
-        this.riotMatchesClient = riotMatchesClient;
     }
 
     @PostMapping
@@ -41,8 +41,8 @@ public class SummonerMatchesController {
 
         String region = jwtParser.getRegion(oldToken);
 
-        String id = riotDataClient.getSummonerData(name, region).getAccountId();
+        String id = riotRestClient.getSummonerData(name, region).getAccountId();
 
-        return riotMatchesClient.getMatchesData(region, id);
+        return riotRestClient.getMatchesData(region, id);
     }
 }

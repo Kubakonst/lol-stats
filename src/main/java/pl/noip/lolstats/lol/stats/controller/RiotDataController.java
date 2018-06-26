@@ -1,14 +1,15 @@
 package pl.noip.lolstats.lol.stats.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
-import pl.noip.lolstats.lol.stats.jwt.JwtGenerator;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
-import pl.noip.lolstats.lol.stats.repository.AccountRepository;
-import pl.noip.lolstats.lol.stats.service.RiotDataClient;
+import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 @RestController
 @RequestMapping("/api/summoner/riotData")
@@ -19,10 +20,10 @@ public class RiotDataController {
 
     private TokenSplit tokenSplit;
 
-    private RiotDataClient riotDataClient;
+    private RiotRestClient riotRestClient;
 
-    public RiotDataController(RiotDataClient riotDataClient, JwtParser jwtParser, TokenSplit tokenSplit) {
-        this.riotDataClient = riotDataClient;
+    public RiotDataController(RiotRestClient riotRestClient, JwtParser jwtParser, TokenSplit tokenSplit) {
+        this.riotRestClient = riotRestClient;
         this.jwtParser = jwtParser;
         this.tokenSplit = tokenSplit;
     }
@@ -40,6 +41,6 @@ public class RiotDataController {
         log.info("name recived from token");
         String region = jwtParser.getRegion(oldToken);
         log.info("region recived from token");
-        return riotDataClient.getSummonerData(name, region);
+        return riotRestClient.getSummonerData(name, region);
 }
 }

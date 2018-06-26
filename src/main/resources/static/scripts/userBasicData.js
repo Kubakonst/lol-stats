@@ -1,7 +1,7 @@
 function onData(){
 
     {
-                            riotDataRestCall(
+                            riotRegionRestCall(
                             (json) => {
                                              setLevel(json.summonerLevel)
                                              setIcon(json.profileIconId)},

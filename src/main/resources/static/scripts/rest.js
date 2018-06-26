@@ -59,7 +59,7 @@ function riotNameRestCall(sumName, successCallback, errorCallback){
         )
 }
 
-function riotDataRestCall(successCallback, errorCallback){
+function riotRegionRestCall(successCallback, errorCallback){
     var url = baseUrl + "/api/summoner/riotData"
     var body =" "
     var header = new Headers({

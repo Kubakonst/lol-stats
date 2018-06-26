@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
+import pl.noip.lolstats.lol.stats.dto.SummonerMatchesResponde;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 
 import javax.annotation.PostConstruct;
@@ -23,11 +26,22 @@ public class RiotRestClient {
     @Value("${regions}")
     private String propertiesRegions;
 
+
     private RestTemplate restTemplate = new RestTemplate();
 
-    private HttpHeaders httpHeaders = new HttpHeaders();
+    private HttpHeaders createHeaders(String apikey) {
+        return new HttpHeaders() {{
+            add("X-Riot-Token", apikey);
+        }};
+    }
 
-    private HttpEntity httpEntity = new HttpEntity(httpHeaders);
+//    private HttpHeaders httpHeaders = new HttpHeaders();
+//
+//    httpHeaders.add("X-Riot-Token", key);
+//
+
+//    private HttpEntity httpEntity = new HttpEntity(createHeaders(key));
+
 
     private String[] splitedRegions;
 
@@ -44,20 +58,38 @@ public class RiotRestClient {
 
         for (String reg : splitedRegions) {
 
-            String url = "https://" + reg + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name + "?api_key=" + key;
+            String url = "https://" + reg + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name;
             try {
-                restTemplate.exchange(url, HttpMethod.GET, httpEntity, SummonerNameRequest.class);
+                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerNameRequest.class);
                 regions.add(reg);
-                log.info(reg);
+                log.info("git");
             } catch (HttpClientErrorException ex) {
                 if (ex.getRawStatusCode() != 404) {
-                    log.error("page not found");
+                    log.error("nie git");
                     throw ex;
                 }
             }
-
         }
         return regions;
+    }
+
+    public SummonerDataResponse getSummonerData(String name, String region) {
+
+        String url = "https://" + region + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name;
+
+        ResponseEntity<SummonerDataResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerDataResponse.class);
+        SummonerDataResponse summonerDataResponse = response.getBody();
+        log.info("summoner basic data get downloaded");
+        return summonerDataResponse;
+    }
+
+    public SummonerMatchesResponde getMatchesData(String region, String id) {
+
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=10";
+        ResponseEntity<SummonerMatchesResponde> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerMatchesResponde.class);
+        SummonerMatchesResponde summonerMatchesResponde = response.getBody();
+        log.info("summoner matches get downloaded");
+        return summonerMatchesResponde;
     }
 
 }

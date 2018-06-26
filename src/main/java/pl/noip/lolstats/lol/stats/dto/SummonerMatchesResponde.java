@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.List;
 
 @Setter
@@ -12,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 public class SummonerMatchesResponde {
 
-    private List<SingleMatchClass> matches;
+    private List<Match> matches;
 }
