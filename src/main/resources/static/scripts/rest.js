@@ -59,6 +59,23 @@ function riotNameRestCall(sumName, successCallback, errorCallback){
         )
 }
 
+function riotChampionRestCall(id, successCallback, errorCallback){
+    var url = baseUrl + "/api/staticData/riotChamName"
+    var body = {id: id}
+    var header = new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': tokenLoad()
+        })
+
+    post(
+        url,
+        body,
+        header,
+        successCallback,
+        errorCallback
+        )
+}
+
 function riotRegionRestCall(successCallback, errorCallback){
     var url = baseUrl + "/api/summoner/riotData"
     var body =" "

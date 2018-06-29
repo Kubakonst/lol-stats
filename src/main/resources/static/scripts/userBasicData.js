@@ -10,7 +10,6 @@ function onData(){
 
 function setLevel(summonerLevel){
 
-var summonerLevel;
 var sumLevel = document.getElementById("summonerLevel");
 sumLevel.innerText = summonerLevel;
 console.log(sumLevel);
@@ -18,9 +17,8 @@ console.log(sumLevel);
 
 function setIcon(profileIconId){
 
-var profileIconId;
 var profIconId = document.getElementById("profileIconId");
-profIconId.innerText = profileIconId;
+profIconId.src = "img/riotimg/profileicon/" + profileIconId + ".png";
 console.log(profIconId);
 }
 }

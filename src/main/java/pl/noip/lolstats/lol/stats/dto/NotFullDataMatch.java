@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Match {
+public class NotFullDataMatch {
     private String lane;
     private String gameId;
     private String champion;
@@ -18,6 +18,4 @@ public class Match {
     private String queue;
     private String role;
     private String season;
-    private String championName;
-    private String gameDuration;
 }

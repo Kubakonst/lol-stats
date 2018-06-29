@@ -9,9 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
-import pl.noip.lolstats.lol.stats.dto.SummonerMatchesResponde;
-import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
+import pl.noip.lolstats.lol.stats.dto.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -83,13 +81,32 @@ public class RiotRestClient {
         return summonerDataResponse;
     }
 
-    public SummonerMatchesResponde getMatchesData(String region, String id) {
+    public SummonerMatchesResponse getMatchesData(String region, String id) {
 
-        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=10";
-        ResponseEntity<SummonerMatchesResponde> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerMatchesResponde.class);
-        SummonerMatchesResponde summonerMatchesResponde = response.getBody();
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=3";
+        ResponseEntity<SummonerMatchesResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerMatchesResponse.class);
+        SummonerMatchesResponse summonerMatchesResponse = response.getBody();
         log.info("summoner matches get downloaded");
-        return summonerMatchesResponde;
+
+        return summonerMatchesResponse;
+    }
+
+    public ChampionNameResponse getChampionNameData(String id, String region) {
+        String url = "https://" + region + ".api.riotgames.com/lol/static-data/v3/champions/" + id;
+        ResponseEntity<ChampionNameResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), ChampionNameResponse.class);
+        ChampionNameResponse championNameResponse = response.getBody();
+        log.info("champion name get downloaded");
+
+        return championNameResponse;
+    }
+
+    public SingleMatchData getSingleMatchData(String id, String region) {
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + id;
+        ResponseEntity<SingleMatchData> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SingleMatchData.class);
+        SingleMatchData singleMatchData = response.getBody();
+        log.info("game duration get downloaded");
+
+        return singleMatchData;
     }
 
 }
