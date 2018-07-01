@@ -81,14 +81,14 @@ public class RiotRestClient {
         return summonerDataResponse;
     }
 
-    public SummonerMatchesResponse getMatchesData(String region, String id) {
+    public MatchesResponse getMatchesData(String region, String id) {
 
         String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=3";
-        ResponseEntity<SummonerMatchesResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerMatchesResponse.class);
-        SummonerMatchesResponse summonerMatchesResponse = response.getBody();
+        ResponseEntity<MatchesResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), MatchesResponse.class);
+        MatchesResponse matchesResponse = response.getBody();
         log.info("summoner matches get downloaded");
 
-        return summonerMatchesResponse;
+        return matchesResponse;
     }
 
     public ChampionNameResponse getChampionNameData(String id, String region) {

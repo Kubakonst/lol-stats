@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.Match;
-import pl.noip.lolstats.lol.stats.dto.SummonerMatchesResponse;
+import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/summoner/matches")
@@ -32,7 +30,7 @@ public class SummonerMatchesController {
     }
 
     @PostMapping
-    public SummonerMatchesResponse data(@RequestHeader(value = "Authorization") String bearer) {
+    public MatchesResponse data(@RequestHeader(value = "Authorization") String bearer) {
 
         if (bearer == null) {
             throw new BearerNotPresentException();
@@ -46,7 +44,7 @@ public class SummonerMatchesController {
 
         String id = riotRestClient.getSummonerData(name, region).getAccountId();
 
-        SummonerMatchesResponse summonerMatches = riotRestClient.getMatchesData(region, id);
+        MatchesResponse summonerMatches = riotRestClient.getMatchesData(region, id);
 
         for( Match singleMatch : summonerMatches.getMatches()){
                 singleMatch.setChampionName(riotRestClient.getChampionNameData(singleMatch.getChampion(), region).getName());

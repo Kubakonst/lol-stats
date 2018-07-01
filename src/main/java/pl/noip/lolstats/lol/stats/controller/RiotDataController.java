@@ -12,7 +12,7 @@ import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 @RestController
-@RequestMapping("/api/summoner/riotData")
+@RequestMapping("/api/summoner/basicInfo")
 @Slf4j
 public class RiotDataController {
 
@@ -29,7 +29,7 @@ public class RiotDataController {
     }
 
     @PostMapping
-    public SummonerDataResponse data(@RequestHeader(value = "Authorization") String bearer) {
+    public SummonerDataResponse basicSummonerInfo(@RequestHeader(value = "Authorization") String bearer) {
 
         if (bearer == null) {
             throw new BearerNotPresentException();

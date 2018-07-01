@@ -77,7 +77,7 @@ function riotChampionRestCall(id, successCallback, errorCallback){
 }
 
 function riotRegionRestCall(successCallback, errorCallback){
-    var url = baseUrl + "/api/summoner/riotData"
+    var url = baseUrl + "/api/summoner/basicInfo"
     var body =" "
     var header = new Headers({
         'Content-Type': 'application/json',

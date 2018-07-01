@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SummonerMatchesResponse {
+public class MatchesResponse {
 
     private List<Match> matches;
 }
