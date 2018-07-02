@@ -12,6 +12,7 @@ import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.model.Account;
 import pl.noip.lolstats.lol.stats.repository.AccountRepository;
+import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 import javax.validation.Valid;
 
@@ -28,11 +29,14 @@ public class SummonerNameController {
 
     private TokenSplit tokenSplit;
 
-    public SummonerNameController(JwtGenerator jwtGenerator, AccountRepository accountRepository, JwtParser jwtParser, TokenSplit tokenSplit) {
+    private RiotRestClient riotRestClient;
+
+    public SummonerNameController(JwtGenerator jwtGenerator, AccountRepository accountRepository, JwtParser jwtParser, TokenSplit tokenSplit, RiotRestClient riotRestClient) {
         this.jwtGenerator = jwtGenerator;
         this.accountRepository = accountRepository;
         this.jwtParser = jwtParser;
         this.tokenSplit = tokenSplit;
+        this.riotRestClient = riotRestClient;
     }
 
     @PostMapping
@@ -53,6 +57,10 @@ public class SummonerNameController {
         log.info("user summoner name added to database");
         account.setRegion(summonerNameRequest.getRegion());
         log.info("user region added to database");
+        account.setId(riotRestClient.getSummonerData(summonerNameRequest.getSumName(), summonerNameRequest.getRegion()).getId());
+        log.info("user summoner id added to database");
+        account.setAccountId(riotRestClient.getSummonerData(summonerNameRequest.getSumName(), summonerNameRequest.getRegion()).getAccountId());
+        log.info("user account id added to database");
         String token = jwtGenerator.generate(account);
 
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);

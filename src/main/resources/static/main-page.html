@@ -6,7 +6,7 @@
     <meta name="description" content="Main Page">
     <link rel="stylesheet" href="css/style2.css">
 </head>
-<body onload="checkToken()">
+<body onload="onStart()">
 <div class='conatiner'>
     <nav class='toppanel'>
         <ul>
@@ -38,9 +38,9 @@
     </nav>
     <nav class='leftpanel'>
         <ul>
-            <li>Summoner Name</li>
-
-            <li><img alt="summoner icon" src="img/lolicon.jpg"/></li>
+            <li><p id = "summonerName"></p></li>
+            <li><p id = "summonerLevel"></p></li>
+            <li><img id = "profileIconId" /></li>
             <li><img alt="summoner division" src="img/DiamondBadge.png"/></li>
             <li>Summoner Division Number</li>
         </ul>
@@ -55,24 +55,17 @@
         </ul>
     </nav>
     <div class="main">
-        <ul class="games">
-            <li>Win 11.2 20:36</li>
-            <li>Win 12.2 46:51</li>
-            <li>Lose 1.2 33:56</li>
-            <li>Win 11.6 13:54</li>
-            <li>Win 4.2 23:36</li>
-            <li>Lose 2.2 24:56</li>
-            <li>Win 4.2 27:46</li>
-            <li>Lose 0.2 23:59</li>
-            <li>Lose 1.0 25:50</li>
-            <li>Win 11.1 28:56</li>
-        </ul>
+        <div id="matches" class="main"></div>
     </div>
 </div>
 </body>
 
+<script src="scripts/matches.js"></script>
+<script src="scripts/onStartFunctions.js"></script>
+<script src="scripts/userBasicData.js"></script>
 <script src="scripts/checkToken.js"></script>
 <script src="scripts/tokenStore.js"></script>
 <script src="scripts/registrationStep1.js"></script>
+<script src="scripts/rest.js"></script>
 
 </html>

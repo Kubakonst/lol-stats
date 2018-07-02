@@ -43,6 +43,8 @@ public class JwtGeneratorImpl implements JwtGenerator {
                 .claim("name", account.getSumName())
                 .claim("email", account.getEmail())
                 .claim("region", account.getRegion())
+                .claim("summonerID", account.getId())
+                .claim("accountID", account.getAccountId())
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//
                 .setExpiration(new Date(now.getTime() + 60 * 60 * 1000));

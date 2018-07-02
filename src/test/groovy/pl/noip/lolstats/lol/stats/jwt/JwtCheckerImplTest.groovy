@@ -22,6 +22,8 @@ class JwtCheckerImplTest extends Specification {
             .passwordHash(Sha.hash("examplePassword"))
             .sumName("exampleName")
             .region("exampleRegion")
+            .id("1354653")
+            .accountId("123151")
             .build()
 
     def setup() {

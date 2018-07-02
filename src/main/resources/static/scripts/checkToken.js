@@ -19,6 +19,7 @@ function isMail(){
 
 function checkToken(){
 
+
     var token = tokenLoad();
 
     if(token == null){
@@ -40,4 +41,6 @@ function checkToken(){
     }
 
     }
+
+
 }
