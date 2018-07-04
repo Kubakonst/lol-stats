@@ -7,6 +7,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.concurrent.FailureCallback;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.SuccessCallback;
+import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.noip.lolstats.lol.stats.dto.*;
@@ -26,6 +30,7 @@ public class RiotRestClient {
 
 
     private RestTemplate restTemplate = new RestTemplate();
+    private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
     private HttpHeaders createHeaders(String apikey) {
         return new HttpHeaders() {{
