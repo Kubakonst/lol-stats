@@ -1,4 +1,10 @@
 function onRegions(){
+console.log("dasdasas");
+//setInterval(function(){ alert("Hello"); }, 1000);
+var loading = document.createElement("img");
+document.getElementById('regions').appendChild(loading);
+loading.src = "img/loadgif.gif";
+console.log(loading);
 
 var sumNameElement = document.getElementById("summonerNameInput");
 var name = document.getElementById("summonerName");
@@ -13,11 +19,7 @@ name.innerHTML = sumNameElement.value;
 
 function makeList(regions){
 
-var regions;
-
-
     var listContainer = document.createElement("ul");
-
         document.getElementById('regions').appendChild(listContainer);
         var listElement = document.createElement("li");
         listContainer.appendChild(listElement);
