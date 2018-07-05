@@ -1,5 +1,5 @@
 function logout(){
 
-tokenSave(null);
+tokenRemove();
 window.location.href = "/signin.html"
 }
