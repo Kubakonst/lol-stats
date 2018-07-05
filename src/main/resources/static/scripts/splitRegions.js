@@ -32,8 +32,8 @@ function makeList(regions){
 listItem.onclick = () => { sendReg(listItem.innerHTML)}
 var region = listItem.innerHTML;
 
-        }
-//listItem.onclick = sendReg(regions[i]);
+}
+
 }
 
 }

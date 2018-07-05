@@ -23,3 +23,7 @@ padding: 0;
 .regions{
 padding: 15px;
 }
+
+.regions img{
+width: 30%;
+}
