@@ -1,10 +1,8 @@
 function onRegions(){
-console.log("dasdasas");
-//setInterval(function(){ alert("Hello"); }, 1000);
+
 var loading = document.createElement("img");
 document.getElementById('regions').appendChild(loading);
 loading.src = "img/loadgif.gif";
-console.log(loading);
 
 var sumNameElement = document.getElementById("summonerNameInput");
 var name = document.getElementById("summonerName");
@@ -31,6 +29,7 @@ function makeList(regions){
             listElement.appendChild(listItem);
 listItem.onclick = () => { sendReg(listItem.innerHTML)}
 var region = listItem.innerHTML;
+loading.src = " ";
 
 }
 
