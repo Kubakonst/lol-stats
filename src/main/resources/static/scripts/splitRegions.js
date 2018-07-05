@@ -29,7 +29,7 @@ function makeList(regions){
             listElement.appendChild(listItem);
 listItem.onclick = () => { sendReg(listItem.innerHTML)}
 var region = listItem.innerHTML;
-loading.src = " ";
+loading.remove(loading);
 
 }
 
