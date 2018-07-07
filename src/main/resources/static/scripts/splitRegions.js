@@ -1,5 +1,7 @@
 function onRegions(){
 
+document.getElementById("search").disabled = true;
+
 var sumNameElement = document.getElementById("summonerNameInput");
 var name = document.getElementById("summonerName");
 name.innerHTML = sumNameElement.value;
@@ -13,8 +15,10 @@ name.innerHTML = sumNameElement.value;
 
 function makeList(regions){
 
-var regions;
-
+var myNode = document.getElementById('regions');
+while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+}
 
     var listContainer = document.createElement("ul");
 
@@ -27,6 +31,7 @@ var regions;
             listItem.innerHTML = regions[i];
             console.log(listItem.innerHTML);
             listElement.appendChild(listItem);
+document.getElementById("search").disabled = false;
 listItem.onclick = () => { sendReg(listItem.innerHTML)}
 var region = listItem.innerHTML;
 
