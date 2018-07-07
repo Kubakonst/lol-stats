@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
+import pl.noip.lolstats.lol.stats.Exceptions.NoNameException;
 import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
@@ -38,6 +39,12 @@ public class RiotDataController {
         String oldToken = tokenSplit.splitToken(bearer);
 
         String name = jwtParser.getName(oldToken);
+
+        if (name == null){
+            log.error("there is no name in token");
+            throw new NoNameException();
+        }
+
         log.info("name recived from token");
         String region = jwtParser.getRegion(oldToken);
         log.info("region recived from token");
