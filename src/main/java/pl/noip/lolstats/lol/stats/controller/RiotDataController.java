@@ -40,11 +40,6 @@ public class RiotDataController {
 
         String name = jwtParser.getName(oldToken);
 
-        if (name == null){
-            log.error("there is no name in token");
-            throw new NoNameException();
-        }
-
         log.info("name recived from token");
         String region = jwtParser.getRegion(oldToken);
         log.info("region recived from token");

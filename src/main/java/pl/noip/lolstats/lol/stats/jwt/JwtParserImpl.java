@@ -7,6 +7,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
+import pl.noip.lolstats.lol.stats.Exceptions.NoNameException;
 import pl.noip.lolstats.lol.stats.time.TimeService;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -40,12 +42,17 @@ public class JwtParserImpl implements JwtParser {
                 .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
                 .setSigningKey(signingKey).parseClaimsJws(token);
 
+        if (jwsClaims.getBody().get(claimName) == null)
+        {
+            log.error("there is no name in token");
+            throw new NoNameException();
+        }
+
         return jwsClaims.getBody().get(claimName).toString();
 
     }
 
     public String getName(String token) {
-
 
         String infoN = getData(token, "name");
         log.info("there is a user name in token");
