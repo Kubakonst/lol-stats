@@ -9,8 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
-import pl.noip.lolstats.lol.stats.Exceptions.NoNameInTokenException;
+import pl.noip.lolstats.lol.stats.Exceptions.JwtException;
 import pl.noip.lolstats.lol.stats.dto.ErrorResponse;
 
 @ControllerAdvice
@@ -37,14 +36,9 @@ class GlobalControllerExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse("invalid token"), HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(BearerNotPresentException.class)
-    public ResponseEntity<?> handleNoBearerException(BearerNotPresentException ex, WebRequest request) {
-        return new ResponseEntity<>(new ErrorResponse("expected bearer authorization type"), HttpStatus.UNAUTHORIZED);
-    }
-
-    @ExceptionHandler(NoNameInTokenException.class)
-    public ResponseEntity<?> handleNoNameException(NoNameInTokenException ex, WebRequest request) {
-        return new ResponseEntity<>(new ErrorResponse("no user name in token"), HttpStatus.UNAUTHORIZED);
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<?> jwtException(JwtException ex, WebRequest request) {
+        return new ResponseEntity<>(new ErrorResponse(), HttpStatus.UNAUTHORIZED);
     }
 
 }

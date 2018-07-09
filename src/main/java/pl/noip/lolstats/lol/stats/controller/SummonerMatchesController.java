@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
-import pl.noip.lolstats.lol.stats.Exceptions.NoNameException;
 import pl.noip.lolstats.lol.stats.dto.Match;
 import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
