@@ -60,10 +60,8 @@ public class RiotRestClient {
             try {
                 restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerNameRequest.class);
                 regions.add(reg);
-                log.info("git");
             } catch (HttpClientErrorException ex) {
                 if (ex.getRawStatusCode() != 404) {
-                    log.error("nie git");
                     throw ex;
                 }
             }

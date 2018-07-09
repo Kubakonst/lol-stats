@@ -1,10 +1,13 @@
 function onRegions(){
 
+var myNode = document.getElementById('regions');
+while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+}
+
 document.getElementById("search").disabled = true;
 
 var sumNameElement = document.getElementById("summonerNameInput");
-var name = document.getElementById("summonerName");
-name.innerHTML = sumNameElement.value;
 
     if (sumNameElement.value.length > 0){
                             riotNameRestCall(sumNameElement.value,
@@ -14,11 +17,6 @@ name.innerHTML = sumNameElement.value;
 }
 
 function makeList(regions){
-
-var myNode = document.getElementById('regions');
-while (myNode.firstChild) {
-    myNode.removeChild(myNode.firstChild);
-}
 
     var listContainer = document.createElement("ul");
 
@@ -36,7 +34,7 @@ listItem.onclick = () => { sendReg(listItem.innerHTML)}
 var region = listItem.innerHTML;
 
         }
-//listItem.onclick = sendReg(regions[i]);
+
 }
 
 }
