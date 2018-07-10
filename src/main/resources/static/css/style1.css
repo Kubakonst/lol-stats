@@ -24,6 +24,10 @@ ul{
     padding: 15px;
 }
 
+.regions img{
+width: 30%;
+}
+
 .regions button{
     display: block;
         margin-left: auto;
