@@ -38,6 +38,7 @@ public class RiotDataController {
         String oldToken = tokenSplit.splitToken(bearer);
 
         String name = jwtParser.getName(oldToken);
+
         log.info("name recived from token");
         String region = jwtParser.getRegion(oldToken);
         log.info("region recived from token");
