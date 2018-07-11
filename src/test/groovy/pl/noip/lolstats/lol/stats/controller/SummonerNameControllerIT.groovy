@@ -57,7 +57,7 @@ class SummonerNameControllerIT extends Specification {
         timeService.millisSinceEpoch >>> System.currentTimeMillis()
         def mail = "example@mail.com"
         def sumName = "exampleName"
-        def region = "exampleRegion"
+        def region = "kr"
         repository.save(account)
         def bearerToken = "bearer " + jwtGenerator.generate(account)
         def token = given()

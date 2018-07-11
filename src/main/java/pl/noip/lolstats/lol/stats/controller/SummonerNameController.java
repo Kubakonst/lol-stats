@@ -43,10 +43,6 @@ public class SummonerNameController {
     public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest,
                                   @RequestHeader(value = "Authorization") String bearer) {
 
-        if (bearer == null) {
-            throw new BearerNotPresentException();
-        }
-
         String oldToken = tokenSplit.splitToken(bearer);
 
         String mail = jwtParser.getMail(oldToken);

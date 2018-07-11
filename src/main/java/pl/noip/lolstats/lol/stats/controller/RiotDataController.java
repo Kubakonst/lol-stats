@@ -31,10 +31,6 @@ public class RiotDataController {
     @PostMapping
     public SummonerDataResponse basicSummonerInfo(@RequestHeader(value = "Authorization") String bearer) {
 
-        if (bearer == null) {
-            throw new BearerNotPresentException();
-        }
-
         String oldToken = tokenSplit.splitToken(bearer);
 
         String name = jwtParser.getName(oldToken);

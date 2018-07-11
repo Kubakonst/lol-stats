@@ -15,6 +15,8 @@ import pl.noip.lolstats.lol.stats.model.Account;
 import pl.noip.lolstats.lol.stats.repository.AccountRepository;
 import pl.noip.lolstats.lol.stats.utils.Sha;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth/login")
 @Slf4j
@@ -30,15 +32,14 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody RegistrationRequest registrationRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody RegistrationRequest registrationRequest) {
 
         Account account = accountRepository.findOne(registrationRequest.getEmail());
 
-        if (account == null) {
-            return new ResponseEntity<>(new ErrorResponse("invalid email or password"), HttpStatus.UNAUTHORIZED);
-        }
+
+
         String passHash = Sha.hash(registrationRequest.getPassword());
-        if (passHash.equals(account.getPasswordHash())) {
+        if (account != null && passHash.equals(account.getPasswordHash())) {
             log.info("correct password");
             String token = jwtGenerator.generate(account);
             return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);

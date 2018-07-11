@@ -32,10 +32,6 @@ public class SummonerMatchesController {
     @PostMapping
     public MatchesResponse data(@RequestHeader(value = "Authorization") String bearer) {
 
-        if (bearer == null) {
-            throw new BearerNotPresentException();
-        }
-
         String oldToken = tokenSplit.splitToken(bearer);
 
         String name = jwtParser.getName(oldToken);

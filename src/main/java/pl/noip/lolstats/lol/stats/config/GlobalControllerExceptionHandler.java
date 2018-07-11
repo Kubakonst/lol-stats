@@ -12,6 +12,8 @@ import org.springframework.web.context.request.WebRequest;
 import pl.noip.lolstats.lol.stats.Exceptions.JwtException;
 import pl.noip.lolstats.lol.stats.dto.ErrorResponse;
 
+import javax.validation.constraints.Null;
+
 @ControllerAdvice
 class GlobalControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -36,9 +38,14 @@ class GlobalControllerExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse("invalid token"), HttpStatus.UNAUTHORIZED);
     }
 
+//    @ExceptionHandler(NullPointerException.class)
+//    public ResponseEntity<?> handleINullPointerException(NullPointerException ex, WebRequest request) {
+//        return new ResponseEntity<>(new ErrorResponse("something is missing"), HttpStatus.UNAUTHORIZED);
+//    }
+
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<?> jwtException(JwtException ex, WebRequest request) {
-        return new ResponseEntity<>(new ErrorResponse(), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
 }

@@ -27,15 +27,9 @@ public class CheckTokenController {
     @PostMapping
     public void checkToken(@RequestHeader(required = false, value = "Authorization") String bearer) {
 
-        if (bearer == null) {
-            log.error("there is no bearer");
-            throw new BearerNotPresentException();
-        }
-
         String token = tokenSplit.splitToken(bearer);
 
         jwtChecker.checkToken(token);
-
 
     }
 
