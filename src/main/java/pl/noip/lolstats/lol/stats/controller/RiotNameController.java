@@ -12,6 +12,7 @@ import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/summoner/riotName")
@@ -25,7 +26,7 @@ public class RiotNameController {
     }
 
     @PostMapping
-    public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest) {
+    public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest) throws ExecutionException, InterruptedException{
 
         List<String> userRegions = riotRestClient.findSummonersRegions(summonerNameRequest.getSumName());
         log.info("there are " + userRegions.size() + " regions for that summoner name");

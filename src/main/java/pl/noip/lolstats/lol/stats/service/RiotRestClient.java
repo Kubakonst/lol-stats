@@ -2,10 +2,7 @@ package pl.noip.lolstats.lol.stats.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.FailureCallback;
 import org.springframework.util.concurrent.ListenableFuture;
@@ -16,8 +13,10 @@ import org.springframework.web.client.RestTemplate;
 import pl.noip.lolstats.lol.stats.dto.*;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Component
 @Slf4j
@@ -55,21 +54,32 @@ public class RiotRestClient {
 
     }
 
-    public List<String> findSummonersRegions(String name) {
+    public List<String> findSummonersRegions(String name) throws ExecutionException, InterruptedException {
 
         List<String> regions = new ArrayList<>();
 
         for (String reg : splitedRegions) {
 
             String url = "https://" + reg + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name;
-            try {
-                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerNameRequest.class);
-                regions.add(reg);
-                log.info("git");
-            } catch (HttpClientErrorException ex) {
-                if (ex.getRawStatusCode() != 404) {
-                    log.error("nie git");
-                    throw ex;
+
+            List<ListenableFuture<ResponseEntity<SummonerNameRequest>>> listenableFutures = new ArrayList<>();
+
+            ListenableFuture<ResponseEntity<SummonerNameRequest>> listenableFuture = asyncRestTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerNameRequest.class);
+            listenableFutures.add(listenableFuture);
+
+            for (ListenableFuture<ResponseEntity<SummonerNameRequest>> listFut : listenableFutures) {
+
+                try {
+                    if (listFut.get().getStatusCodeValue() == 200) {
+                        regions.add(reg);
+                        log.info("git");
+                    }
+
+                } catch (ExecutionException e) {
+                    if (e.getCause() instanceof HttpClientErrorException) {
+                        HttpClientErrorException ex = (HttpClientErrorException) e.getCause();
+                        System.out.println(ex.getStatusCode());
+                    }
                 }
             }
         }
