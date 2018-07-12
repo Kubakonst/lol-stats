@@ -56,8 +56,8 @@ class SummonerNameControllerIT extends Specification {
         given: "jwt is generated as second 1 and checked at second 2"
         timeService.millisSinceEpoch >>> System.currentTimeMillis()
         def mail = "example@mail.com"
-        def sumName = "exampleName"
-        def region = "kr"
+        def sumName = "KubaKonst"
+        def region = "eun1"
         repository.save(account)
         def bearerToken = "bearer " + jwtGenerator.generate(account)
         def token = given()
