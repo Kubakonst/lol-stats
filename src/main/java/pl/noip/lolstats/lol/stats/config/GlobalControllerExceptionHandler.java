@@ -12,8 +12,6 @@ import org.springframework.web.context.request.WebRequest;
 import pl.noip.lolstats.lol.stats.Exceptions.JwtException;
 import pl.noip.lolstats.lol.stats.dto.ErrorResponse;
 
-import javax.validation.constraints.Null;
-
 @ControllerAdvice
 class GlobalControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)

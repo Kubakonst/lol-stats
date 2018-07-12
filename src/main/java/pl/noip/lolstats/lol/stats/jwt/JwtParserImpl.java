@@ -41,8 +41,7 @@ public class JwtParserImpl implements JwtParser {
                 .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
                 .setSigningKey(signingKey).parseClaimsJws(token);
 
-        if (!jwsClaims.getBody().containsKey(claimName))
-        {
+        if (!jwsClaims.getBody().containsKey(claimName)) {
             log.error("there is no name in token");
             throw new NoNameInTokenException();
         }

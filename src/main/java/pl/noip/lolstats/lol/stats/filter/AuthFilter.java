@@ -7,10 +7,8 @@ import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.jwt.JwtChecker;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 
-import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Slf4j
 public class AuthFilter implements HandlerInterceptor {
