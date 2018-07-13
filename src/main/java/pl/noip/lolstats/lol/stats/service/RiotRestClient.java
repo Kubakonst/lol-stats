@@ -10,11 +10,13 @@ import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import pl.noip.lolstats.lol.stats.Exceptions.RegionSearchException;
 import pl.noip.lolstats.lol.stats.dto.*;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -58,20 +60,21 @@ public class RiotRestClient {
 
         List<String> regions = new ArrayList<>();
 
+        HashMap<ListenableFuture<ResponseEntity<SummonerNameRequest>>, String> listenableFutures = new HashMap<>();
+
         for (String reg : splitedRegions) {
 
             String url = "https://" + reg + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name;
 
-            List<ListenableFuture<ResponseEntity<SummonerNameRequest>>> listenableFutures = new ArrayList<>();
-
             ListenableFuture<ResponseEntity<SummonerNameRequest>> listenableFuture = asyncRestTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerNameRequest.class);
-            listenableFutures.add(listenableFuture);
+            listenableFutures.put(listenableFuture, reg);
+        }
 
-            for (ListenableFuture<ResponseEntity<SummonerNameRequest>> listFut : listenableFutures) {
-
+        listenableFutures.forEach((key,value) ->
+        {
                 try {
-                    if (listFut.get().getStatusCodeValue() == 200) {
-                        regions.add(reg);
+                    if (key.get().getStatusCodeValue() == 200) {
+                        regions.add(value);
                         log.info("git");
                     }
 
@@ -81,8 +84,12 @@ public class RiotRestClient {
                         System.out.println(ex.getStatusCode());
                     }
                 }
+                catch (InterruptedException e){
+                    throw new RegionSearchException();
+
             }
-        }
+        });
+
         return regions;
     }
 
