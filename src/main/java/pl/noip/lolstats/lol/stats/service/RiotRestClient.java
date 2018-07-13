@@ -82,15 +82,17 @@ public class RiotRestClient {
                 catch (ExecutionException e) {
                     if (e.getCause() instanceof HttpClientErrorException) {
                         HttpClientErrorException ex = (HttpClientErrorException) e.getCause();
-                        System.out.println(ex.getStatusCode());
+                        if (ex.getRawStatusCode() != 404){
+                            log.error(ex.getStatusCode().toString());
+                        }
                     }
+                    log.error("there is a problem with region searching", e);
                 }
 
-                catch (InterruptedException e){
-                    log.error("RIOT server is not working");
-                    throw new RegionSearchException();
+                catch(InterruptedException e) {
+                    log.error(e.toString());
+                }
 
-            }
         });
 
         return regions;
