@@ -75,16 +75,19 @@ public class RiotRestClient {
                 try {
                     if (key.get().getStatusCodeValue() == 200) {
                         regions.add(value);
-                        log.info("git");
+                        log.info("there is a user in " + value);
                     }
 
-                } catch (ExecutionException e) {
+                }
+                catch (ExecutionException e) {
                     if (e.getCause() instanceof HttpClientErrorException) {
                         HttpClientErrorException ex = (HttpClientErrorException) e.getCause();
                         System.out.println(ex.getStatusCode());
                     }
                 }
+
                 catch (InterruptedException e){
+                    log.error("RIOT server is not working");
                     throw new RegionSearchException();
 
             }
