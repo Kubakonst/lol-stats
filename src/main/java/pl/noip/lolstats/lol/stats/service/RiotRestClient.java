@@ -46,7 +46,7 @@ public class RiotRestClient {
 
     }
 
-    public List<String> findSummonersRegions(String name) throws ExecutionException, InterruptedException {
+    public List<String> findSummonersRegions(String name) {
 
         List<String> regions = new ArrayList<>();
 

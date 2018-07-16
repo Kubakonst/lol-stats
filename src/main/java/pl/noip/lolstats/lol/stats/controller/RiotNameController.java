@@ -26,7 +26,7 @@ public class RiotNameController {
     }
 
     @PostMapping
-    public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest) throws ExecutionException, InterruptedException{
+    public ResponseEntity<?> name(@RequestBody SummonerNameRequest summonerNameRequest) {
 
         List<String> userRegions = riotRestClient.findSummonersRegions(summonerNameRequest.getSumName());
         log.info("there are " + userRegions.size() + " regions for that summoner name");
