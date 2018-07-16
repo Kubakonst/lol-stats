@@ -2,19 +2,18 @@ package pl.noip.lolstats.lol.stats.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.FailureCallback;
 import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import pl.noip.lolstats.lol.stats.Exceptions.RegionSearchException;
 import pl.noip.lolstats.lol.stats.dto.*;
 
 import javax.annotation.PostConstruct;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +28,6 @@ public class RiotRestClient {
     @Value("${regions}")
     private String propertiesRegions;
 
-
     private RestTemplate restTemplate = new RestTemplate();
     private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
@@ -38,14 +36,6 @@ public class RiotRestClient {
             add("X-Riot-Token", apikey);
         }};
     }
-
-//    private HttpHeaders httpHeaders = new HttpHeaders();
-//
-//    httpHeaders.add("X-Riot-Token", key);
-//
-
-//    private HttpEntity httpEntity = new HttpEntity(createHeaders(key));
-
 
     private String[] splitedRegions;
 
