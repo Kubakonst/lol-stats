@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.Match;
 import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
@@ -32,10 +31,6 @@ public class SummonerMatchesController {
     @PostMapping
     public MatchesResponse data(@RequestHeader(value = "Authorization") String bearer) {
 
-        if (bearer == null) {
-            throw new BearerNotPresentException();
-        }
-
         String oldToken = tokenSplit.splitToken(bearer);
 
         String name = jwtParser.getName(oldToken);
@@ -46,9 +41,9 @@ public class SummonerMatchesController {
 
         MatchesResponse summonerMatches = riotRestClient.getMatchesData(region, id);
 
-        for( Match singleMatch : summonerMatches.getMatches()){
-                singleMatch.setChampionName(riotRestClient.getChampionNameData(singleMatch.getChampion(), region).getName());
-                singleMatch.setGameDuration(riotRestClient.getSingleMatchData(singleMatch.getGameId(), region).getGameDuration());
+        for (Match singleMatch : summonerMatches.getMatches()) {
+            singleMatch.setChampionName(riotRestClient.getChampionNameData(singleMatch.getChampion(), region).getName());
+            singleMatch.setGameDuration(riotRestClient.getSingleMatchData(singleMatch.getGameId(), region).getGameDuration());
         }
 
         return summonerMatches;

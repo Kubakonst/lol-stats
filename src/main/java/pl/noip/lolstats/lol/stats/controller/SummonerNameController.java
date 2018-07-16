@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 import pl.noip.lolstats.lol.stats.dto.LoginResponse;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.jwt.JwtGenerator;
@@ -42,10 +41,6 @@ public class SummonerNameController {
     @PostMapping
     public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest,
                                   @RequestHeader(value = "Authorization") String bearer) {
-
-        if (bearer == null) {
-            throw new BearerNotPresentException();
-        }
 
         String oldToken = tokenSplit.splitToken(bearer);
 
