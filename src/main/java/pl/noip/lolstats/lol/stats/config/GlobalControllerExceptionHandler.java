@@ -36,11 +36,6 @@ class GlobalControllerExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse("invalid token"), HttpStatus.UNAUTHORIZED);
     }
 
-//    @ExceptionHandler(NullPointerException.class)
-//    public ResponseEntity<?> handleINullPointerException(NullPointerException ex, WebRequest request) {
-//        return new ResponseEntity<>(new ErrorResponse("something is missing"), HttpStatus.UNAUTHORIZED);
-//    }
-
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<?> jwtException(JwtException ex, WebRequest request) {
         return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.UNAUTHORIZED);

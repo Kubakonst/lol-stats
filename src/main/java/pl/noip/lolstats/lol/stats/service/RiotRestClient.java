@@ -7,13 +7,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.noip.lolstats.lol.stats.dto.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Component
 @Slf4j
@@ -24,22 +28,16 @@ public class RiotRestClient {
     @Value("${regions}")
     private String propertiesRegions;
 
-
     private RestTemplate restTemplate = new RestTemplate();
-    private String[] splitedRegions;
-
-//    private HttpHeaders httpHeaders = new HttpHeaders();
-//
-//    httpHeaders.add("X-Riot-Token", key);
-//
-
-//    private HttpEntity httpEntity = new HttpEntity(createHeaders(key));
+    private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
     private HttpHeaders createHeaders(String apikey) {
         return new HttpHeaders() {{
             add("X-Riot-Token", apikey);
         }};
     }
+
+    private String[] splitedRegions;
 
     @PostConstruct
     private void splitRegions() {
@@ -52,18 +50,41 @@ public class RiotRestClient {
 
         List<String> regions = new ArrayList<>();
 
+        HashMap<ListenableFuture<ResponseEntity<SummonerNameRequest>>, String> listenableFutures = new HashMap<>();
+
         for (String reg : splitedRegions) {
 
             String url = "https://" + reg + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name;
-            try {
-                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerNameRequest.class);
-                regions.add(reg);
-            } catch (HttpClientErrorException ex) {
-                if (ex.getRawStatusCode() != 404) {
-                    throw ex;
-                }
-            }
+
+            ListenableFuture<ResponseEntity<SummonerNameRequest>> listenableFuture = asyncRestTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerNameRequest.class);
+            listenableFutures.put(listenableFuture, reg);
         }
+
+        listenableFutures.forEach((key,value) ->
+        {
+                try {
+                    if (key.get().getStatusCodeValue() == 200) {
+                        regions.add(value);
+                        log.info("there is a user in " + value);
+                    }
+
+                }
+                catch (ExecutionException e) {
+                    if (e.getCause() instanceof HttpClientErrorException) {
+                        HttpClientErrorException ex = (HttpClientErrorException) e.getCause();
+                        if (ex.getRawStatusCode() != 404){
+                            log.error(ex.getStatusCode().toString());
+                        }
+                    }
+                    log.error("there is a problem with region searching", e);
+                }
+
+                catch(InterruptedException e) {
+                    log.error(e.toString());
+                }
+
+        });
+
         return regions;
     }
 

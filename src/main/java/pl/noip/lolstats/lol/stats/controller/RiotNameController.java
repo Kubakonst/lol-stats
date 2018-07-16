@@ -12,6 +12,7 @@ import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/summoner/riotName")
