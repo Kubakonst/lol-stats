@@ -26,12 +26,7 @@ public class RiotRestClient {
 
 
     private RestTemplate restTemplate = new RestTemplate();
-
-    private HttpHeaders createHeaders(String apikey) {
-        return new HttpHeaders() {{
-            add("X-Riot-Token", apikey);
-        }};
-    }
+    private String[] splitedRegions;
 
 //    private HttpHeaders httpHeaders = new HttpHeaders();
 //
@@ -40,8 +35,11 @@ public class RiotRestClient {
 
 //    private HttpEntity httpEntity = new HttpEntity(createHeaders(key));
 
-
-    private String[] splitedRegions;
+    private HttpHeaders createHeaders(String apikey) {
+        return new HttpHeaders() {{
+            add("X-Riot-Token", apikey);
+        }};
+    }
 
     @PostConstruct
     private void splitRegions() {
