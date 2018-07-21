@@ -1,4 +1,4 @@
-var baseUrl = "http://localhost:8333"
+var baseUrl = window.location.origin;
 var jsonHeader = new Headers({
     'Content-Type': 'application/json'
   })
