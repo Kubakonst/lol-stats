@@ -9,6 +9,7 @@ import pl.noip.lolstats.lol.stats.dto.Match;
 import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
+import pl.noip.lolstats.lol.stats.service.ChampionService;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 @RestController
@@ -22,10 +23,13 @@ public class SummonerMatchesController {
 
     private RiotRestClient riotRestClient;
 
-    public SummonerMatchesController(RiotRestClient riotRestClient, JwtParser jwtParser, TokenSplit tokenSplit) {
+    private ChampionService championService;
+
+    public SummonerMatchesController(RiotRestClient riotRestClient, JwtParser jwtParser, TokenSplit tokenSplit, ChampionService championService) {
         this.riotRestClient = riotRestClient;
         this.jwtParser = jwtParser;
         this.tokenSplit = tokenSplit;
+        this.championService = championService;
     }
 
     @PostMapping
@@ -42,7 +46,7 @@ public class SummonerMatchesController {
         MatchesResponse summonerMatches = riotRestClient.getMatchesData(region, id);
 
         for (Match singleMatch : summonerMatches.getMatches()) {
-            singleMatch.setChampionName(riotRestClient.getChampionNameData(singleMatch.getChampion(), region).getName());
+            singleMatch.setChampionName(championService.getChampionNameData(singleMatch.getChampion()));
             singleMatch.setGameDuration(riotRestClient.getSingleMatchData(singleMatch.getGameId(), region).getGameDuration());
         }
 
