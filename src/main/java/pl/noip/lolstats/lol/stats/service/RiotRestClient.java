@@ -1,7 +1,6 @@
 package pl.noip.lolstats.lol.stats.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +15,6 @@ import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
 import pl.noip.lolstats.lol.stats.dto.SingleMatchData;
 import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
 import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
-
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;

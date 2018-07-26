@@ -15,4 +15,5 @@ public class SummonerDataResponse {
     private String accountId;
     private String id;
     private String profileIconId;
+    private String name;
 }
