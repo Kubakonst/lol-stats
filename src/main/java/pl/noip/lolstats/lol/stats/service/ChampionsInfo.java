@@ -9,6 +9,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class ChampsInfo {
+public class ChampionsInfo {
     private Map<String, SingleChampInfo> data;
 }

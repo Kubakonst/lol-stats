@@ -13,7 +13,7 @@ class RiotRestClientTest extends Specification {
     @Autowired
     RiotRestClient riotRestClient
 
-//    @Ignore
+    @Ignore
     def "CheckUserNameInRiotDataBase"() {
         given:
         def name = "Piekaa"

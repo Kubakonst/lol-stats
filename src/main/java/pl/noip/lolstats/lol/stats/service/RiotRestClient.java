@@ -32,9 +32,6 @@ public class RiotRestClient {
     @Value("${regions}")
     private String propertiesRegions;
 
-    @Autowired
-    ChampionServiceImpl championServiceImpl;
-
     private RestTemplate restTemplate = new RestTemplate();
     private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
@@ -114,16 +111,6 @@ public class RiotRestClient {
 
         return matchesResponse;
     }
-
-//    public ChampionNameResponse getChampionNameData(String id, String region) {
-//        String url = "https://" + region + ".api.riotgames.com/lol/static-data/v3/champions/" + id;
-//        ResponseEntity<ChampionNameResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), ChampionNameResponse.class);
-//        ChampionNameResponse championNameResponse = response.getBody();
-//        log.info("champion name get downloaded");
-//
-//        return championNameResponse;
-//    }
-
 
     public SingleMatchData getSingleMatchData(String id, String region) {
         String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + id;

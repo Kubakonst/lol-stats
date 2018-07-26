@@ -46,7 +46,7 @@ public class SummonerMatchesController {
         MatchesResponse summonerMatches = riotRestClient.getMatchesData(region, id);
 
         for (Match singleMatch : summonerMatches.getMatches()) {
-            singleMatch.setChampionName(championService.getChampionNameData(singleMatch.getChampion()));
+            singleMatch.setChampionName(championService.getChampionName(singleMatch.getChampion()));
             singleMatch.setGameDuration(riotRestClient.getSingleMatchData(singleMatch.getGameId(), region).getGameDuration());
         }
 
