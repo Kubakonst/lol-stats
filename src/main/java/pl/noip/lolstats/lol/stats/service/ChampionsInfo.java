@@ -10,5 +10,5 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 public class ChampionsInfo {
-    private Map<String, SingleChampInfo> data;
+    private Map<String, Champion> data;
 }

@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class SingleChampInfo {
+public class Champion {
     private String key;
 
 }

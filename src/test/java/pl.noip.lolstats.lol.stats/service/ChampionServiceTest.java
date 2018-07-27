@@ -7,18 +7,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class ChampDataTest {
+public class ChampionServiceTest {
 
     @Autowired
     private ChampionServiceImpl championServiceImpl;
 
     @Test
-    public void getjsondata() {
+    public void shouldReturnChampionNameForChampionKey() {
         assertEquals(championServiceImpl.getChampionName("266"),"Aatrox");
 
     }
