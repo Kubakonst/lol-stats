@@ -1,6 +1,7 @@
 package pl.noip.lolstats.lol.stats.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +12,10 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import pl.noip.lolstats.lol.stats.dto.*;
+import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
+import pl.noip.lolstats.lol.stats.dto.SingleMatchData;
+import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
+import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -106,15 +110,6 @@ public class RiotRestClient {
         log.info("summoner matches get downloaded");
 
         return matchesResponse;
-    }
-
-    public ChampionNameResponse getChampionNameData(String id, String region) {
-        String url = "https://" + region + ".api.riotgames.com/lol/static-data/v3/champions/" + id;
-        ResponseEntity<ChampionNameResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), ChampionNameResponse.class);
-        ChampionNameResponse championNameResponse = response.getBody();
-        log.info("champion name get downloaded");
-
-        return championNameResponse;
     }
 
     public SingleMatchData getSingleMatchData(String id, String region) {
