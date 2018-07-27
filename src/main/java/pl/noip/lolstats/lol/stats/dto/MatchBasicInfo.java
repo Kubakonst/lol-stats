@@ -18,4 +18,5 @@ public class MatchBasicInfo {
     private String queue;
     private String role;
     private String season;
+
 }

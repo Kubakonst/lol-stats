@@ -16,10 +16,10 @@ console.log(matches);
         console.log(numberOfListItems);
         for (var i = 0; i < numberOfListItems; ++i) {
 
-//            var chamIconId = document.createElement("img");
-//            chamIconId.src = "img/riotimg/champion/" + matches[i].championName + ".png";
-//            listContainer.appendChild(chamIconId);
-//            console.log(chamIconId);
+            var chamIconId = document.createElement("img");
+            chamIconId.src = "img/riotimg/champion/" + matches[i].championName + ".png";
+            listElement.appendChild(chamIconId);
+            console.log(chamIconId);
 
             var chamItem =document.createElement("p");
             chamItem.innerText = matches[i].championName;
