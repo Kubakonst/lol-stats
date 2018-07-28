@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.dto.*;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
-import pl.noip.lolstats.lol.stats.service.ChampionService;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 @RestController
@@ -51,6 +50,9 @@ public class MatchDataController {
                             if (participantsId == singlePlayerStatsResponse.getParticipantId()) {
                                 for (SingleMatchPlayerData singleMatchPlayerData = singlePlayerStatsResponse.getStats()) {
                                     singleMatch.setWin(singleMatchPlayerData.getWin());
+                                    int kd = singleMatchPlayerData.getKills() + singleMatchPlayerData.getAssists();
+                                    int kda = kd/singleMatchPlayerData.getDeaths();
+                                    singleMatch.setKda(kda);
                                 }
                             }
                         }

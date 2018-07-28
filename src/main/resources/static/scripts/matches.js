@@ -32,6 +32,21 @@ console.log(matches);
             var roleItem =document.createElement("p");
             roleItem.innerText = matches[i].lane;
             listElement.appendChild(roleItem);
+
+            var win =document.createElement("p");
+            if(matches[i].win = true){
+            win.innerText = "true";
+            win.style.color = "green";
+            }
+            else
+            {win.innerText = "false"
+            win.style.color = "red";
+            }
+            listElement.appendChild(win);
+
+            var kda =document.createElement("p");
+            kda.innerText = matches[i].kda;
+            listElement.appendChild(kda);
 }
 }
 function convert(value) {

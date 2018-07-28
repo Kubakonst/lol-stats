@@ -11,5 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SingleMatchPlayerData {
-    private String win;
+    private Boolean win;
+    private int kills;
+    private int assists;
+    private int deaths;
 }
