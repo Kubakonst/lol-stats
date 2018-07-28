@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SingleParticipantIDResponse {
-    private List<SinglePlayerInfoResponse> player;
+public class participants {
+    private ParticipantStatsDto stats;
     private String participantId;
 }

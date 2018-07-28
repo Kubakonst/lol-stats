@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SingleMatchPlayerDataFull {
-    private List<SingleMatchPlayerData> participants;
+public class participantIdentities {
+    private player player;
+    private String participantId;
 }

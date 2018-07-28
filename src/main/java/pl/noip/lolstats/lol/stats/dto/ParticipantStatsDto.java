@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SingleMatchPlayerData {
+public class ParticipantStatsDto {
     private Boolean win;
     private int kills;
     private int assists;

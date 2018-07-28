@@ -136,12 +136,4 @@ public class RiotRestClient {
         return participantIDResponse;
     }
 
-    public SingleMatchPlayerData getSingleMatchPlayerData(String id, String region) {
-        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + id;
-        ResponseEntity<SingleMatchPlayerData> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SingleMatchPlayerData.class);
-        SingleMatchPlayerData singleMatchPlayerData = response.getBody();
-        log.info("single user game data get downloaded");
-
-        return singleMatchPlayerData;
-    }
 }

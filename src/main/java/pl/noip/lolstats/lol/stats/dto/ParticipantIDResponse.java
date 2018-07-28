@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ParticipantIDResponse {
-    private List<SingleParticipantIDResponse> participantIdentities;
-    private List<SinglePlayerStatsResponse> participants;
+    private List<participantIdentities> participantIdentities;
+    private List<participants> participants;
 }
