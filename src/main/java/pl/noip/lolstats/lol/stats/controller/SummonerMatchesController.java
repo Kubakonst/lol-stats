@@ -63,7 +63,7 @@ public class SummonerMatchesController {
             log.debug(participantId);
             ParticipantStatsDto stats = specificMatchResponse.getParticipants().stream()
                     .filter(e -> e.getParticipantId().equals(participantId)).findFirst().get().getStats();
-            singleMatch.setWin(stats.getWin());
+            singleMatch.setWin(stats.isWin());
             double ka = stats.getKills() + stats.getAssists();
             double deaths = stats.getDeaths();
             if (deaths == 0) {
