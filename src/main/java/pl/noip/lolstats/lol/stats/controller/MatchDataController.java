@@ -64,3 +64,23 @@
 //        return summonerMatches;
 //    }
 //}
+//
+//log.info(player.toString());
+//        if (accountId == player.getAccountId()) {
+//        log.info(accountId);
+//        String participantsId = participantIdentities.getParticipantId();
+//        log.info(participantsId);
+//        for (participants participants : participantIDResponse.getParticipants()) {
+//        log.info(participants.toString());
+//        if (participantsId == participants.getParticipantId()) {
+//        log.info(participantsId);
+//        for (ParticipantStatsDto participantStatsDto : participants.getStats()) {
+//        singleMatch.setWin(participantStatsDto.getWin());
+//        log.info(participantStatsDto.toString());
+//        int kd = participantStatsDto.getKills() + participantStatsDto.getAssists();
+//        int kda = kd/participantStatsDto.getDeaths();
+//        singleMatch.setKda(kda);
+//        }
+//        }
+//        }
+//        }

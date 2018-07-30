@@ -22,5 +22,5 @@ public class Match {
     private String gameDuration;
     private Boolean win;
     private String participantId;
-    private int kda;
+    private double kda;
 }

@@ -102,7 +102,7 @@ public class RiotRestClient {
 
     public MatchesResponse getMatchesData(String region, String id) {
 
-        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=3";
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=10";
         ResponseEntity<MatchesResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), MatchesResponse.class);
         MatchesResponse matchesResponse = response.getBody();
         log.info("summoner matches get downloaded");

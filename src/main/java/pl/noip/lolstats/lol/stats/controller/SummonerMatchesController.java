@@ -1,5 +1,6 @@
 package pl.noip.lolstats.lol.stats.controller;
 
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -11,6 +12,7 @@ import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.service.ChampionService;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
+@ToString
 @RestController
 @RequestMapping("/api/summoner/matches")
 @Slf4j
@@ -55,25 +57,18 @@ public class SummonerMatchesController {
             ParticipantIDResponse participantIDResponse = riotRestClient.getPlayerpartID(singleMatch.getGameId(), region);
             log.info(participantIDResponse.toString());
             for (participantIdentities participantIdentities : participantIDResponse.getParticipantIdentities()) {
-                log.info(participantIdentities.toString());
-                for (player player : participantIdentities.getPlayer()) {
-                    log.info(player.toString());
-                    if (accountId == player.getAccountId()) {
-                        log.info(accountId);
-                        String participantsId = participantIdentities.getParticipantId();
-                        log.info(participantsId);
-                        for (participants participants : participantIDResponse.getParticipants()) {
-                            log.info(participants.toString());
-                            if (participantsId == participants.getParticipantId()) {
-                                log.info(participantsId);
-                                for (ParticipantStatsDto participantStatsDto : participants.getStats()) {
-                                    singleMatch.setWin(participantStatsDto.getWin());
-                                    log.info(participantStatsDto.toString());
-                                    int kd = participantStatsDto.getKills() + participantStatsDto.getAssists();
-                                    int kda = kd/participantStatsDto.getDeaths();
-                                    singleMatch.setKda(kda);
-                                }
+                if(participantIdentities.getPlayer().getAccountId().equals(accountId)){
+                    String participantId = participantIdentities.getParticipantId();
+                    for(participants participants : participantIDResponse.getParticipants()){
+                        if(participantId.equals(participants.getParticipantId())){
+                            singleMatch.setWin(participants.getStats().getWin());
+                            double ka = participants.getStats().getKills() + participants.getStats().getAssists();
+                            double deaths = participants.getStats().getDeaths();
+                            if(deaths == 0){
+                                deaths = 1;
                             }
+                            double kda = ka/deaths;
+                            singleMatch.setKda(kda);
                         }
                     }
                 }

@@ -34,23 +34,29 @@ console.log(matches);
             listElement.appendChild(roleItem);
 
             var win =document.createElement("p");
-            if(matches[i].win = true){
-            win.innerText = "true";
+            if(matches[i].win == true){
+            win.innerText = "win";
             win.style.color = "green";
             }
             else
-            {win.innerText = "false"
+            {win.innerText = "lose"
             win.style.color = "red";
             }
             listElement.appendChild(win);
 
             var kda =document.createElement("p");
-            kda.innerText = matches[i].kda;
+            kda.innerText = "KDA: " + Round(matches[i].kda, 2);
             listElement.appendChild(kda);
 }
 }
 function convert(value) {
     return Math.floor(value / 60) + ":" + (value % 60 ? value % 60 : '00')
+}
+
+function Round(n, k)
+{
+    var factor = Math.pow(10, k);
+    return Math.round(n*factor)/factor;
 }
 
 }
