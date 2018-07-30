@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SummonerLeagueResponse {
+public class SummonerLeagues {
 
-    private Set<SummonerLeague> ss;
+    private String tier;
+    private String rank;
 }

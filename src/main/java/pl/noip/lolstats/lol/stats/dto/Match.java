@@ -20,7 +20,7 @@ public class Match {
     private String season;
     private String championName;
     private String gameDuration;
-    private Boolean win;
+    private boolean win;
     private String participantId;
     private double kda;
 }

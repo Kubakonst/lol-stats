@@ -19,7 +19,7 @@ public class ChampionServiceTest {
 
     @Test
     public void shouldReturnChampionNameForChampionKey() {
-        assertEquals(championServiceImpl.getChampionName("266"),"Aatrox");
+        assertEquals(championServiceImpl.getChampionName("266"), "Aatrox");
 
     }
 

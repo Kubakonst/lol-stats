@@ -5,13 +5,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.noip.lolstats.lol.stats.dto.SummonerLeague;
-import pl.noip.lolstats.lol.stats.dto.SummonerLeagueResponse;
+import pl.noip.lolstats.lol.stats.dto.SummonerLeagues;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
-import pl.noip.lolstats.lol.stats.jwt.TokenSplit;;
+import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
 import java.util.List;
+
+;
 
 @RestController
 @RequestMapping("/api/summoner/league")
@@ -31,7 +32,7 @@ public class SummonerLeagueController {
     }
 
     @PostMapping
-    public List<SummonerLeague> data(@RequestHeader(value = "Authorization") String bearer) {
+    public List<SummonerLeagues> data(@RequestHeader(value = "Authorization") String bearer) {
 
         String oldToken = tokenSplit.splitToken(bearer);
 

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.dto.Match;
 import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
-import pl.noip.lolstats.lol.stats.dto.ParticipantIDResponse;
 import pl.noip.lolstats.lol.stats.dto.ParticipantStatsDto;
+import pl.noip.lolstats.lol.stats.dto.SpecificMatchResponse;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.service.ChampionService;
@@ -57,15 +57,15 @@ public class SummonerMatchesController {
         }
 
         for (Match singleMatch : summonerMatches.getMatches()) {
-            ParticipantIDResponse participantIDResponse = riotRestClient.getPlayerpartID(singleMatch.getGameId(), region);
-            String participantId = participantIDResponse.getParticipantIdentities().stream()
+            SpecificMatchResponse specificMatchResponse = riotRestClient.getPlayerpartID(singleMatch.getGameId(), region);
+            String participantId = specificMatchResponse.getParticipantIdentities().stream()
                     .filter(e -> e.getPlayer().getAccountId().equals(accountId)).findFirst().get().getParticipantId();
             log.debug(participantId);
-            ParticipantStatsDto status = participantIDResponse.getParticipants().stream()
+            ParticipantStatsDto stats = specificMatchResponse.getParticipants().stream()
                     .filter(e -> e.getParticipantId().equals(participantId)).findFirst().get().getStats();
-            singleMatch.setWin(status.getWin());
-            double ka = status.getKills() + status.getAssists();
-            double deaths = status.getDeaths();
+            singleMatch.setWin(stats.getWin());
+            double ka = stats.getKills() + stats.getAssists();
+            double deaths = stats.getDeaths();
             if (deaths == 0) {
                 deaths = 1;
             }
