@@ -71,6 +71,12 @@ public class SummonerMatchesController {
             }
             double kda = ka / deaths;
             singleMatch.setKda(kda);
+            singleMatch.setItem0(stats.getItem0());
+            singleMatch.setItem1(stats.getItem1());
+            singleMatch.setItem2(stats.getItem2());
+            singleMatch.setItem3(stats.getItem3());
+            singleMatch.setItem4(stats.getItem4());
+            singleMatch.setItem5(stats.getItem5());
         }
         return summonerMatches;
     }
