@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class ChampionServiceTest {
+public class ChampionDataTest {
 
     @Autowired
     private ChampionServiceImpl championServiceImpl;
 
     @Test
-    public void shouldReturnChampionNameForChampionKey() {
-        assertEquals(championServiceImpl.getChampionName("266"), "Aatrox");
+    public void getjsondata() {
+        assertEquals(championServiceImpl.getChampionName("266"),"Aatrox");
 
     }
 

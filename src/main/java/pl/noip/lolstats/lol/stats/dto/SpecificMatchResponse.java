@@ -1,19 +1,18 @@
 package pl.noip.lolstats.lol.stats.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SummonerDataResponse {
-
-    private String summonerLevel;
-    private String accountId;
-    private String id;
-    private String profileIconId;
-    private String name;
+public class SpecificMatchResponse {
+    private List<ParticipantIdentities> ParticipantIdentities;
+    private List<Participants> Participants;
 }

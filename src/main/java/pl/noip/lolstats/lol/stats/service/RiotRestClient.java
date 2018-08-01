@@ -1,8 +1,8 @@
 package pl.noip.lolstats.lol.stats.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,10 +12,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
-import pl.noip.lolstats.lol.stats.dto.SingleMatchData;
-import pl.noip.lolstats.lol.stats.dto.SummonerDataResponse;
-import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
+import pl.noip.lolstats.lol.stats.dto.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -104,7 +101,7 @@ public class RiotRestClient {
 
     public MatchesResponse getMatchesData(String region, String id) {
 
-        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=3";
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=10";
         ResponseEntity<MatchesResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), MatchesResponse.class);
         MatchesResponse matchesResponse = response.getBody();
         log.info("summoner matches get downloaded");
@@ -119,6 +116,24 @@ public class RiotRestClient {
         log.info("game duration get downloaded");
 
         return singleMatchData;
+    }
+
+    public List<SummonerLeagues> getSummonerLeague(String id, String region) {
+        String url = "https://" + region + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + id;
+        ResponseEntity<List<SummonerLeagues>> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), new ParameterizedTypeReference<List<SummonerLeagues>>() {
+        });
+        log.info("user league position get downloaded");
+        return response.getBody();
+
+    }
+
+    public SpecificMatchResponse getPlayerpartID(String id, String region) {
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + id;
+        ResponseEntity<SpecificMatchResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SpecificMatchResponse.class);
+        SpecificMatchResponse specificMatchResponse = response.getBody();
+        log.info("single user game data get downloaded");
+
+        return specificMatchResponse;
     }
 
 }

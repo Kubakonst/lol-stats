@@ -16,10 +16,10 @@ console.log(matches);
         console.log(numberOfListItems);
         for (var i = 0; i < numberOfListItems; ++i) {
 
-//            var chamIconId = document.createElement("img");
-//            chamIconId.src = "img/riotimg/champion/" + matches[i].championName + ".png";
-//            listContainer.appendChild(chamIconId);
-//            console.log(chamIconId);
+            var chamIconId = document.createElement("img");
+            chamIconId.src = "img/riotimg/champion/" + matches[i].championName + ".png";
+            listElement.appendChild(chamIconId);
+            console.log(chamIconId);
 
             var chamItem =document.createElement("p");
             chamItem.innerText = matches[i].championName;
@@ -32,10 +32,31 @@ console.log(matches);
             var roleItem =document.createElement("p");
             roleItem.innerText = matches[i].lane;
             listElement.appendChild(roleItem);
+
+            var win =document.createElement("p");
+            if(matches[i].win == true){
+            win.innerText = "win";
+            win.style.color = "green";
+            }
+            else
+            {win.innerText = "lose"
+            win.style.color = "red";
+            }
+            listElement.appendChild(win);
+
+            var kda =document.createElement("p");
+            kda.innerText = "KDA: " + Round(matches[i].kda, 2);
+            listElement.appendChild(kda);
 }
 }
 function convert(value) {
     return Math.floor(value / 60) + ":" + (value % 60 ? value % 60 : '00')
+}
+
+function Round(n, k)
+{
+    var factor = Math.pow(10, k);
+    return Math.round(n*factor)/factor;
 }
 
 }

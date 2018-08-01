@@ -93,6 +93,23 @@ function riotRegionRestCall(successCallback, errorCallback){
         )
 }
 
+function riotSummonerLeagueCall(successCallback, errorCallback){
+    var url = baseUrl + "/api/summoner/league"
+    var body =" "
+    var header = new Headers({
+        'Content-Type': 'application/json',
+        "Authorization": tokenLoad()
+        })
+
+    post(
+        url,
+        body,
+        header,
+        successCallback,
+        errorCallback
+        )
+}
+
 function riotMatchesRestCall(successCallback, errorCallback){
     var url = baseUrl + "/api/summoner/matches"
     var body =" "

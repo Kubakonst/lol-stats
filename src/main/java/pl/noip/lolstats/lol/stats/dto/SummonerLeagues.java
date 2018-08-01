@@ -9,11 +9,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SummonerDataResponse {
+public class SummonerLeagues {
 
-    private String summonerLevel;
-    private String accountId;
-    private String id;
-    private String profileIconId;
-    private String name;
+    private String tier;
+    private String rank;
 }
