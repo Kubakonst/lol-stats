@@ -10,13 +10,15 @@ console.log(matches);
 
     var listContainer = document.createElement("ul");
         document.getElementById('matches').appendChild(listContainer);
-        var listElement = document.createElement("ul");
-        listContainer.appendChild(listElement);
         var numberOfListItems = matches.length;
         console.log(numberOfListItems);
         for (var i = 0; i < numberOfListItems; ++i) {
 
+            var listElement = document.createElement("li");
+            listContainer.appendChild(listElement);
+
             var chamIconId = document.createElement("img");
+            chamIconId.id = "championIcon";
             chamIconId.src = "img/riotimg/champion/" + matches[i].championName + ".png";
             listElement.appendChild(chamIconId);
             console.log(chamIconId);
@@ -32,6 +34,10 @@ console.log(matches);
             var roleItem =document.createElement("p");
             roleItem.innerText = matches[i].lane;
             listElement.appendChild(roleItem);
+
+            var kda =document.createElement("p");
+            kda.innerText = "KDA: " + Round(matches[i].kda, 2);
+            listElement.appendChild(kda);
 
             var item0Icon = document.createElement("img");
             if(matches[i].item0 != 0){
@@ -66,19 +72,11 @@ console.log(matches);
             var win =document.createElement("p");
             if(matches[i].win == true){
             win.innerText = "win";
-            win.style.color = "green";
-            }
+            win.style.color = "green";}
             else
             {win.innerText = "lose"
-            win.style.color = "red";
-            }
+            win.style.color = "red";}
             listElement.appendChild(win);
-
-            var kda =document.createElement("p");
-            kda.innerText = "KDA: " + Round(matches[i].kda, 2);
-            listElement.appendChild(kda);
-
-
 }
 }
 function convert(value) {
