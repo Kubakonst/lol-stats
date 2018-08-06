@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpecificMatchResponse {
+public class MatchResponse {
     private List<ParticipantIdentities> ParticipantIdentities;
     private List<Participants> Participants;
 }

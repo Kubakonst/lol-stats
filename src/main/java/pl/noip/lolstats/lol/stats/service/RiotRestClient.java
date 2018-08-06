@@ -29,6 +29,9 @@ public class RiotRestClient {
     @Value("${regions}")
     private String propertiesRegions;
 
+    @Value("${number.of.matches.to.display}")
+    private String numberOfMachtes;
+
     private RestTemplate restTemplate = new RestTemplate();
     private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
@@ -101,7 +104,7 @@ public class RiotRestClient {
 
     public MatchesResponse getMatchesData(String region, String id) {
 
-        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=10";
+        String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=" + numberOfMachtes;
         ResponseEntity<MatchesResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), MatchesResponse.class);
         MatchesResponse matchesResponse = response.getBody();
         log.info("summoner matches get downloaded");
@@ -127,13 +130,13 @@ public class RiotRestClient {
 
     }
 
-    public SpecificMatchResponse getPlayerpartID(String id, String region) {
+    public MatchResponse getMatchData(String id, String region) {
         String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + id;
-        ResponseEntity<SpecificMatchResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SpecificMatchResponse.class);
-        SpecificMatchResponse specificMatchResponse = response.getBody();
+        ResponseEntity<MatchResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), MatchResponse.class);
+        MatchResponse matchResponse = response.getBody();
         log.info("single user game data get downloaded");
 
-        return specificMatchResponse;
+        return matchResponse;
     }
 
 }

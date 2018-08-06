@@ -7,12 +7,12 @@ import pl.noip.lolstats.lol.stats.jwt.JwtChecker;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 
 @Configuration
-public class FilterRegistration extends WebMvcConfigurerAdapter {
+public class Interceptor extends WebMvcConfigurerAdapter {
 
     private JwtChecker jwtChecker;
     private TokenSplit tokenSplit;
 
-    public FilterRegistration(JwtChecker jwtChecker, TokenSplit tokenSplit) {
+    public Interceptor(JwtChecker jwtChecker, TokenSplit tokenSplit) {
         this.jwtChecker = jwtChecker;
         this.tokenSplit = tokenSplit;
 
@@ -24,6 +24,7 @@ public class FilterRegistration extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/api/summoner/name")
                 .addPathPatterns("/api/auth/checkToken")
                 .addPathPatterns("/api/summoner/basicInfo")
-                .addPathPatterns("/api/summoner/matches");
+                .addPathPatterns("/api/summoner/matches")
+                .addPathPatterns("/api/summoner/league");
     }
 }

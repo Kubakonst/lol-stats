@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.dto.Match;
 import pl.noip.lolstats.lol.stats.dto.MatchesResponse;
 import pl.noip.lolstats.lol.stats.dto.ParticipantStatsDto;
-import pl.noip.lolstats.lol.stats.dto.SpecificMatchResponse;
+import pl.noip.lolstats.lol.stats.dto.MatchResponse;
 import pl.noip.lolstats.lol.stats.jwt.JwtParser;
 import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 import pl.noip.lolstats.lol.stats.service.ChampionService;
@@ -45,11 +45,9 @@ public class SummonerMatchesController {
 
         String region = jwtParser.getRegion(oldToken);
 
-        String id = riotRestClient.getSummonerData(name, region).getAccountId();
-
         String accountId = riotRestClient.getSummonerData(name, region).getAccountId();
 
-        MatchesResponse summonerMatches = riotRestClient.getMatchesData(region, id);
+        MatchesResponse summonerMatches = riotRestClient.getMatchesData(region, accountId);
 
         for (Match singleMatch : summonerMatches.getMatches()) {
             singleMatch.setChampionName(championService.getChampionName(singleMatch.getChampion()));
@@ -57,11 +55,11 @@ public class SummonerMatchesController {
         }
 
         for (Match singleMatch : summonerMatches.getMatches()) {
-            SpecificMatchResponse specificMatchResponse = riotRestClient.getPlayerpartID(singleMatch.getGameId(), region);
-            String participantId = specificMatchResponse.getParticipantIdentities().stream()
+            MatchResponse matchResponse = riotRestClient.getMatchData(singleMatch.getGameId(), region);
+            String participantId = matchResponse.getParticipantIdentities().stream()
                     .filter(e -> e.getPlayer().getAccountId().equals(accountId)).findFirst().get().getParticipantId();
             log.debug(participantId);
-            ParticipantStatsDto stats = specificMatchResponse.getParticipants().stream()
+            ParticipantStatsDto stats = matchResponse.getParticipants().stream()
                     .filter(e -> e.getParticipantId().equals(participantId)).findFirst().get().getStats();
             singleMatch.setWin(stats.isWin());
             double ka = stats.getKills() + stats.getAssists();
