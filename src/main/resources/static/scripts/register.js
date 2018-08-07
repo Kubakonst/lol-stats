@@ -8,7 +8,10 @@ function onRegister() {
                 if (passwordElement.value.length>3){
                         registrationRestCall(emailElement.value,
                                              passwordElement.value,
-                                             () => window.location.href = "/registration-step-1.html",
+                                             (json) => {
+                                                                 tokenSave(json.bearer)
+                                                                 window.location.href = "/registration-step-1.html"
+                                                             },
                                              (e) => document.getElementById("error").innerHTML = e.error);
                         }
                     else{
@@ -23,3 +26,4 @@ function onRegister() {
         document.getElementById("error").innerHTML = "Not the same passwords";
     }
 }
+

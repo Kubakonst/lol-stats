@@ -36,7 +36,6 @@ public class LoginController {
 
         Account account = accountRepository.findOne(registrationRequest.getEmail());
 
-
         String passHash = Sha.hash(registrationRequest.getPassword());
         if (account != null && passHash.equals(account.getPasswordHash())) {
             log.info("correct password");
