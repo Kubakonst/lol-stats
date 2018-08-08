@@ -23,4 +23,10 @@ public class Match {
     private boolean win;
     private String participantId;
     private double kda;
+    private int item0;
+    private int item1;
+    private int item2;
+    private int item3;
+    private int item4;
+    private int item5;
 }
