@@ -35,8 +35,7 @@ class RegistrationControllerIT extends Specification {
                 .body([email: "example@mail.com", password: "secret"])
                 .post(PATH)
                 .then()
-                .statusCode(201)
-                .body("status", equalTo("ok"))
+                .statusCode(200)
         then:
         repository.count() == 1
         repository.findOne("example@mail.com")
@@ -75,7 +74,7 @@ class RegistrationControllerIT extends Specification {
                 .contentType(ContentType.JSON)
                 .body([email: "example@mail.com", password: "secret"])
                 .post(PATH)
-                .then().statusCode(201)
+                .then().statusCode(200)
 
         given()
                 .port(webPort)
