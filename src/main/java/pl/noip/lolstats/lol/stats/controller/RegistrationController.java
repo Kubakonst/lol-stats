@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.noip.lolstats.lol.stats.dto.ErrorResponse;
+import pl.noip.lolstats.lol.stats.dto.LoginResponse;
 import pl.noip.lolstats.lol.stats.dto.RegistrationRequest;
-import pl.noip.lolstats.lol.stats.dto.RegistrationResponse;
+import pl.noip.lolstats.lol.stats.jwt.JwtGenerator;
 import pl.noip.lolstats.lol.stats.model.Account;
 import pl.noip.lolstats.lol.stats.repository.AccountRepository;
 import pl.noip.lolstats.lol.stats.utils.Sha;
@@ -21,9 +22,12 @@ import javax.validation.Valid;
 @Slf4j
 public class RegistrationController {
 
+    private JwtGenerator jwtGenerator;
+
     private AccountRepository accountRepository;
 
-    public RegistrationController(AccountRepository accountRepository) {
+    public RegistrationController(AccountRepository accountRepository, JwtGenerator jwtGenerator) {
+        this.jwtGenerator = jwtGenerator;
         this.accountRepository = accountRepository;
     }
 
@@ -35,8 +39,10 @@ public class RegistrationController {
                     .passwordHash(Sha.hash(registrationReguest.getPassword()))
                     .build()
             );
+            Account account = accountRepository.findOne(registrationReguest.getEmail());
             log.info("user created in database");
-            return new ResponseEntity<>(new RegistrationResponse("ok"), HttpStatus.CREATED);
+            String token = jwtGenerator.generate(account);
+            return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ErrorResponse("email already exists"), HttpStatus.BAD_REQUEST);
     }

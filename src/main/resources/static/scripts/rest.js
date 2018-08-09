@@ -12,8 +12,7 @@ function registrationRestCall(email, password, successCallback, errorCallback){
         body,
         jsonHeader,
         successCallback,
-        errorCallback,
-        201
+        errorCallback
         )
 }
 function loginRestCall(email, password, successCallback, errorCallback){
