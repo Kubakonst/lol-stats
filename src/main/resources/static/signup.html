@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sign Up</title>
+    <meta name="description" content="SignUp">
+    <link rel="stylesheet" href="css/style1.css">
+</head>
+<body>
+<div class="allpage">
+    <header id="sing">
+        <h1>Sign Up</h1>
+    </header>
+    <div class="registration">
+        <form>
+            <p id="email" class="data">Email address</p>
+            <input id="emailInput" type="text" name="email">
+            <p id="password" class="data">Password</p>
+            <input id="passwordInput" type="password" name="psw">
+            <p id="rePassword" class="data">Repeat Password</p>
+            <input id="repasswordInput" type="password" name="psw">
+        </form>
+        <figure id="facebook">
+            <img alt="facebook logo" src="img/Facebook.jpg"/>
+            <figcaption>
+                Sign up with Facebook
+            </figcaption>
+        </figure>
+        <figure id="twitter">
+            <img alt="twitter logo" src="img/Twitter.jpg"/>
+            <figcaption>
+                Sign up with Twitter
+            </figcaption>
+        </figure>
+        <button onClick="onRegister()">Submit</button>
+        <button onClick="Reset()">Reset</button>
+    </div>
+    <form class="wrongPasswords">
+        <p id="error"></p>
+    </form>
+</div>
+</body>
+
+<script src="scripts/rest.js"></script>
+<script src="scripts/register.js"></script>
+<script src="scripts/reset.js"></script>
+<script src="scripts/tokenStore.js"></script>
+
+</html>

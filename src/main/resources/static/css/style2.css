@@ -1,0 +1,116 @@
+body{
+    font-size: 15px;
+}
+.container{
+    width: 100%;
+}
+.main{
+    background-color: lightblue;
+}
+ul{
+    margin:0.2em;
+    padding:0.2em;
+    list-style-type: none;
+    display: inline;
+}
+nav{
+    background-color: blue;
+    color: white;
+}
+.toppanel{
+    display: flex;
+    float: top;
+    text-align: center;
+    width: 100%;
+}
+.toppanel li{
+    text-align: center;
+    width: 20%;
+    padding: 0,5em;
+}
+.toppanel ul{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    flex-grow:1;
+}
+.leftpanel{
+    display: flex;
+    float: left;
+    text-align: center;
+    height: auto;
+    width: 10%;
+    height: 60em;
+}
+.leftpanel li{
+    text-align: center;
+    padding: 0.5em;
+}
+.leftpanel ul{
+    display: flex;
+    flex-flow: column;
+    flex-grow:1;
+}
+.rightpanel{
+    display: flex;
+    float: right;
+    text-align: center;
+    height: auto;
+    width: 10%;
+    height: 60em;
+}
+.rightpanel li{
+    text-align: center;
+    padding: 0.5em;
+}
+.rightpanel ul{
+    flex-flow: column;
+    flex-grow:1;
+}
+.main{
+    display: flex;
+    text-align: center;
+    width: 80%;
+    margin: 0;
+    height: 60em;
+}
+.main ul{
+    flex-flow: column;
+    flex-grow:1;
+    text-align: center;
+    width:100%;
+    display: inline-block;
+}
+.main li{
+    text-align: center;
+    padding: 0.5em;
+    width:100%;
+    display: inline-block;
+    border:solid;
+    margin-left: 10%;
+    margin-right: 10%;
+    }
+.main p{
+    text-align: center;
+    float:left;
+    padding: 0.2em;
+    margin: 0.2em;
+}
+.main img{
+    text-align: center;
+    float:right;
+    width: 8%;
+}
+#championIcon{
+    float:left;
+}
+nav img{
+    width: 100%;
+}
+.rightpanel img{
+    width: 30%;
+}
+.games img{
+    width: 5%;
+}
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Share</title>
+    <meta name="description" content="Auto Share">
+    <link rel="stylesheet" href="css/style2.css">
+</head>
+<body onload="checkToken()">
+<div class='conatiner'>
+    <nav class='toppanel'>
+        <ul>
+
+            <li>
+                <form action="main-page.html">
+                    <input type="submit" value="Main Page"/>
+                </form>
+            </li>
+            <li>
+                <form action="find-summoners.html">
+                    <input type="submit" value="Find summoners"/>
+                </form>
+            </li>
+            <li>
+                <form action="auto-share.html">
+                    <input type="submit" value="Setting"/>
+                </form>
+            </li>
+            <li>
+                <form action="account-setting.html">
+                    <input type="submit" value="Account"/>
+                </form>
+            </li>
+            <li>
+                <button type="button">Log out</button>
+            </li>
+        </ul>
+    </nav>
+    <nav class='leftpanel'>
+        <ul>
+            <li>Summoner Name</li>
+
+            <li><img alt="summoner icon" src="img/lolicon.jpg"/></li>
+            <li><img alt="summoner division" src="img/DiamondBadge.png"/></li>
+            <li>Summoner Division Number</li>
+        </ul>
+    </nav>
+
+    <nav class='rightpanel'>
+        <ul>
+            <li>Stachu <img alt="summoner icon" src="img/icon1.jpg"/> Ranked 14:00</li>
+            <li>Zbychu <img alt="summoner icon" src="img/icon2.jpg"/> Normal 44:12</li>
+            <li>Rychu <img alt="summoner icon" src="img/icon3.jpeg"/> Normal 18:43</li>
+            <li>Krzychu <img alt="summoner icon" src="img/icon4.jpg"/> Ranked 11:32</li>
+        </ul>
+    </nav>
+    <div class="main">
+        <ul class="games">
+            <li><img alt="fb icon" src="img/Facebook.jpg"/><img alt="tt icon" src="img/Twitter.jpg"/></li>
+            <li>Normal Game Win<input type="checkbox"><input type="checkbox"></li>
+            <li>Ranked Game Win<input type="checkbox"><input type="checkbox"></li>
+            <li>New Division<input type="checkbox"><input type="checkbox"></li>
+            <li>New Division<input type="checkbox"><input type="checkbox"></li>
+        </ul>
+    </div>
+</div>
+</body>
+
+<script src="scripts/checkToken.js"></script>
+<script src="scripts/tokenStore.js"></script>
+<script src="scripts/registrationStep1.js"></script>
+
+</html>
