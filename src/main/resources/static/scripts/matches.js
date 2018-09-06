@@ -1,6 +1,6 @@
 function onMatches(){
 {
-                            riotMatchesRestCall(
+                            statsMatchesRestCall(
                             (json) => {  makeListOfMatches(json.matches)},
                                          (e) => document.getElementById("error").innerHTML = e.error);
 }

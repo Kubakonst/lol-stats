@@ -1,15 +1,13 @@
-package pl.noip.lolstats.lol.stats.dto;
-
+package pl.noip.lolstats.lol.stats.dto.stats;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorResponse {
-    private String error;
+public class Player {
 
+    private String accountId;
 }

@@ -4,14 +4,14 @@ import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class TokenSplitImplTest extends Specification {
+class BearerTokenSeparatorImplTest extends Specification {
 
-    TokenSplitImpl tokenSplit = new TokenSplitImpl()
+    BearerTokenSeparatorImpl tokenSplit = new BearerTokenSeparatorImpl()
 
     @Unroll
     def "SplitToken"() {
         when:
-        tokenSplit.splitToken(bearer)
+        tokenSplit.getToken(bearer)
         then:
         thrown(expectedException)
         where:
@@ -25,6 +25,6 @@ class TokenSplitImplTest extends Specification {
 
     def "token is valid"() {
         expect:
-        tokenSplit.splitToken("bearer token") == "token"
+        tokenSplit.getToken("bearer token") == "token"
     }
 }

@@ -1,16 +1,15 @@
-package pl.noip.lolstats.lol.stats.dto;
+package pl.noip.lolstats.lol.stats.dto.stats;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParticipantStatsDto {
+public class ParticipantStats {
+
     private boolean win;
     private int kills;
     private int assists;

@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
+import pl.noip.lolstats.lol.stats.jwt.BearerTokenSeparator;
 import pl.noip.lolstats.lol.stats.jwt.JwtChecker;
-import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthFilter implements HandlerInterceptor {
 
     private JwtChecker jwtChecker;
-    private TokenSplit tokenSplit;
+    private BearerTokenSeparator bearerTokenSeparator;
 
-    public AuthFilter(JwtChecker jwtChecker, TokenSplit tokenSplit) {
+    public AuthFilter(JwtChecker jwtChecker, BearerTokenSeparator bearerTokenSeparator) {
         this.jwtChecker = jwtChecker;
-        this.tokenSplit = tokenSplit;
+        this.bearerTokenSeparator = bearerTokenSeparator;
 
     }
 
@@ -34,12 +34,10 @@ public class AuthFilter implements HandlerInterceptor {
             throw new BearerNotPresentException();
         }
 
-        String token = tokenSplit.splitToken(bearer);
+        String token = bearerTokenSeparator.getToken(bearer);
 
         jwtChecker.checkToken(token);
 
-        log.info(
-                "it's alive");
         return true;
     }
 

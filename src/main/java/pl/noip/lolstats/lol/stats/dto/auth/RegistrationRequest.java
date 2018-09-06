@@ -1,4 +1,4 @@
-package pl.noip.lolstats.lol.stats.dto;
+package pl.noip.lolstats.lol.stats.dto.auth;
 
 
 import lombok.Getter;

@@ -14,7 +14,7 @@ loading.src = "img/loadgif.gif";
 var sumNameElement = document.getElementById("summonerNameInput");
 
     if (sumNameElement.value.length > 0){
-                            riotNameRestCall(sumNameElement.value,
+                            statsNameRestCall(sumNameElement.value,
                             (json) => {
                                              makeList(json.regions)},
                                          (e) => document.getElementById("error").innerHTML = e.error);

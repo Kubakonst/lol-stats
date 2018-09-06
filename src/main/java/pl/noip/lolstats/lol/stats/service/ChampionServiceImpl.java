@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,8 +41,7 @@ public class ChampionServiceImpl implements ChampionService {
 
         try {
             champsInfo = mapper.readValue(json, ChampionsInfo.class);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             log.error("Cant convert json to object");
         }
         return champsInfo;
@@ -53,7 +53,7 @@ public class ChampionServiceImpl implements ChampionService {
 
         convert(json).getData().forEach((key, value) ->
 
-            champsId.put(value.getKey(), key)
+                champsId.put(value.getKey(), key)
         );
     }
 

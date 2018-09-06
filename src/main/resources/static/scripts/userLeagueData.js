@@ -1,7 +1,7 @@
 function onLeague(){
 
     {
-                            riotSummonerLeagueCall(
+                            statsSummonerLeagueRestCall(
                             (json) => {
                                              setTier(json[0].tier)
                                              console.log(json[0])

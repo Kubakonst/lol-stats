@@ -4,12 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.noip.lolstats.lol.stats.dto.LoginResponse;
-import pl.noip.lolstats.lol.stats.dto.SummonerNameRequest;
+import pl.noip.lolstats.lol.stats.dto.auth.LoginResponse;
+import pl.noip.lolstats.lol.stats.dto.stats.SummonerNameRequest;
 import pl.noip.lolstats.lol.stats.jwt.JwtGenerator;
-import pl.noip.lolstats.lol.stats.jwt.JwtParser;
-import pl.noip.lolstats.lol.stats.jwt.TokenSplit;
+import pl.noip.lolstats.lol.stats.jwt.JwtInfoProvider;
 import pl.noip.lolstats.lol.stats.model.Account;
+import pl.noip.lolstats.lol.stats.model.JwtInfo;
 import pl.noip.lolstats.lol.stats.repository.AccountRepository;
 import pl.noip.lolstats.lol.stats.service.RiotRestClient;
 
@@ -20,44 +20,28 @@ import javax.validation.Valid;
 @Slf4j
 public class SummonerNameController {
 
+    private JwtInfoProvider jwtInfoProvider;
     private JwtGenerator jwtGenerator;
-
     private AccountRepository accountRepository;
-
-    private JwtParser jwtParser;
-
-    private TokenSplit tokenSplit;
-
     private RiotRestClient riotRestClient;
 
-    public SummonerNameController(JwtGenerator jwtGenerator, AccountRepository accountRepository, JwtParser jwtParser, TokenSplit tokenSplit, RiotRestClient riotRestClient) {
+    public SummonerNameController(JwtInfoProvider jwtInfoProvider, JwtGenerator jwtGenerator, AccountRepository accountRepository, RiotRestClient riotRestClient) {
+        this.jwtInfoProvider = jwtInfoProvider;
         this.jwtGenerator = jwtGenerator;
         this.accountRepository = accountRepository;
-        this.jwtParser = jwtParser;
-        this.tokenSplit = tokenSplit;
         this.riotRestClient = riotRestClient;
     }
 
     @PostMapping
     public ResponseEntity<?> name(@RequestBody @Valid SummonerNameRequest summonerNameRequest,
                                   @RequestHeader(value = "Authorization") String bearer) {
-
-        String oldToken = tokenSplit.splitToken(bearer);
-
-        String mail = jwtParser.getMail(oldToken);
-
-        Account account = accountRepository.findOne(mail);
-
+        JwtInfo jwtInfo = jwtInfoProvider.fromBearerToken(bearer);
+        Account account = accountRepository.findOne(jwtInfo.getEmail());
         account.setSumName(summonerNameRequest.getSumName());
-        log.info("user summoner name added to database");
         account.setRegion(summonerNameRequest.getRegion());
-        log.info("user region added to database");
         account.setId(riotRestClient.getSummonerData(summonerNameRequest.getSumName(), summonerNameRequest.getRegion()).getId());
-        log.info("user summoner id added to database");
         account.setAccountId(riotRestClient.getSummonerData(summonerNameRequest.getSumName(), summonerNameRequest.getRegion()).getAccountId());
-        log.info("user account id added to database");
         String token = jwtGenerator.generate(account);
-
         return new ResponseEntity<>(new LoginResponse(token, "bearer " + token), HttpStatus.OK);
     }
 }

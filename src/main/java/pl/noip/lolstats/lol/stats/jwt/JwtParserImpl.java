@@ -7,7 +7,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import pl.noip.lolstats.lol.stats.Exceptions.NoNameInTokenException;
+import pl.noip.lolstats.lol.stats.Exceptions.MissingTokenPropertyException;
+import pl.noip.lolstats.lol.stats.model.JwtInfo;
 import pl.noip.lolstats.lol.stats.time.TimeService;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -31,8 +32,26 @@ public class JwtParserImpl implements JwtParser {
         this.secret = secret;
     }
 
-    private String getData(String token, String claimName) {
+    @Override
+    public JwtInfo jwtInfo(String token) {
+        Claims claims = getClaims(token);
+        return JwtInfo.builder()
+                .name(getValueOrEmpty(claims, "name"))
+                .email(getValueOrEmpty(claims, "email"))
+                .region(getValueOrEmpty(claims, "region"))
+                .token(token)
+                .build();
+    }
 
+    private String getData(String token, String claimName) {
+        Claims claims = getClaims(token);
+        if (!claims.containsKey(claimName)) {
+            throw new MissingTokenPropertyException(claimName + " is missing in token");
+        }
+        return claims.get(claimName).toString();
+    }
+
+    private Claims getClaims(String token) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         byte[] apiKeySecretBytes = secret.getBytes();
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
@@ -40,35 +59,13 @@ public class JwtParserImpl implements JwtParser {
         Jws<Claims> jwsClaims = Jwts.parser()
                 .setClock(() -> new Date(timeService.getMillisSinceEpoch()))
                 .setSigningKey(signingKey).parseClaimsJws(token);
+        return jwsClaims.getBody();
+    }
 
-        if (!jwsClaims.getBody().containsKey(claimName)) {
-            log.error("there is no name in token");
-            throw new NoNameInTokenException();
+    private String getValueOrEmpty(Claims claims, String name) {
+        if (!claims.containsKey(name)) {
+            return "";
         }
-
-        return jwsClaims.getBody().get(claimName).toString();
-
-    }
-
-    public String getName(String token) {
-
-        String infoN = getData(token, "name");
-        log.info("there is a user name in token");
-        return infoN;
-
-    }
-
-    public String getMail(String token) {
-
-        String infoM = getData(token, "email");
-        log.info("there is a user email in token");
-        return infoM;
-    }
-
-    public String getRegion(String token) {
-
-        String ingoR = getData(token, "region");
-        log.info("there is a user region in token");
-        return ingoR;
+        return claims.get(name, String.class);
     }
 }

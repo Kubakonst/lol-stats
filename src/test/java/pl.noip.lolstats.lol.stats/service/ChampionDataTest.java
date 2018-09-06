@@ -19,7 +19,7 @@ public class ChampionDataTest {
 
     @Test
     public void getjsondata() {
-        assertEquals(championServiceImpl.getChampionName("266"),"Aatrox");
+        assertEquals(championServiceImpl.getChampionName("266"), "Aatrox");
 
     }
 

@@ -12,7 +12,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import pl.noip.lolstats.lol.stats.dto.*;
+import pl.noip.lolstats.lol.stats.dto.stats.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -51,7 +51,6 @@ public class RiotRestClient {
     }
 
     public List<String> findSummonersRegions(String name) {
-
         List<String> regions = new ArrayList<>();
 
         HashMap<ListenableFuture<ResponseEntity<SummonerNameRequest>>, String> listenableFutures = new HashMap<>();
@@ -64,68 +63,54 @@ public class RiotRestClient {
             listenableFutures.put(listenableFuture, reg);
         }
 
-        listenableFutures.forEach((key,value) ->
+        listenableFutures.forEach((key, value) ->
         {
-                try {
-                    if (key.get().getStatusCodeValue() == 200) {
-                        regions.add(value);
-                        log.info("there is a user in " + value);
-                    }
-
-                }
-                catch (ExecutionException e) {
-                    if (e.getCause() instanceof HttpClientErrorException) {
-                        HttpClientErrorException ex = (HttpClientErrorException) e.getCause();
-                        if (ex.getRawStatusCode() != 404){
-                            log.error(ex.getStatusCode().toString());
-                        }
-                    }
-                    log.error("there is a problem with region searching", e);
+            try {
+                if (key.get().getStatusCodeValue() == 200) {
+                    regions.add(value);
                 }
 
-                catch(InterruptedException e) {
-                    log.error(e.toString());
+            } catch (ExecutionException e) {
+                if (e.getCause() instanceof HttpClientErrorException) {
+                    HttpClientErrorException ex = (HttpClientErrorException) e.getCause();
+                    if (ex.getRawStatusCode() != 404) {
+                        log.error("there is a problem with region searching", e);
+                    }
                 }
+            } catch (InterruptedException e) {
+                log.error("Error with threading", e);
+            }
 
         });
 
         return regions;
     }
 
-    public SummonerDataResponse getSummonerData(String name, String region) {
+    public SummonerBasicInfoResponse getSummonerData(String name, String region) {
 
         String url = "https://" + region + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name;
 
-        ResponseEntity<SummonerDataResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerDataResponse.class);
-        SummonerDataResponse summonerDataResponse = response.getBody();
-        log.info("summoner basic data get downloaded");
-        return summonerDataResponse;
+        ResponseEntity<SummonerBasicInfoResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SummonerBasicInfoResponse.class);
+        return response.getBody();
     }
 
     public MatchesResponse getMatchesData(String region, String id) {
 
         String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/" + id + "?endIndex=" + numberOfMachtes;
         ResponseEntity<MatchesResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), MatchesResponse.class);
-        MatchesResponse matchesResponse = response.getBody();
-        log.info("summoner matches get downloaded");
-
-        return matchesResponse;
+        return response.getBody();
     }
 
     public SingleMatchData getSingleMatchData(String id, String region) {
         String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + id;
         ResponseEntity<SingleMatchData> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), SingleMatchData.class);
-        SingleMatchData singleMatchData = response.getBody();
-        log.info("game duration get downloaded");
-
-        return singleMatchData;
+        return response.getBody();
     }
 
-    public List<SummonerLeagues> getSummonerLeague(String id, String region) {
+    public List<SummonerLeagueResponse> getSummonerLeague(String id, String region) {
         String url = "https://" + region + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + id;
-        ResponseEntity<List<SummonerLeagues>> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), new ParameterizedTypeReference<List<SummonerLeagues>>() {
+        ResponseEntity<List<SummonerLeagueResponse>> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), new ParameterizedTypeReference<List<SummonerLeagueResponse>>() {
         });
-        log.info("user league position get downloaded");
         return response.getBody();
 
     }
@@ -133,10 +118,7 @@ public class RiotRestClient {
     public MatchResponse getMatchData(String id, String region) {
         String url = "https://" + region + ".api.riotgames.com/lol/match/v3/matches/" + id;
         ResponseEntity<MatchResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(createHeaders(key)), MatchResponse.class);
-        MatchResponse matchResponse = response.getBody();
-        log.info("single user game data get downloaded");
-
-        return matchResponse;
+        return response.getBody();
     }
 
 }

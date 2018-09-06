@@ -1,6 +1,5 @@
 package pl.noip.lolstats.lol.stats.jwt;
 
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
         byte[] apiKeySecretBytes = secret.getBytes();
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        JwtBuilder builder = Jwts.builder()
+        return Jwts.builder()
                 .claim("name", account.getSumName())
                 .claim("email", account.getEmail())
                 .claim("region", account.getRegion())
@@ -47,11 +46,7 @@ public class JwtGeneratorImpl implements JwtGenerator {
                 .claim("accountID", account.getAccountId())
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, signingKey)//
-                .setExpiration(new Date(now.getTime() + 60 * 60 * 1000));
-
-        log.info("token created");
-        return builder.compact();
-
+                .setExpiration(new Date(now.getTime() + 60 * 60 * 1000)).compact();
     }
 }
 

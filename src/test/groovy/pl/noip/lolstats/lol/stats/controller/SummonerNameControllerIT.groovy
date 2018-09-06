@@ -11,6 +11,7 @@ import pl.noip.lolstats.lol.stats.jwt.JwtParserImpl
 import pl.noip.lolstats.lol.stats.model.Account
 import pl.noip.lolstats.lol.stats.repository.AccountRepository
 import pl.noip.lolstats.lol.stats.time.TimeService
+import pl.noip.lolstats.lol.stats.time.TimeServiceImpl
 import pl.noip.lolstats.lol.stats.utils.Sha
 import spock.lang.Specification
 
@@ -24,7 +25,7 @@ class SummonerNameControllerIT extends Specification {
 
     JwtParserImpl jwtParser
 
-    TimeService timeService = Mock()
+    TimeService timeService = new TimeServiceImpl()
 
     def account = Account.builder()
             .email("example@mail.com")
@@ -54,7 +55,6 @@ class SummonerNameControllerIT extends Specification {
 
     def "Create token with correct data"() {
         given: "jwt is generated as second 1 and checked at second 2"
-        timeService.millisSinceEpoch >>> System.currentTimeMillis()
         def mail = "example@mail.com"
         def sumName = "KubaKonst"
         def region = "eun1"
@@ -70,12 +70,12 @@ class SummonerNameControllerIT extends Specification {
                 .then()
                 .statusCode(200)
                 .body("accessToken", Matchers.containsString("."))
-                .body("bearer", Matchers.containsString("bearer ")).extract().body().<String> path("accessToken")
+                .body("bearer", Matchers.containsString("bearer ")).extract().body().<String> path("accessToken").toString()
 
         expect:
-        jwtParser.getMail(token) == mail
-        jwtParser.getName(token) == sumName
-        jwtParser.getRegion(token) == region
+        jwtParser.jwtInfo(token).email == mail
+        jwtParser.jwtInfo(token).name == sumName
+        jwtParser.jwtInfo(token).region == region
     }
 
 }

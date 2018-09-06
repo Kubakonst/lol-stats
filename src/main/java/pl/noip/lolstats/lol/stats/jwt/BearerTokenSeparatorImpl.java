@@ -6,10 +6,10 @@ import pl.noip.lolstats.lol.stats.Exceptions.BearerNotPresentException;
 
 @Component
 @Slf4j
-public class TokenSplitImpl implements TokenSplit {
+public class BearerTokenSeparatorImpl implements BearerTokenSeparator {
 
     @Override
-    public String splitToken(String bearerToken) {
+    public String getToken(String bearerToken) {
 
 
         if (bearerToken.split(" ").length < 2) {

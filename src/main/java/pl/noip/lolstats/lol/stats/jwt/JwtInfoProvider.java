@@ -2,7 +2,7 @@ package pl.noip.lolstats.lol.stats.jwt;
 
 import pl.noip.lolstats.lol.stats.model.JwtInfo;
 
-public interface JwtParser {
+public interface JwtInfoProvider {
 
-    JwtInfo jwtInfo(String token);
+    JwtInfo fromBearerToken(String bearerToken);
 }

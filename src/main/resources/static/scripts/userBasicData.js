@@ -1,7 +1,7 @@
 function onData(){
 
     {
-                            riotRegionRestCall(
+                            statsRegionRestCall(
                             (json) => {
                                              setLevel(json.summonerLevel)
                                              setName(json.name)
